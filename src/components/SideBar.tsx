@@ -1,21 +1,9 @@
 import { Text } from "@chakra-ui/react";
 import Logo from "../assets/react.svg";
-import {
-  Drawer,
-  DrawerBody,
-  DrawerContent,
-  DrawerHeader,
-  useBreakpointValue,
-  Button,
-  CloseButton,
-  Portal,
-} from "@chakra-ui/react";
-import { MoreVertical } from "lucide-react";
+import { Drawer, useBreakpointValue, Portal } from "@chakra-ui/react";
+
 import { useContext, createContext, type ReactNode } from "react";
 import { SelectedPage } from "@/shared/types";
-import AnchorLink from "react-anchor-link-smooth-scroll";
-
-import { useState } from "react";
 
 interface SidebarContextType {
   expanded: boolean;
@@ -85,10 +73,9 @@ export default function SideBar({
         placement="start"
         open={isOpen}
         onOpenChange={() => onClose()}
-        
       >
-        <Portal >
-          <Drawer.Backdrop backdropBlur="10"/>
+        <Portal>
+          <Drawer.Backdrop backdropBlur="10" />
           <Drawer.Positioner>
             <Drawer.Content bgColor="blue.100">
               <Drawer.Header>
@@ -122,7 +109,7 @@ interface SidebarItemProps {
   active?: boolean;
   // alert?: boolean;
   // page: string;
-  // selectedPage: SelectedPage;
+  selectedPage: SelectedPage;
   setSelectedPage: (newpage: SelectedPage) => void;
 }
 
@@ -130,26 +117,30 @@ export function SideBarItem({
   icon,
   text,
   active,
+  selectedPage,
   setSelectedPage,
 }: SidebarItemProps) {
   const { expanded } = useContext(SidebarContext);
-  // const lowerCasePage = page.toLowerCase().replace(/ /g, "") as SelectedPage;
+  const lowerCasePage = text.toLowerCase().replace(/ /g, "") as SelectedPage;
+
+  const handleClick = () => {
+    setSelectedPage(lowerCasePage);
+    const element = document.getElementById(lowerCasePage);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
-    // <AnchorLink>
-
     <li
-      // onClick={() => setSelectedPage(lowerCasePage)}
-      // href={`#${lowerCasePage}`}
-      // onClick={() => active===true }
+      onClick={handleClick}
       className={`
         relative flex items-center justify-around my-0.5 
         font-medium rounded-md cursor-pointer
         transition-all duration-300 ease-in-out
         ${expanded ? "h-12 py-2 mx-10" : "h-9 w-9 p-1.5 justify-center"}
-     
         ${
-          active
+          selectedPage === lowerCasePage
             ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
             : "hover:bg-indigo-50 text-gray-600"
         }
@@ -169,13 +160,6 @@ export function SideBarItem({
       >
         {text}
       </span>
-      {/* {alert && (
-        <div
-          className={`absolute w-1.5 h-1.5 rounded bg-indigo-400 ${
-            expanded ? "right-2" : "top-1 right-1"
-          }`}
-        />
-      )} */}
 
       {!expanded && (
         <div
@@ -191,6 +175,5 @@ export function SideBarItem({
         </div>
       )}
     </li>
-    // </AnchorLink>
   );
 }

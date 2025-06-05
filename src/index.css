@@ -1,9 +1,13 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* body {
-  background-color: azure;
-} */
+body {
+  background-color: rgb(245, 244, 244);
+}
+
+:root[class~="dark"] body {
+  background-color: #171717;
+}
 
 /*@custom-variant dark (&:is(.dark *));
 
