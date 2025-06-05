@@ -107,7 +107,9 @@ function App() {
         <div className="flex-1 flex flex-col ml-4">
           <NavBar onToggleSidebar={toggleSidebar} />
           <main className="flex-1 p-6 overflow-auto">
-            <h1 className="text-2xl font-semibold">Main Content</h1>
+            {/* <Dashboard /> */}
+            {/* <Hotels  /> */}
+            <CardHotels onClick={() => console.log("clicked")} />
           </main>
         </div>
       </div>
