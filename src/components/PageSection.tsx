@@ -1,7 +1,6 @@
 import { SelectedPage } from "@/shared/types";
 import type { ReactNode } from "react";
 
-
 type Props = {
   children: ReactNode;
   id: SelectedPage;

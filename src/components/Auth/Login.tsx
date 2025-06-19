@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { login } from "../../services/authService";
-import { Box, Button, Stack, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Stack, Input, Text, Flex } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -9,6 +10,7 @@ export const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { setToken } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,10 +28,8 @@ export const Login = () => {
       setToken(response.token);
       console.log("Token after setting:", localStorage.getItem("authToken"));
 
-      // Small delay to ensure token is set before reload
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
+      // Navigate to dashboard instead of reloading
+      navigate("/");
     } catch (error) {
       console.error("Login error:", error);
       setError(
@@ -43,51 +43,63 @@ export const Login = () => {
   };
 
   return (
-    <Box maxW="md" mx="auto" mt={8} p={6} borderWidth={1} borderRadius="lg">
-      <Text fontSize="2xl" mb={6} textAlign="center">
-        Login to Dashboard
-      </Text>
+    <Flex justifyContent="center" alignItems="center" h="100vh" w="100vw">
+      <Box
+        minW="md"
+        minH="fit-content"
+        mx="auto"
+        p={6}
+        borderWidth={1}
+        borderRadius="lg"
+        className="border-color card"
+      >
+        <Text fontSize="2xl" mb={6} textAlign="center">
+          Login to Dashboard
+        </Text>
 
-      {error && (
-        <Box mb={4} p={3} bg="red.50" color="red.600" borderRadius="md">
-          <Text>{error}</Text>
-        </Box>
-      )}
-
-      <form onSubmit={handleSubmit}>
-        <Stack gap={4}>
-          <Box>
-            <Text mb={2}>Email</Text>
-            <Input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              required
-            />
+        {error && (
+          <Box mb={4} p={3} bg="red.50" color="red.600" borderRadius="md">
+            <Text>{error}</Text>
           </Box>
+        )}
 
-          <Box>
-            <Text mb={2}>Password</Text>
-            <Input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-              required
-            />
-          </Box>
+        <form onSubmit={handleSubmit}>
+          <Stack gap={4}>
+            <Box>
+              <Text mb={2}>Email</Text>
+              <Input
+                className="border-color"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                required
+              />
+            </Box>
 
-          <Button
-            type="submit"
-            colorScheme="blue"
-            w="full"
-            disabled={isLoading}
-          >
-            {isLoading ? "Logging in..." : "Login"}
-          </Button>
-        </Stack>
-      </form>
-    </Box>
+            <Box>
+              <Text mb={2}>Password</Text>
+              <Input
+                className="border-color"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                required
+              />
+            </Box>
+
+            <Button
+              type="submit"
+              backgroundColor=""
+              w="full"
+              disabled={isLoading}
+            >
+              {isLoading ? "Logging in..." : "Login"}
+            </Button>
+          </Stack>
+        </form>
+      </Box>
+    </Flex>
   );
 };

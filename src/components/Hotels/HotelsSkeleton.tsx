@@ -1,5 +1,7 @@
 import {
   Flex,
+  Grid,
+  GridItem,
   HStack,
   Skeleton,
   SkeletonCircle,
@@ -27,6 +29,14 @@ export const SpecificHotelSkeleton = () => {
     <VStack gap="6" height="full" mt={16}>
       <Skeleton height="300px" width="400px" mb={8} />
       <SkeletonText noOfLines={3} />
+    </VStack>
+  );
+};
+export const RoomsSkeleton = () => {
+  return (
+    <VStack gap="6" maxW="xs" marginX="auto">
+      <Skeleton height="400px" width="300px" />
+      <SkeletonText noOfLines={2} />
     </VStack>
   );
 };

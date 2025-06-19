@@ -1,10 +1,13 @@
 import { Avatar } from "@chakra-ui/react";
-
-const AvatarNav = () => {
+interface Props {
+  name: string;
+  image: File | string;
+}
+const AvatarNav = ({ name, image }: Props) => {
   return (
     <Avatar.Root>
-      <Avatar.Fallback name="Segun Adebayo" />
-      <Avatar.Image src="https://bit.ly/sage-adebayo" />
+      <Avatar.Fallback name={name} />
+      <Avatar.Image src={typeof image === "string" ? image : ""} />
     </Avatar.Root>
   );
 };

@@ -38,7 +38,12 @@ const SidebarContent = ({
             alt=""
           />
           {expanded ? (
-            <Text paddingX="1" fontWeight="bold" fontSize="xl" color="blue.800">
+            <Text
+              paddingX="1"
+              fontWeight="bold"
+              fontSize="xl"
+              color="rgb(245, 244, 244)"
+            >
               HotelTransylvania
             </Text>
           ) : null}
@@ -77,7 +82,7 @@ export default function SideBar({
         <Portal>
           <Drawer.Backdrop backdropBlur="10" />
           <Drawer.Positioner>
-            <Drawer.Content bgColor="blue.100">
+            <Drawer.Content className="sidebar-color">
               <Drawer.Header>
                 {/* <Drawer.Title>TraveLux</Drawer.Title> */}
                 {/* <Drawer.CloseTrigger asChild>
@@ -96,7 +101,7 @@ export default function SideBar({
 
   return (
     <aside className="h-full">
-      <nav className="h-full flex flex-col bg-blue-100 border-r shadow-sm rounded-xl">
+      <nav className="h-full flex flex-col sidebar-color border-r shadow-sm rounded-sm">
         <SidebarContent expanded={expanded}>{children}</SidebarContent>
       </nav>
     </aside>
@@ -133,20 +138,24 @@ export function SideBarItem({
 
   return (
     <li
+      title={text}
       onClick={handleClick}
       className={`
         relative flex items-center justify-around my-0.5 
         font-medium rounded-md cursor-pointer
-        transition-all duration-300 ease-in-out
+        transition-all duration-300 ease-in-out sidebar-text-color
         ${expanded ? "h-12 py-2 mx-10" : "h-9 w-9 p-1.5 justify-center"}
         ${
           selectedPage === lowerCasePage
-            ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
-            : "hover:bg-indigo-50 text-gray-600"
+            ? // ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
+              // : "hover:bg-indigo-50 text-gray-600"
+              "sidebar-selected-items"
+            : "sidebar-not-selected-items"
         }
     `}
     >
       <div
+        title={text}
         className={`flex items-center justify-center ${
           expanded ? "ml-4 " : "w-full h-full"
         }`}

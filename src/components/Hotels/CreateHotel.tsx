@@ -27,7 +27,7 @@ const amenitiesOptions = [
   "Restaurant",
   "Room Service",
   "Spa",
-  "Bar",
+  "AC",
 ];
 
 const CreateHotel = ({ isOpen, onClose }: Props) => {
@@ -111,7 +111,6 @@ const CreateHotel = ({ isOpen, onClose }: Props) => {
       stars: parseInt(formData.get("stars")?.toString() || "1"),
       coverImage: coverImage,
       images: images,
-      rooms: [],
       slug:
         formData.get("name")?.toString().toLowerCase().replace(/\s+/g, "-") ||
         "",
@@ -168,9 +167,10 @@ const CreateHotel = ({ isOpen, onClose }: Props) => {
           title: "Error",
           description:
             error instanceof Error
-              ? error.message === "Request failed with status code 400"
-                ? "Hotel already exists"
-                : error.message
+              ? // error.message === "Request failed with status code 400"
+                //   ? "Hotel already exists"
+                //   :
+                error.message
               : "Failed to create hotel. Please try again.",
           type: "error",
           duration: 5000,
@@ -202,15 +202,20 @@ const CreateHotel = ({ isOpen, onClose }: Props) => {
         <Dialog.Backdrop />
         <Dialog.Positioner>
           <Dialog.Content>
-            <Dialog.Header>
+            <Dialog.Header className="drawer">
               <Dialog.Title>Add New Hotel</Dialog.Title>
             </Dialog.Header>
-            <Dialog.Body pb="4" zIndex={10}>
+            <Dialog.Body pb="4" zIndex={10} className="drawer">
               <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <Stack gap="4">
                   <Field.Root>
                     <Field.Label>Name</Field.Label>
-                    <Input name="name" placeholder="Hotel Name" ref={nameRef} />
+                    <Input
+                      name="name"
+                      placeholder="Hotel Name"
+                      ref={nameRef}
+                      className="border-color"
+                    />
                   </Field.Root>
                   <Field.Root>
                     <Field.Label>Description</Field.Label>
@@ -218,6 +223,7 @@ const CreateHotel = ({ isOpen, onClose }: Props) => {
                       name="description"
                       placeholder="Description"
                       ref={descriptionRef}
+                      className="border-color"
                     />
                   </Field.Root>
                   <Field.Root>
@@ -226,11 +232,17 @@ const CreateHotel = ({ isOpen, onClose }: Props) => {
                       name="country"
                       placeholder="Country"
                       ref={countryRef}
+                      className="border-color"
                     />
                   </Field.Root>
                   <Field.Root>
                     <Field.Label>City</Field.Label>
-                    <Input name="city" placeholder="City" ref={cityRef} />
+                    <Input
+                      name="city"
+                      placeholder="City"
+                      ref={cityRef}
+                      className="border-color"
+                    />
                   </Field.Root>
                   <Field.Root>
                     <Field.Label>Location</Field.Label>
@@ -238,11 +250,17 @@ const CreateHotel = ({ isOpen, onClose }: Props) => {
                       name="location"
                       placeholder="Location"
                       ref={locationRef}
+                      className="border-color"
                     />
                   </Field.Root>
                   <Field.Root>
                     <Field.Label>Stars</Field.Label>
-                    <Input name="stars" placeholder="Stars" ref={starsRef} />
+                    <Input
+                      name="stars"
+                      placeholder="Stars"
+                      ref={starsRef}
+                      className="border-color"
+                    />
                   </Field.Root>
 
                   <Field.Root>
@@ -350,7 +368,7 @@ const CreateHotel = ({ isOpen, onClose }: Props) => {
                       Cancel
                     </Button>
                   </Dialog.ActionTrigger>
-                  <Button type="submit">Add</Button>
+                  <Button type="submit" className="button-color">Add</Button>
                 </Dialog.Footer>
               </form>{" "}
             </Dialog.Body>

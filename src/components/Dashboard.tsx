@@ -10,7 +10,7 @@ const Dashboard = ({ setSelectedPage }: Props) => {
     // <Card.Root height={"full"} marginX={5}>
     //   <Card.Header />
     //   <Card.Body>
-    <section id="dashboard" className="min-h-screen py-6">
+    <section  className="min-h-screen py-6">
       <Box
         pb={32}
         height="full"

@@ -15,6 +15,20 @@ interface LoginCredentials {
   password: string;
 }
 
+// Function to check if token is expired
+export const isTokenExpired = (token: string | null): boolean => {
+  if (!token) return true;
+
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    const expirationTime = payload.exp * 1000; // Convert to milliseconds
+    return Date.now() >= expirationTime;
+  } catch (error) {
+    console.error("Error checking token expiration:", error);
+    return true;
+  }
+};
+
 export const login = async (credentials: LoginCredentials) => {
   try {
     const response = await axiosInstance.post<LoginResponse>(
@@ -30,8 +44,14 @@ export const login = async (credentials: LoginCredentials) => {
       throw new Error("Invalid response format from server");
     }
 
+    const token = response.data.data.token;
+
+    // Store token expiration time
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    localStorage.setItem("tokenExpiration", payload.exp.toString());
+
     return {
-      token: response.data.data.token,
+      token,
       user: response.data.data.user,
     };
   } catch (error) {
@@ -42,6 +62,20 @@ export const login = async (credentials: LoginCredentials) => {
 
 export const logout = () => {
   localStorage.removeItem("authToken");
+  localStorage.removeItem("tokenExpiration");
   // You might want to make an API call to invalidate the token on the server
   // await axiosInstance.post('/auth/logout');
 };
+
+// Setup axios interceptor for handling 401 responses
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response?.status === 401) {
+      // Clear auth data and redirect to login
+      logout();
+      window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  }
+);

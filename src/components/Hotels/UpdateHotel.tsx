@@ -39,7 +39,7 @@ const amenitiesOptions = [
   "Restaurant",
   "Room Service",
   "Spa",
-  "Bar",
+  "AC",
 ];
 
 export const UpdateHotel = ({
@@ -244,9 +244,10 @@ export const UpdateHotel = ({
           title: "Error",
           description:
             error instanceof Error
-              ? error.message === "Request failed with status code 400"
-                ? "Hotel already exists"
-                : error.message
+              ? // error.message === "Request failed with status code 400"
+                //   ? "Hotel already exists"
+                //   :
+                error.message
               : "Failed to update hotel. Please try again.",
           type: "error",
           duration: 5000,
@@ -278,10 +279,10 @@ export const UpdateHotel = ({
         <Dialog.Backdrop />
         <Dialog.Positioner>
           <Dialog.Content>
-            <Dialog.Header>
+            <Dialog.Header className="drawer">
               <Dialog.Title>Editing Hotel</Dialog.Title>
             </Dialog.Header>
-            <Dialog.Body pb="4" zIndex={10}>
+            <Dialog.Body pb="4" zIndex={10} className="drawer">
               <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <Stack gap="4">
                   <Field.Root>
@@ -291,6 +292,7 @@ export const UpdateHotel = ({
                       name="name"
                       placeholder="Hotel Name"
                       ref={nameRef}
+                      className="border-color"
                     />
                   </Field.Root>
                   <Field.Root>
@@ -300,6 +302,7 @@ export const UpdateHotel = ({
                       name="description"
                       placeholder="Description"
                       ref={descriptionRef}
+                      className="border-color"
                     />
                   </Field.Root>
                   <Field.Root>
@@ -309,6 +312,7 @@ export const UpdateHotel = ({
                       name="country"
                       placeholder="Country"
                       ref={countryRef}
+                      className="border-color"
                     />
                   </Field.Root>
                   <Field.Root>
@@ -318,6 +322,7 @@ export const UpdateHotel = ({
                       name="city"
                       placeholder="City"
                       ref={cityRef}
+                      className="border-color"
                     />
                   </Field.Root>
                   <Field.Root>
@@ -327,6 +332,7 @@ export const UpdateHotel = ({
                       name="location"
                       placeholder="Location"
                       ref={locationRef}
+                      className="border-color"
                     />
                   </Field.Root>
                   <Field.Root>
@@ -336,6 +342,7 @@ export const UpdateHotel = ({
                       name="stars"
                       placeholder="Stars"
                       ref={starsRef}
+                      className="border-color"
                     />
                   </Field.Root>
                   <Field.Root>
@@ -379,8 +386,9 @@ export const UpdateHotel = ({
                       onClick={() =>
                         document.getElementById("coverImage")?.click()
                       }
+                      className="border-color"
                     >
-                      <HiUpload /> Add Image
+                      <HiUpload /> Change Image
                     </Button>
                     {imagePreview && (
                       <img
@@ -412,6 +420,7 @@ export const UpdateHotel = ({
                       onClick={() =>
                         document.getElementById("hotelImages")?.click()
                       }
+                      className="border-color"
                     >
                       <HiUpload /> Upload Images
                     </Button>
@@ -448,7 +457,9 @@ export const UpdateHotel = ({
                       Cancel
                     </Button>
                   </Dialog.ActionTrigger>
-                  <Button type="submit">Save Changes</Button>
+                  <Button type="submit" className="button-color">
+                    Save Changes
+                  </Button>
                 </Dialog.Footer>
               </form>{" "}
             </Dialog.Body>

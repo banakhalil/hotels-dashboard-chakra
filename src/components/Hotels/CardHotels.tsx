@@ -15,6 +15,7 @@ import {
   Combobox,
   Menu,
   Portal,
+  Link,
 } from "@chakra-ui/react";
 import useHotels, {
   useAddHotel,
@@ -23,8 +24,9 @@ import useHotels, {
   useUpdateHotel,
   type RoomData,
 } from "@/components/react-query/hooks/useHotels";
-import { LuCircleCheck } from "react-icons/lu";
+import { LuArrowRight, LuCircleCheck } from "react-icons/lu";
 import { HiSortAscending } from "react-icons/hi";
+import { FaStar } from "react-icons/fa";
 import { Search } from "@/components/Search";
 import AllHotelsSkeleton, {
   SpecificHotelSkeleton,
@@ -32,29 +34,48 @@ import AllHotelsSkeleton, {
 import { UpdateHotel } from "./UpdateHotel";
 import CreateHotel from "./CreateHotel";
 import { toaster } from "../ui/toaster";
+import AnchorLink from "react-anchor-link-smooth-scroll";
+import { SelectedPage } from "@/shared/types";
 
 const items = [
-  { label: "Ascending", value: "asc" },
-  { label: "Descending", value: "desc" },
+  // { label: "Newest", value: "?sort=-createdAt" },
+  // { label: "Oldest", value: "?sort=createdAt" },
+  { label: "No Sorting", value: "" },
+  { label: "A-Z", value: "?sort=firstName" },
+  { label: "Z-A", value: "?sort=-firstName" },
+  { label: "Highest Rated", value: "?sort=-stars" },
+  { label: "Lowest Rated", value: "?sort=stars" },
 ];
 
 interface HotelsProps {
   // id: string;
   //  onClick: () => void;
   // isSelected?: boolean;
+
   onClick: (id: string) => void;
+  setSelectedPage: (newPage: SelectedPage) => void;
+  isDetailsOpen?: boolean;
+  setSelectedHotelId: (id: string | null) => void;
 }
 
 interface HotelDetailsProps {
   hotelId: string;
   onClose: () => void;
+  setSelectedPage: (newPage: SelectedPage) => void;
   // deleteHotel: (hotelId: string) => Promise<void>;
 }
 const skeletons = [1, 2, 3, 4, 5, 6];
-export const CardHotels = ({ onClick }: HotelsProps) => {
-  const { data: hotels, isLoading, error } = useHotels();
+export const CardHotels = ({
+  onClick,
+  setSelectedPage,
+  isDetailsOpen,
+  setSelectedHotelId,
+}: HotelsProps) => {
+  const [value, setValue] = useState("");
+  const [keyWord, setKeyWord] = useState("");
+  const [hotelIdClicked, setHotelIdClicked] = useState("");
+  const { data: hotels, isLoading, error } = useHotels(value, keyWord);
 
-  const [value, setValue] = useState("asc");
   // const [isScrolled, setIsScrolled] = useState(false);
   const flexRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -76,10 +97,45 @@ export const CardHotels = ({ onClick }: HotelsProps) => {
   //   };
   // }, []);
 
-  if (error) return <Text fontSize="lg">Error loading hotels</Text>;
+  if (error)
+    return (
+      <Text
+        fontSize="xl"
+        fontWeight="bold"
+        color="gray.500"
+        marginTop="auto"
+        margin="auto"
+        marginY={6}
+      >
+        Error loading hotels
+      </Text>
+    );
   if (isLoading)
     return skeletons.map((skeleton) => <AllHotelsSkeleton key={skeleton} />);
-  if (!hotels?.length) return <Text fontSize="lg">No hotel found</Text>;
+  if (!hotels?.length)
+    return (
+      <Flex
+        justify="center"
+        align="start"
+        h="100%"
+        direction="column"
+        gap={4}
+        marginX={10}
+        marginY={6}
+      >
+        <Search keyWord={keyWord} setKeyWord={setKeyWord} />
+        <Text
+          fontSize="xl"
+          fontWeight="bold"
+          color="gray.500"
+          marginTop="auto"
+          margin="auto"
+        >
+          No hotel found
+        </Text>
+        {/* <Button onClick={() => setKeyWord("")}>Clear</Button> */}
+      </Flex>
+    );
 
   return (
     <>
@@ -88,10 +144,12 @@ export const CardHotels = ({ onClick }: HotelsProps) => {
         direction="column"
         w="full"
         align="center"
+        alignItems="center"
         mt={2}
         mb={8}
         gap={4}
         maxH={{ base: "full", lg: "calc(100vh - 10px)" }}
+        paddingStart={4}
         overflowY={{ base: "visible", lg: "auto" }}
         css={{
           "@media screen and (min-width: 62em)": {
@@ -112,26 +170,41 @@ export const CardHotels = ({ onClick }: HotelsProps) => {
           margin="1px"
           flexDirection="row"
           justifyContent="space-between"
-          width={{ base: "90%", lg: "95%" }}
-          maxW="1200px"
+          width={{ base: "sm", lg: "95%" }}
+          maxW="95%"
           position="sticky"
           top={0}
-          bg="rgb(245, 244, 244)"
+          // bg="rgb(245, 244, 244)"
+          // _dark={{
+          //   bg: "#171717",
+          // }}
+          bg="rgb(239, 236, 236)"
+          _dark={{
+            bg: "#222222",
+          }}
           transition="background-color 0.2s"
           py={2}
           zIndex={1}
         >
-          <Search />
+          <Search keyWord={keyWord} setKeyWord={setKeyWord} />
           <HStack>
             <Menu.Root>
               <Menu.Trigger asChild>
-                <Button variant="outline" size="sm" width="fit-content">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  width="fit-content"
+                  className="sort-button-color"
+                  // bgColor="#a2d5cb"
+                  // color="#0b4f4a"
+                  height={10}
+                >
                   <HiSortAscending /> Sort
                 </Button>
               </Menu.Trigger>
               <Portal>
                 <Menu.Positioner>
-                  <Menu.Content minW="10rem">
+                  <Menu.Content minW="10rem" className="drawer">
                     <Menu.RadioItemGroup
                       value={value}
                       onValueChange={(e) => setValue(e.value)}
@@ -149,25 +222,36 @@ export const CardHotels = ({ onClick }: HotelsProps) => {
             </Menu.Root>
             <Button
               width="fit-content"
-              bgColor="firebrick"
+              height={10}
+              className="button-color"
               onClick={() => setIsOpen(true)}
             >
               Add Hotel
             </Button>
-            <CreateHotel isOpen={isOpen} onClose={() => setIsOpen(false)} />
+            <CreateHotel
+              isOpen={isOpen}
+              onClose={() => {
+                setIsOpen(false);
+                setHotelIdClicked("");
+              }}
+            />
           </HStack>
         </HStack>
         {hotels.map((hotel) => (
           <Card.Root
+            className="card"
             key={hotel._id as string}
             display="flex"
             flexDirection={{ base: "column", md: "row" }}
             overflow="hidden"
             justifyContent="start"
-            width={{ base: "90%", md: "95%" }}
-            maxW="1200px"
-            minH={{ base: "auto", md: "200px" }}
-            onClick={() => onClick(hotel._id as string)}
+            width={{ base: "sm", md: "95%" }}
+            maxW="95%"
+            minH={{ base: "auto", md: "fit-content" }}
+            onClick={() => {
+              onClick(hotel._id as string);
+              setHotelIdClicked(hotel._id as string);
+            }}
             cursor="pointer"
             borderWidth={2}
             borderRadius="lg"
@@ -177,58 +261,129 @@ export const CardHotels = ({ onClick }: HotelsProps) => {
               transform: "translateY(-1px)",
               shadow: "lg",
             }}
+            borderColor={
+              isDetailsOpen && hotelIdClicked === hotel._id
+                ? "blue.300"
+                : "transparent"
+            }
           >
             <Image
               objectFit="cover"
               w={{ base: "100%", md: "300px" }}
               h={{ base: "200px", md: "auto" }}
               // src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-              src={hotel.coverImage}
+              src={
+                typeof hotel.coverImage === "string"
+                  ? hotel.coverImage
+                  : URL.createObjectURL(hotel.coverImage)
+              }
               alt={hotel.name}
             />
 
-            <Flex flex="1" direction="column" p={{ base: 4, md: 6 }} gap={4}>
-              <Box>
-                <Text
-                  fontSize={{ base: "xl", md: "2xl" }}
-                  fontWeight="bold"
-                  mb={2}
-                >
-                  {hotel.name}
-                </Text>
-                <Text
-                  color="gray.600"
-                  fontSize={{ base: "sm", md: "md" }}
-                  overflow="hidden"
-                  textOverflow="ellipsis"
-                  display="-webkit-box"
-                  style={{
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical",
-                  }}
-                >
-                  {hotel.description}
-                </Text>
-              </Box>
-
-              <Flex direction="column" gap={3}>
-                <Flex wrap="wrap" gap={2}>
-                  <Badge colorScheme="blue" px={2} py={1}>
-                    {hotel.country}
-                  </Badge>
-                  <Badge colorScheme="green" px={2} py={1}>
-                    {hotel.city}
-                  </Badge>
-                  <Badge colorScheme="yellow" px={2} py={1}>
-                    {hotel.stars} Stars
-                  </Badge>
-                </Flex>
-                <Text color="gray.500" fontSize="sm">
-                  Location:{" "}
-                  <Text as="span" color="gray.700" fontWeight="medium">
-                    {hotel.location}
+            <Flex
+              flex="1"
+              direction={
+                isDetailsOpen ? { md: "column" } : { base: "column", md: "row" }
+              }
+              gap={4}
+            >
+              <Flex flex="1" direction="column" p={{ base: 4, md: 6 }} gap={8}>
+                <Box paddingLeft={{ base: 0, md: 8 }}>
+                  <Text
+                    fontSize={{ base: "xl", md: "2xl" }}
+                    fontWeight="bold"
+                    mb={10}
+                  >
+                    {hotel.name}
                   </Text>
-                </Text>
+
+                  <Text
+                    color="gray.700"
+                    _dark={{
+                      color: "gray.300",
+                    }}
+                    // className="text-color"
+                    fontSize={{ base: "sm", md: "md" }}
+                    overflow="hidden"
+                    textOverflow="ellipsis"
+                    display="-webkit-box"
+                    style={{
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                    }}
+                    mb={4}
+                  >
+                    {hotel.description}
+                  </Text>
+
+                  <Text
+                    color="gray.500"
+                    fontSize="sm"
+                    _dark={{
+                      color: "gray.400",
+                    }}
+                  >
+                    In{" "}
+                    <Text
+                      as="span"
+                      color="gray.700"
+                      fontWeight="medium"
+                      _dark={{
+                        color: "gray.300",
+                      }}
+                    >
+                      {hotel.country +
+                        ", " +
+                        hotel.city +
+                        ", " +
+                        hotel.location}
+                    </Text>
+                  </Text>
+                </Box>
+              </Flex>
+              <Flex
+                direction={
+                  isDetailsOpen ? { md: "row" } : { base: "row", md: "column" }
+                }
+                gap={4}
+                alignItems="center"
+                justifyContent={{ base: "space-around", md: "center" }}
+                m={8}
+              >
+                <HStack>
+                  {Array.from({ length: hotel.stars }).map((_, index) => (
+                    <FaStar key={index} color="rgb(255,192,0)" size={20} />
+                  ))}
+                </HStack>
+                <Button
+                  variant="outline"
+                  borderWidth="1.5px"
+                  size="sm"
+                  // colorPalette="blue"
+                  // color="#D4A373"
+                  // borderColor="#D4A373"
+                  className="accent-button"
+                  onClick={() => {
+                    setSelectedHotelId(hotel._id as string);
+                    setSelectedPage(SelectedPage.Rooms);
+                    setTimeout(() => {
+                      const roomsSection = document.getElementById(
+                        SelectedPage.Rooms
+                      );
+                      if (roomsSection) {
+                        roomsSection.scrollIntoView({
+                          behavior: "smooth",
+                          block: "start",
+                        });
+                      }
+                    }, 100);
+                  }}
+                  asChild
+                >
+                  <Link href={`#${SelectedPage.Rooms}`}>
+                    View rooms <LuArrowRight />
+                  </Link>
+                </Button>
               </Flex>
             </Flex>
           </Card.Root>
@@ -237,18 +392,30 @@ export const CardHotels = ({ onClick }: HotelsProps) => {
     </>
   );
 };
-
 export const CardHotelsDetails = ({ hotelId, onClose }: HotelDetailsProps) => {
-  const [isOpen, setIsOpen] = useState(false);
   const { data: specificHotel, isLoading, error } = useSpecificHotel(hotelId);
+  const [isEditOpen, setIsEditOpen] = useState(false);
   const { mutate, isPending } = useDeleteHotel();
-  if (error) return <Text fontSize="lg">Error loading hotel</Text>;
+  if (error)
+    return (
+      <Text
+        fontSize="xl"
+        fontWeight="bold"
+        color="gray.500"
+        marginTop="auto"
+        margin="auto"
+        marginY={20}
+      >
+        Error loading hotel
+      </Text>
+    );
   if (isLoading) return <SpecificHotelSkeleton />;
   if (!specificHotel)
     return skeletons.map((skeleton) => <AllHotelsSkeleton key={skeleton} />);
 
   return (
     <Card.Root
+      className="card"
       zIndex={2}
       overflowY={{ base: "visible", lg: "auto" }}
       maxH={{ base: "full", lg: "calc(100vh - 10px)" }}
@@ -282,15 +449,14 @@ export const CardHotelsDetails = ({ hotelId, onClose }: HotelDetailsProps) => {
         <HStack>
           <Button
             width="fit-content"
-            onClick={() => {
-              setIsOpen(true);
-            }}
+            onClick={() => setIsEditOpen(true)}
+            className="button-color"
           >
             Edit
           </Button>
           <UpdateHotel
-            isOpen={isOpen}
-            onClose={() => setIsOpen(false)}
+            isOpen={isEditOpen}
+            onClose={() => setIsEditOpen(false)}
             hotelId={hotelId}
             name={specificHotel.name}
             country={specificHotel.country}
@@ -314,31 +480,46 @@ export const CardHotelsDetails = ({ hotelId, onClose }: HotelDetailsProps) => {
         objectFit="cover"
         w={{ base: "100%", md: "auto" }}
         h={{ base: "280px", md: "auto" }}
-        src={specificHotel.coverImage}
+        src={
+          typeof specificHotel.coverImage === "string"
+            ? specificHotel.coverImage
+            : URL.createObjectURL(specificHotel.coverImage)
+        }
         // src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
         alt={specificHotel.name}
       />
       <Card.Body gap="2">
         <Text fontSize="sm">Located in:</Text>
         <Text fontWeight="bold" fontSize="md">
-          {specificHotel.country + " " + specificHotel.city}
+          {specificHotel.country +
+            ", " +
+            specificHotel.city +
+            ", " +
+            specificHotel.location}
         </Text>
         <Card.Description>{specificHotel.description}</Card.Description>
-        {specificHotel.rooms.length ? (
-          <Text textStyle="lg" fontWeight="medium" letterSpacing="tight" mt="2">
-            Rooms
-          </Text>
-        ) : null}
+        {/* {specificHotel.rooms.length ? (
+          <>
+            <Text
+              textStyle="lg"
+              fontWeight="medium"
+              letterSpacing="tight"
+              mt="2"
+            >
+              Rooms
+            </Text>
+            <Grid templateColumns="repeat(2,1fr)">
+              <HStack my={2}>
+                {specificHotel.rooms.map((room: RoomData) => (
+                  <GridItem key={room._id} colSpan={1}>
+                    <Text>{room.roomType}</Text>
+                  </GridItem>
+                ))}
+              </HStack>
+            </Grid>
+          </>
+        ) : null} */}
 
-        <Grid templateColumns="repeat(2,1fr)">
-          <HStack my={2}>
-            {specificHotel.rooms.map((room: RoomData) => (
-              <GridItem key={room._id} colSpan={1}>
-                <Text>{room.roomType}</Text>
-              </GridItem>
-            ))}
-          </HStack>
-        </Grid>
         <Text textStyle="lg" fontWeight="medium" letterSpacing="tight" mt="2">
           Amenities
         </Text>

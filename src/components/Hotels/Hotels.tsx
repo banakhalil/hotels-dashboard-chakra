@@ -15,15 +15,18 @@ import { SelectedPage } from "@/shared/types";
 
 interface Props {
   setSelectedPage: (newPage: SelectedPage) => void;
+  setSelectedHotelId: (id: string | null) => void;
 }
 
-const Hotels = ({ setSelectedPage }: Props) => {
-  const [selectedHotelId, setSelectedHotelId] = useState<string | null>(null);
+const Hotels = ({ setSelectedPage, setSelectedHotelId }: Props) => {
+  const [selectedHotelId, setSelectedHotelIdLocal] = useState<string | null>(
+    null
+  );
   const isMobile = useBreakpointValue({ base: true, lg: false });
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleHotelClick = (hotelId: string) => {
-    setSelectedHotelId(hotelId);
+    setSelectedHotelIdLocal(hotelId);
     if (!isMobile && containerRef.current) {
       containerRef.current.scrollIntoView({
         behavior: "smooth",
@@ -33,11 +36,11 @@ const Hotels = ({ setSelectedPage }: Props) => {
   };
 
   const handleClose = () => {
-    setSelectedHotelId(null);
+    setSelectedHotelIdLocal(null);
   };
 
   return (
-    <section id="hotels" className="min-h-screen py-6">
+    <section className="min-h-screen py-6">
       <Box
         ref={containerRef}
         height="full"
@@ -52,7 +55,12 @@ const Hotels = ({ setSelectedPage }: Props) => {
             width="full"
             gap={4}
           >
-            <CardHotels onClick={handleHotelClick} />
+            <CardHotels
+              onClick={handleHotelClick}
+              setSelectedPage={setSelectedPage}
+              isDetailsOpen={!!selectedHotelId}
+              setSelectedHotelId={setSelectedHotelId}
+            />
           </VStack>
 
           {!isMobile ? (
@@ -73,6 +81,7 @@ const Hotels = ({ setSelectedPage }: Props) => {
                 <CardHotelsDetails
                   hotelId={selectedHotelId}
                   onClose={handleClose}
+                  setSelectedPage={setSelectedPage}
                 />
               )}
             </VStack>
@@ -109,6 +118,7 @@ const Hotels = ({ setSelectedPage }: Props) => {
                     <CardHotelsDetails
                       hotelId={selectedHotelId}
                       onClose={handleClose}
+                      setSelectedPage={setSelectedPage}
                     />
                   </Dialog.Content>
                 </Portal>
