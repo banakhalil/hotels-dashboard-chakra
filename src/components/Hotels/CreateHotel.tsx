@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { HiUpload } from "react-icons/hi";
-import { useAddHotel, type HotelData } from "../react-query/hooks/useHotels";
+import { useAddHotel, type HotelData } from "@/hooks/useHotels";
 import { toaster } from "../ui/toaster";
 
 interface Props {
@@ -368,7 +368,9 @@ const CreateHotel = ({ isOpen, onClose }: Props) => {
                       Cancel
                     </Button>
                   </Dialog.ActionTrigger>
-                  <Button type="submit" className="button-color">Add</Button>
+                  <Button type="submit" className="button-color">
+                    Add
+                  </Button>
                 </Dialog.Footer>
               </form>{" "}
             </Dialog.Body>

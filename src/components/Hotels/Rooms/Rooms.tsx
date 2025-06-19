@@ -1,7 +1,4 @@
-import {
-  useDeleteRoom,
-  useRooms,
-} from "@/components/react-query/hooks/useHotels";
+import { useDeleteRoom, useRooms } from "@/hooks/useHotels";
 import { toaster } from "@/components/ui/toaster";
 import { SelectedPage } from "@/shared/types";
 import {

@@ -1,6 +1,6 @@
 "use client";
 
-import useHotels from "@/components/react-query/hooks/useHotels";
+import useHotels from "@/hooks/useHotels";
 import {
   Button,
   HStack,

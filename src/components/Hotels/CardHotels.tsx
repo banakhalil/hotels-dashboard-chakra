@@ -23,7 +23,7 @@ import useHotels, {
   useSpecificHotel,
   useUpdateHotel,
   type RoomData,
-} from "@/components/react-query/hooks/useHotels";
+} from "@/hooks/useHotels";
 import { LuArrowRight, LuCircleCheck } from "react-icons/lu";
 import { HiSortAscending } from "react-icons/hi";
 import { FaStar } from "react-icons/fa";

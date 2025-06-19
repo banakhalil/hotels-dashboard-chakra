@@ -12,10 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { HiUpload } from "react-icons/hi";
-import {
-  useAddRoom,
-  type RoomData,
-} from "@/components/react-query/hooks/useHotels";
+import { useAddRoom, type RoomData } from "@/hooks/useHotels";
 import { toaster } from "@/components/ui/toaster";
 
 interface Props {

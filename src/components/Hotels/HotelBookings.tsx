@@ -9,7 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useBookings } from "../react-query/hooks/useBookings";
+import { useBookings } from "@/hooks/useBookings";
 import { Search } from "../Search";
 import { HiSortAscending } from "react-icons/hi";
 
@@ -28,6 +28,7 @@ const HotelBookings = (props: Props) => {
     { label: "No Sorting", value: "" },
     { label: "A-Z", value: "?sort=user" },
     { label: "Z-A", value: "?sort=-user" },
+    { label: "Hotel", value: "?sort=-hotel" },
     { label: "Highest Price", value: "?sort=-totalPrice" },
     { label: "Lowest Price", value: "?sort=totalPrice" },
     { label: "Check In", value: "?sort=checkInDate" },
@@ -68,7 +69,7 @@ const HotelBookings = (props: Props) => {
         mt={2}
         mb={8}
       >
-        <HStack justifyContent="space-around" w="full" my={4}>
+        <HStack justifyContent="space-between" w="75%" my={6}>
           <Search keyWord={keyWord} setKeyWord={setKeyWord} />
           <Menu.Root>
             <Menu.Trigger asChild>
@@ -104,7 +105,12 @@ const HotelBookings = (props: Props) => {
           </Menu.Root>
         </HStack>
 
-        <Table.ScrollArea borderWidth="0.5px" rounded="lg" height="fit-content">
+        <Table.ScrollArea
+          borderWidth="0.5px"
+          rounded="lg"
+          height="fit-content"
+          w="75%"
+        >
           <Table.Root size="lg" stickyHeader>
             <Table.Header>
               <Table.Row
@@ -163,7 +169,7 @@ const HotelBookings = (props: Props) => {
                     {booking.checkOutDate.substring(0, 10)}
                   </Table.Cell>
                   <Table.Cell textAlign="start" className="border-color">
-                    {booking.totalPrice}
+                    $ {booking.totalPrice}
                   </Table.Cell>
                   <Table.Cell textAlign="start" className="border-color">
                     <Badge
