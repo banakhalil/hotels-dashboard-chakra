@@ -182,7 +182,7 @@ export const CardHotels = ({
           _dark={{
             bg: "#222222",
           }}
-          transition="background-color 0.2s"
+          transition="background-color 0.1s"
           py={2}
           zIndex={1}
         >
@@ -257,13 +257,13 @@ export const CardHotels = ({
             borderRadius="lg"
             transition="all 0.2s ease"
             _hover={{
-              borderColor: "blue.300",
+              borderColor: "#009688",
               transform: "translateY(-1px)",
               shadow: "lg",
             }}
             borderColor={
               isDetailsOpen && hotelIdClicked === hotel._id
-                ? "blue.300"
+                ? "#009688"
                 : "transparent"
             }
           >

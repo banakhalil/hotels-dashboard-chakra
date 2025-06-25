@@ -69,9 +69,9 @@ const NavBar = ({ onToggleSidebar, title }: NavBarProps) => {
           <HStack gap={4}>
             {/* <Search></Search> */}
             <SessionTimer />
-            <Button variant="ghost" size="lg" padding="0" margin="0">
+            {/* <Button variant="ghost" size="lg" padding="0" margin="0">
               <IoMdNotificationsOutline />
-            </Button>
+            </Button> */}
             <ColorModeButton />
 
             <Menu.Root onSelect={handleProfileSelect}>
@@ -188,9 +188,9 @@ const NavBar = ({ onToggleSidebar, title }: NavBarProps) => {
 
             <HStack gap={4}>
               <SessionTimer />
-              <Button variant="ghost" size="lg" padding="0" margin="0">
+              {/* <Button variant="ghost" size="lg" padding="0" margin="0">
                 <IoMdNotificationsOutline />
-              </Button>
+              </Button> */}
               <ColorModeButton />
               <Menu.Root onSelect={handleProfileSelect}>
                 <Menu.Trigger asChild>

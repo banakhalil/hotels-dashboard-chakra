@@ -347,6 +347,9 @@ export const useUpdateRoom = (hotelId: string, roomId: string) => {
     onSuccess: () => {
       // queryClient.invalidateQueries({ queryKey: ["hotels"] });
       queryClient.invalidateQueries({ queryKey: ["rooms", hotelId] });
+      queryClient.invalidateQueries({
+        queryKey: ["specificroom", hotelId, roomId],
+      });
     },
   });
 };

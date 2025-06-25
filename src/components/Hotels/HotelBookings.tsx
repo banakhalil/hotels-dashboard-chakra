@@ -18,9 +18,34 @@ type Props = {};
 const HotelBookings = (props: Props) => {
   const [value, setValue] = useState("");
   const [keyWord, setKeyWord] = useState("");
-  const { data: bookings, isLoading } = useBookings(value, keyWord);
-  if (isLoading) return <div>Loading...</div>;
-  if (!bookings) return <div>No bookings found</div>;
+  const { data: bookings, isLoading, error } = useBookings(value, keyWord);
+  if (isLoading)
+    return (
+      <Text
+        fontSize="xl"
+        fontWeight="bold"
+        color="gray.500"
+        marginTop="auto"
+        margin="auto"
+        marginY={6}
+      >
+        loading bookings
+      </Text>
+    );
+
+  if (error)
+    return (
+      <Text
+        fontSize="xl"
+        fontWeight="bold"
+        color="gray.500"
+        marginTop="auto"
+        margin="auto"
+        marginY={6}
+      >
+        Error loading bookings
+      </Text>
+    );
 
   const items = [
     // { label: "Newest", value: "?sort=-createdAt" },

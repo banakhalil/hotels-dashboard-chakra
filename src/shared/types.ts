@@ -3,7 +3,9 @@ export enum SelectedPage {
   Hotels = "hotels",
   Rooms = "rooms",
   Bookings = "bookings",
-  Financials = "financials",
-  Settings = "settings",
-  Help = "help",
+
+  Stations = "stations",
+  Trains = "trains",
+  Routes = "routes",
+  Trips = "traintrips",
 }

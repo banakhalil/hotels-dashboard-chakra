@@ -105,3 +105,34 @@ body{
   color:gray.400;
 }
 
+
+.train-button-color {
+  background-color: #E84F0B;
+  /* background-color: #ff6f00f9; */
+ 
+  color: rgb(245, 244, 244);
+}
+:root[class~="dark"] .train-button-color {
+  background-color: #DF440D;
+  /* background-color: #DF440D; */
+
+  color: rgb(245, 244, 244);
+}
+
+.train-secondary-button-color {
+  background-color: #ffccbc;
+  color: #E84F0B;
+}
+:root[class~="dark"] .train-secondary-button-color {
+  background-color: #efbdae;
+  color: #DF440D;
+}
+
+.timeline-color {
+  background-color: #E84F0B;
+  color: rgb(245, 244, 244);
+}
+:root[class~="dark"] .timeline-color {
+  background-color: #DF440D;
+  color: rgb(245, 244, 244);
+}

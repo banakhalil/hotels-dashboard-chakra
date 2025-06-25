@@ -126,7 +126,7 @@ export function SideBarItem({
   setSelectedPage,
 }: SidebarItemProps) {
   const { expanded } = useContext(SidebarContext);
-  const lowerCasePage = text.toLowerCase().replace(/ /g, "") as SelectedPage;
+  const lowerCasePage = text.toLowerCase() as SelectedPage;
 
   const handleClick = () => {
     setSelectedPage(lowerCasePage);

@@ -8,10 +8,10 @@ type Props = {
 };
 
 const Logout = ({ isOpen, onClose }: Props) => {
-  const { clearToken } = useAuth();
+  const { clearAuthData } = useAuth();
 
   const handleLogout = () => {
-    clearToken(); // This will clear auth data and redirect to login
+    clearAuthData(); // This will clear auth data and redirect to login
   };
 
   return (

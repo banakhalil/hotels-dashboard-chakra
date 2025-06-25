@@ -3,13 +3,15 @@ import { useAuth } from "../../contexts/AuthContext";
 import { login } from "../../services/authService";
 import { Box, Button, Stack, Input, Text, Flex } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { toaster } from "../ui/toaster";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { setToken } = useAuth();
+  // const { setToken } = useAuth();
+  const { setAuthData } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -21,15 +23,42 @@ export const Login = () => {
       const response = await login({ email, password });
       console.log("Full login response:", response);
 
-      if (!response || !response.token) {
+      if (!response || !response.token || !response.user) {
         throw new Error("No token received from server");
       }
 
-      setToken(response.token);
+      // setToken(response.token);
+      setAuthData(response.token, response.user);
       console.log("Token after setting:", localStorage.getItem("authToken"));
 
+      toaster.create({
+        title: "Success",
+        description: `Welcome back, ${response.user.role}!`,
+        type: "success",
+        duration: 3000,
+        closable: true,
+      });
       // Navigate to dashboard instead of reloading
-      navigate("/");
+      // navigate("/");
+
+      // Redirect based on user role
+      switch (response.user.role) {
+        case "hotelManager":
+          navigate("/hotel");
+          break;
+        case "routeManager":
+          navigate("/train");
+          break;
+        case "airlineOwner":
+          navigate("/airline");
+          break;
+        case "admin":
+          navigate("/admin");
+          break;
+        default:
+          navigate("/");
+          break;
+      }
     } catch (error) {
       console.error("Login error:", error);
       setError(
