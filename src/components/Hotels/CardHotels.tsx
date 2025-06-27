@@ -178,7 +178,7 @@ export const CardHotels = ({
           // _dark={{
           //   bg: "#171717",
           // }}
-          bg="rgb(239, 236, 236)"
+          bg="rgb(230, 230, 230)"
           _dark={{
             bg: "#222222",
           }}
@@ -194,7 +194,7 @@ export const CardHotels = ({
                   variant="outline"
                   size="sm"
                   width="fit-content"
-                  className="sort-button-color"
+                  className="hotel-sort-button-color"
                   // bgColor="#a2d5cb"
                   // color="#0b4f4a"
                   height={10}
@@ -223,7 +223,7 @@ export const CardHotels = ({
             <Button
               width="fit-content"
               height={10}
-              className="button-color"
+              className="hotel-button-color"
               onClick={() => setIsOpen(true)}
             >
               Add Hotel
@@ -269,9 +269,14 @@ export const CardHotels = ({
           >
             <Image
               objectFit="cover"
-              w={{ base: "100%", md: "300px" }}
+              w={
+                isDetailsOpen
+                  ? { base: "100%", md: "270px" }
+                  : { base: "100%", md: "300px" }
+              }
               h={{ base: "200px", md: "auto" }}
               // src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+
               src={
                 typeof hotel.coverImage === "string"
                   ? hotel.coverImage
@@ -288,7 +293,11 @@ export const CardHotels = ({
               gap={4}
             >
               <Flex flex="1" direction="column" p={{ base: 4, md: 6 }} gap={8}>
-                <Box paddingLeft={{ base: 0, md: 8 }}>
+                <Box
+                  paddingLeft={
+                    isDetailsOpen ? { base: 0, md: 0 } : { base: 0, md: 8 }
+                  }
+                >
                   <Text
                     fontSize={{ base: "xl", md: "2xl" }}
                     fontWeight="bold"
@@ -352,17 +361,21 @@ export const CardHotels = ({
               >
                 <HStack>
                   {Array.from({ length: hotel.stars }).map((_, index) => (
-                    <FaStar key={index} color="rgb(255,192,0)" size={20} />
+                    <FaStar
+                      key={index}
+                      color="rgb(255,192,0)"
+                      size={isDetailsOpen ? 15 : 20}
+                    />
                   ))}
                 </HStack>
                 <Button
                   variant="outline"
                   borderWidth="1.5px"
-                  size="sm"
+                  size={isDetailsOpen ? "xs" : "sm"}
                   // colorPalette="blue"
                   // color="#D4A373"
                   // borderColor="#D4A373"
-                  className="accent-button"
+                  className="hotel-accent-button"
                   onClick={() => {
                     setSelectedHotelId(hotel._id as string);
                     setSelectedPage(SelectedPage.Rooms);
@@ -450,7 +463,7 @@ export const CardHotelsDetails = ({ hotelId, onClose }: HotelDetailsProps) => {
           <Button
             width="fit-content"
             onClick={() => setIsEditOpen(true)}
-            className="button-color"
+            className="hotel-button-color"
           >
             Edit
           </Button>

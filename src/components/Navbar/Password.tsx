@@ -14,7 +14,20 @@ import {
   Input,
 } from "@chakra-ui/react";
 import React, { useState, type FormEvent } from "react";
-import { toaster } from "./ui/toaster";
+import { toaster } from "../ui/toaster";
+
+const getRoleBasedButtonClass = (role: string) => {
+  switch (role) {
+    case "hotelManager":
+      return "hotel-button-color";
+    case "routeManager":
+      return "train-button-color";
+    case "airlineOwner":
+      return "airline-button-color";
+    default:
+      return "button-color";
+  }
+};
 
 interface Props {
   isOpen: boolean;
@@ -29,8 +42,9 @@ interface FormErrors {
 
 const Password = ({ isOpen, onClose }: Props) => {
   const updatePassword = useUpdatePassword();
-  const { isLoading } = useProfile();
+  const { data: user, isLoading } = useProfile();
   const [errors, setErrors] = useState<FormErrors>({});
+  const buttonColorClass = getRoleBasedButtonClass(user?.role || "");
 
   const validateForm = (data: {
     currentPassword: string;
@@ -180,7 +194,7 @@ const Password = ({ isOpen, onClose }: Props) => {
                     position="absolute"
                     right={6}
                     loading={updatePassword.isPending}
-                    className="button-color"
+                    className={buttonColorClass}
                   >
                     Change Password
                   </Button>

@@ -1,16 +1,16 @@
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 
-import CardRevenue from "./CardRevenue";
+import CardRevenue from "../CardRevenue";
 import { SelectedPage } from "@/shared/types";
 
 type Props = { setSelectedPage: (newPage: SelectedPage) => void };
 
-const Dashboard = ({ setSelectedPage }: Props) => {
+const HotelDashboard = ({ setSelectedPage }: Props) => {
   return (
     // <Card.Root height={"full"} marginX={5}>
     //   <Card.Header />
     //   <Card.Body>
-    <section  className="min-h-screen py-6">
+    <section className="min-h-screen py-6">
       <Box
         pb={32}
         height="full"
@@ -66,4 +66,4 @@ const Dashboard = ({ setSelectedPage }: Props) => {
   );
 };
 
-export default Dashboard;
+export default HotelDashboard;

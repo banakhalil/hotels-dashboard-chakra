@@ -334,7 +334,7 @@ const AddRoute = ({ isOpen, onClose }: Props) => {
                       Cancel
                     </Button>
                   </Dialog.ActionTrigger>
-                  <Button type="submit" className="button-color">
+                  <Button type="submit" className="train-button-color">
                     Add
                   </Button>
                 </Dialog.Footer>

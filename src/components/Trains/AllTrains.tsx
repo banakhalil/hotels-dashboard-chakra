@@ -65,7 +65,7 @@ const allTrains = (props: Props) => {
           rounded="lg"
           height="fit-content"
           w="75%"
-          mt={10}
+          mt={4}
         >
           <Table.Root size="lg" stickyHeader>
             <Table.Header>
@@ -74,19 +74,19 @@ const allTrains = (props: Props) => {
                 bgColor="#E84F0B"
                 _dark={{ bgColor: "#DF440D" }}
               >
-                <Table.ColumnHeader color="rgb(239, 236, 236)" width="12.5%">
+                <Table.ColumnHeader color="#ffccbc" width="12.5%">
                   Train Name
                 </Table.ColumnHeader>
-                <Table.ColumnHeader color="rgb(239, 236, 236)" width="12.5%">
+                <Table.ColumnHeader color="#ffccbc" width="12.5%">
                   Speed
                 </Table.ColumnHeader>
-                <Table.ColumnHeader color="rgb(239, 236, 236)" width="12.5%">
+                <Table.ColumnHeader color="#ffccbc" width="12.5%">
                   Number of Seats
                 </Table.ColumnHeader>
-                <Table.ColumnHeader color="rgb(239, 236, 236)" width="12.5%">
+                <Table.ColumnHeader color="#ffccbc" width="12.5%">
                   Status
                 </Table.ColumnHeader>
-                <Table.ColumnHeader color="rgb(239, 236, 236)" width="12.5%">
+                <Table.ColumnHeader color="#ffccbc" width="12.5%">
                   Booked Until
                 </Table.ColumnHeader>
               </Table.Row>

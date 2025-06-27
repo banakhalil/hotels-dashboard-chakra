@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { SelectedPage } from "../shared/types";
 import { useBreakpointValue } from "@chakra-ui/react";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/Navbar/NavBar";
 import SideBar, { SideBarItem } from "../components/SideBar";
 import { LayoutDashboard } from "lucide-react";
 import { LuCalendarCheck } from "react-icons/lu";
@@ -46,27 +46,31 @@ const HotelLayout = ({ selectedPage, setSelectedPage }: HotelLayoutProps) => {
           >
             <SideBarItem
               icon={<LayoutDashboard size={20} />}
-              text="Dashboard"
+              text="Hotel Dashboard"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
+              page={SelectedPage.HotelDashboard}
             />
             <SideBarItem
               icon={<LiaHotelSolid size={20} />}
               text="Hotels"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
+              page={SelectedPage.Hotels}
             />
             <SideBarItem
               icon={<MdOutlineBedroomParent size={20} />}
               text="Rooms"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
+              page={SelectedPage.Rooms}
             />
             <SideBarItem
               icon={<LuCalendarCheck size={20} />}
               text="Bookings"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
+              page={SelectedPage.Bookings}
             />
           </SideBar>
         </div>

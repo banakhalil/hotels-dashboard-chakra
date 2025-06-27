@@ -1,9 +1,12 @@
 import { Text } from "@chakra-ui/react";
-import Logo from "../assets/react.svg";
+// import Logo from "@/assets/train-track.svg";
 import { Drawer, useBreakpointValue, Portal } from "@chakra-ui/react";
-
 import { useContext, createContext, type ReactNode } from "react";
 import { SelectedPage } from "@/shared/types";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { LuTrainTrack } from "react-icons/lu";
+import { BsFillBuildingsFill } from "react-icons/bs";
 
 interface SidebarContextType {
   expanded: boolean;
@@ -18,6 +21,60 @@ interface SidebarProps {
   onClose: () => void;
 }
 
+const getRoleBasedClasses = (role: string | undefined) => {
+  switch (role) {
+    case "hotelManager":
+      return {
+        sidebarColor: "hotel-sidebar-color",
+        selectedItem: "hotel-selected-items",
+        notSelectedItem: "hotel-not-selected-items",
+      };
+    case "routeManager":
+      return {
+        sidebarColor: "route-sidebar-color",
+        selectedItem: "route-selected-items",
+        notSelectedItem: "route-not-selected-items",
+      };
+    case "airlineOwner":
+      return {
+        sidebarColor: "airline-sidebar-color",
+        selectedItem: "airline-selected-items",
+        notSelectedItem: "airline-not-selected-items",
+      };
+    default:
+      return {
+        sidebarColor: "sidebar-color",
+        selectedItem: "sidebar-selected-items",
+        notSelectedItem: "sidebar-not-selected-items",
+      };
+  }
+};
+
+const getRoleBasedTitle = (role: string | undefined) => {
+  switch (role) {
+    case "hotelManager":
+      return "Saint Motel";
+    case "routeManager":
+      return "Rail Ninja";
+    case "airlineOwner":
+      return "AirlineTransylvania";
+    default:
+      return "Transylvania";
+  }
+};
+const getRoleBasedLodo = (role: string | undefined) => {
+  switch (role) {
+    case "hotelManager":
+      return <BsFillBuildingsFill size={38} color="#a0c5c2" />;
+    case "routeManager":
+      return <LuTrainTrack size={38} color="#ffccbc" />;
+    case "airlineOwner":
+      return "AirlineTransylvania";
+    default:
+      return "Transylvania";
+  }
+};
+
 const SidebarContent = ({
   children,
   expanded,
@@ -25,26 +82,32 @@ const SidebarContent = ({
   children: ReactNode;
   expanded: boolean;
 }) => {
+  const { user } = useAuth();
+  const themeClasses = getRoleBasedClasses(user?.role);
+  const title = getRoleBasedTitle(user?.role);
+  const logo = getRoleBasedLodo(user?.role);
   return (
     <>
       <br />
       <div className="py-8 flex justify-center items-center">
         <div className="px-2 flex justify-center items-center">
-          <img
+          {/* <img
             src={Logo}
             className={`overflow-hidden transition-all ${
               expanded ? "w-12" : "w-8 h-8"
             }`}
             alt=""
-          />
+          /> */}
+          {logo}
           {expanded ? (
             <Text
               paddingX="1"
+              ml={1}
               fontWeight="bold"
               fontSize="xl"
               color="rgb(245, 244, 244)"
             >
-              HotelTransylvania
+              {title}
             </Text>
           ) : null}
         </div>
@@ -71,6 +134,8 @@ export default function SideBar({
   onClose,
 }: SidebarProps) {
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const { user } = useAuth();
+  const themeClasses = getRoleBasedClasses(user?.role);
 
   if (isMobile) {
     return (
@@ -82,13 +147,8 @@ export default function SideBar({
         <Portal>
           <Drawer.Backdrop backdropBlur="10" />
           <Drawer.Positioner>
-            <Drawer.Content className="sidebar-color">
-              <Drawer.Header>
-                {/* <Drawer.Title>TraveLux</Drawer.Title> */}
-                {/* <Drawer.CloseTrigger asChild>
-                  <CloseButton size="sm" />
-                </Drawer.CloseTrigger> */}
-              </Drawer.Header>
+            <Drawer.Content className={themeClasses.sidebarColor}>
+              <Drawer.Header></Drawer.Header>
               <Drawer.Body>
                 <SidebarContent expanded={true}>{children}</SidebarContent>
               </Drawer.Body>
@@ -101,7 +161,9 @@ export default function SideBar({
 
   return (
     <aside className="h-full">
-      <nav className="h-full flex flex-col sidebar-color border-r shadow-sm rounded-sm">
+      <nav
+        className={`h-full flex flex-col ${themeClasses.sidebarColor} border-r shadow-sm rounded-sm`}
+      >
         <SidebarContent expanded={expanded}>{children}</SidebarContent>
       </nav>
     </aside>
@@ -112,10 +174,9 @@ interface SidebarItemProps {
   icon: ReactNode;
   text: string;
   active?: boolean;
-  // alert?: boolean;
-  // page: string;
   selectedPage: SelectedPage;
   setSelectedPage: (newpage: SelectedPage) => void;
+  page: SelectedPage;
 }
 
 export function SideBarItem({
@@ -124,33 +185,30 @@ export function SideBarItem({
   active,
   selectedPage,
   setSelectedPage,
+  page,
 }: SidebarItemProps) {
   const { expanded } = useContext(SidebarContext);
-  const lowerCasePage = text.toLowerCase() as SelectedPage;
+  const { user } = useAuth();
+  const themeClasses = getRoleBasedClasses(user?.role);
 
   const handleClick = () => {
-    setSelectedPage(lowerCasePage);
-    const element = document.getElementById(lowerCasePage);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    setSelectedPage(page);
   };
 
   return (
     <li
       title={text}
       onClick={handleClick}
+      style={{ fontWeight: "bold" }}
       className={`
         relative flex items-center justify-around my-0.5 
         font-medium rounded-md cursor-pointer
         transition-all duration-300 ease-in-out sidebar-text-color
         ${expanded ? "h-12 py-2 mx-10" : "h-9 w-9 p-1.5 justify-center"}
         ${
-          selectedPage === lowerCasePage
-            ? // ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
-              // : "hover:bg-indigo-50 text-gray-600"
-              "sidebar-selected-items"
-            : "sidebar-not-selected-items"
+          selectedPage === page
+            ? themeClasses.selectedItem
+            : themeClasses.notSelectedItem
         }
     `}
     >

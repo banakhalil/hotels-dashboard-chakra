@@ -17,7 +17,7 @@ import {
 import * as Dialog from "@radix-ui/react-dialog";
 import React, { useEffect, useRef, useState, type FormEvent } from "react";
 import { type UserData } from "@/hooks/useProfile";
-import { toaster } from "./ui/toaster";
+import { toaster } from "../ui/toaster";
 import { HiUpload } from "react-icons/hi";
 
 interface Props {
@@ -36,6 +36,32 @@ interface Props {
 }
 
 // type ProfileProps = Props & UserData;
+const getRoleBasedButtonClass = (role: string) => {
+  switch (role) {
+    case "hotelManager":
+      return "hotel-button-color";
+    case "routeManager":
+      return "train-button-color";
+    case "airlineOwner":
+      return "airline-button-color";
+    default:
+      return "button-color";
+  }
+};
+
+const getRoleBasedChangeAvatarClass = (role: string) => {
+  switch (role) {
+    case "hotelManager":
+      return "hotel-change-avatar";
+    case "routeManager":
+      return "train-change-avatar";
+    case "airlineOwner":
+      return "airline-change-avatar";
+    default:
+      return "change-avatar";
+  }
+};
+
 const Profile = ({
   isOpen,
   onClose,
@@ -52,6 +78,8 @@ const Profile = ({
   const emailRef = useRef<HTMLInputElement>(null);
   const roleRef = useRef<HTMLInputElement>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const buttonColorClass = getRoleBasedButtonClass(role);
+  const changeAvatarClass = getRoleBasedChangeAvatarClass(role);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -300,7 +328,7 @@ const Profile = ({
                       <Button
                         variant="ghost"
                         size="sm"
-                        color="#009688"
+                        className={changeAvatarClass}
                         onClick={() =>
                           document.getElementById("avatar")?.click()
                         }
@@ -357,7 +385,7 @@ const Profile = ({
                     my={6}
                     position="absolute"
                     right={6}
-                    className="button-color"
+                    className={buttonColorClass}
                   >
                     Update
                   </Button>

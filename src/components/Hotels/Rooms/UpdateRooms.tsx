@@ -402,7 +402,7 @@ export const UpdateRoom = ({
                         Cancel
                       </Button>
                     </Dialog.ActionTrigger>
-                    <Button type="submit" className="button-color">
+                    <Button type="submit" className="hotel-button-color">
                       Save Changes
                     </Button>
                   </Dialog.Footer>

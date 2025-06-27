@@ -348,7 +348,7 @@ const CreateRoom = ({ isOpen, onClose, hotelId }: Props) => {
                       Cancel
                     </Button>
                   </Dialog.ActionTrigger>
-                  <Button type="submit" className="button-color">
+                  <Button type="submit" className="hotel-button-color">
                     Add
                   </Button>
                 </Dialog.Footer>

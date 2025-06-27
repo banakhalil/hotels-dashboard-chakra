@@ -16,33 +16,37 @@ import { FaCircle } from "react-icons/fa";
 import { NotImmediateSearch } from "../Search";
 import AddTrainTrip from "./AddTrainTrip";
 import UpdateTrainTrip from "./UpdateTrainTrip";
+import { AllTrainsSkeleton } from "./TrainsSkeletons";
 
 type Props = {};
-
+const skeletons = [1, 2, 3, 4];
 const TrainTrips = (props: Props) => {
-  const [keyWord, setKeyWord] = useState("");
+  // const [keyWord, setKeyWord] = useState("");
   const [isAddTripOpen, setIsAddTripOpen] = useState(false);
   const [isUpdateTripOpen, setIsUpdateTripOpen] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState("");
-  const { data: traintrips, isLoading, error } = useTrainTrips(keyWord);
+  const { data: traintrips, isLoading, error } = useTrainTrips();
   console.log(traintrips);
+
   if (isLoading)
     return (
-      <Flex flexDirection="column" gap={4} width="90%" margin="auto">
-        <Text
-          fontSize="xl"
-          fontWeight="bold"
-          color="gray.500"
-          marginTop="auto"
-          margin="auto"
-          marginY={6}
-        >
-          loading...
-        </Text>
-      </Flex>
+      // <Flex flexDirection="column" gap={4} width="90%" margin="auto">
+      //   {/* <Text
+      //     fontSize="xl"
+      //     fontWeight="bold"
+      //     color="gray.500"
+      //     marginTop="auto"
+      //     margin="auto"
+      //     marginY={6}
+      //   >
+      //     loading...
+      //   </Text> */}
+
+      // </Flex>
+      skeletons.map((skeleton) => <AllTrainsSkeleton key={skeleton} />)
     );
 
-  if (error && !keyWord)
+  if (error)
     return (
       <Flex flexDirection="column" gap={4} width="90%" margin="auto">
         <HStack justifyContent="space-between" mb={4}>
@@ -68,7 +72,7 @@ const TrainTrips = (props: Props) => {
           margin="auto"
           marginY={6}
         >
-          please enter two cities to search for trips
+          Error loading trips
         </Text>
         <AddTrainTrip
           isOpen={isAddTripOpen}
@@ -191,6 +195,8 @@ const TrainTrips = (props: Props) => {
                   fontSize="xl"
                   color="#E84F0B"
                   _dark={{ color: "#DF440D" }}
+                  // color="#053345"
+                  // _dark={{ color: "#052938" }}
                 >
                   {trip.firstStation.code}
                 </Text>

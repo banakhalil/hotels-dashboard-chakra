@@ -33,32 +33,14 @@ export const Login = () => {
 
       toaster.create({
         title: "Success",
-        description: `Welcome back, ${response.user.role}!`,
+        description: `Welcome back, ${response.user.firstName}!`,
         type: "success",
         duration: 3000,
         closable: true,
       });
-      // Navigate to dashboard instead of reloading
-      // navigate("/");
 
-      // Redirect based on user role
-      switch (response.user.role) {
-        case "hotelManager":
-          navigate("/hotel");
-          break;
-        case "routeManager":
-          navigate("/train");
-          break;
-        case "airlineOwner":
-          navigate("/airline");
-          break;
-        case "admin":
-          navigate("/admin");
-          break;
-        default:
-          navigate("/");
-          break;
-      }
+      // Simply navigate to root and let RoleBasedRedirect handle the routing
+      navigate("/");
     } catch (error) {
       console.error("Login error:", error);
       setError(

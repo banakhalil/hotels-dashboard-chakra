@@ -9,6 +9,7 @@ import {
   Container,
   Spinner,
   Flex,
+  HStack,
 } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
 import type { Route } from "@/hooks/useRoutes";
@@ -18,6 +19,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import AddRoute from "./AddRoute";
 import UpdateRoute from "./UpdateRoute";
+import { RoomsSkeleton } from "../Hotels/HotelsSkeleton";
+import { RoutesSkeleton } from "./TrainsSkeletons";
 
 // Custom arrow components
 function NextArrow(props: any) {
@@ -82,6 +85,8 @@ function PrevArrow(props: any) {
   );
 }
 
+const skeletons = [1, 2, 3];
+
 const AllRoutes = () => {
   const {
     data: routesData,
@@ -138,16 +143,22 @@ const AllRoutes = () => {
 
   if (isLoading)
     return (
-      <Text
-        fontSize="xl"
-        fontWeight="bold"
-        color="gray.500"
-        marginTop="auto"
-        margin="auto"
-        marginY={6}
-      >
-        loading routes
-      </Text>
+      // <Text
+      //   fontSize="xl"
+      //   fontWeight="bold"
+      //   color="gray.500"
+      //   marginTop="auto"
+      //   margin="auto"
+      //   marginY={6}
+      // >
+      //   loading routes
+      // </Text>
+
+      <HStack gap={4} justifyContent="center" alignItems="center" my={20}>
+        {skeletons.map((skeleton) => (
+          <RoutesSkeleton key={skeleton} />
+        ))}
+      </HStack>
     );
 
   if (error)

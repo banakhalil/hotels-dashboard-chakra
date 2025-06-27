@@ -10,7 +10,6 @@ import {
   Box,
   Flex,
   Badge,
-  Spinner,
   Container,
 } from "@chakra-ui/react";
 import React, { useState, useRef } from "react";
@@ -18,7 +17,6 @@ import { GoPeople } from "react-icons/go";
 import { IoBedOutline } from "react-icons/io5";
 import { LuBedDouble, LuBedSingle, LuCircleCheck } from "react-icons/lu";
 import { HiOutlineWrenchScrewdriver } from "react-icons/hi2";
-import { SiTicktick } from "react-icons/si";
 import { RoomsSkeleton } from "../HotelsSkeleton";
 import { UpdateRoom } from "./UpdateRooms";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -121,7 +119,7 @@ const Rooms = ({ hotelId, sortValue }: Props) => {
         minW="40px"
         h="40px"
         // color="black"
-        className="sort-button-color"
+        className="hotel-sort-button-color"
       >
         <ArrowRight size={20} />
       </Button>
@@ -148,7 +146,7 @@ const Rooms = ({ hotelId, sortValue }: Props) => {
         minW="40px"
         h="40px"
         // color="black"
-        className="sort-button-color"
+        className="hotel-sort-button-color"
       >
         <ArrowLeft size={20} />
       </Button>
@@ -158,7 +156,7 @@ const Rooms = ({ hotelId, sortValue }: Props) => {
   if (error) return <Text fontSize="lg">Error loading rooms</Text>;
   if (isLoading)
     return (
-      <HStack gap={4} justifyContent="center" alignItems="center">
+      <HStack gap={4} justifyContent="center" alignItems="center" my={20}>
         {skeletons.map((skeleton) => (
           <RoomsSkeleton key={skeleton} />
         ))}
@@ -265,7 +263,7 @@ const Rooms = ({ hotelId, sortValue }: Props) => {
                     </Card.Body>
                     <Card.Footer gap="2">
                       <Button
-                        className="button-color"
+                        className="hotel-button-color"
                         variant="solid"
                         onClick={() => {
                           setSelectedRoomId(room._id || "");

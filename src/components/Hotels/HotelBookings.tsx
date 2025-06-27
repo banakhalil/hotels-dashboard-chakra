@@ -5,6 +5,8 @@ import {
   HStack,
   Menu,
   Portal,
+  Skeleton,
+  SkeletonText,
   Table,
   Text,
 } from "@chakra-ui/react";
@@ -21,16 +23,38 @@ const HotelBookings = (props: Props) => {
   const { data: bookings, isLoading, error } = useBookings(value, keyWord);
   if (isLoading)
     return (
-      <Text
-        fontSize="xl"
-        fontWeight="bold"
-        color="gray.500"
-        marginTop="auto"
-        margin="auto"
-        marginY={6}
+      // <Text
+      //   fontSize="xl"
+      //   fontWeight="bold"
+      //   color="gray.500"
+      //   marginTop="auto"
+      //   margin="auto"
+      //   marginY={6}
+      // >
+      //   loading bookings
+      // </Text>
+      <HStack
+        gap={4}
+        justifyContent="center"
+        alignItems="center"
+        my={20}
+        mx="100px"
       >
-        loading bookings
-      </Text>
+        {
+          // skeletons.map((skeleton) => (
+          //   <BookingsSkeleton key={skeleton} />
+          // ))
+          <Skeleton
+            variant="pulse"
+            // noOfLines={6}
+            height="500px"
+            width="100%"
+            gap="4"
+            bgColor="gray.300"
+            _dark={{ bgColor: "gray.800" }}
+          />
+        }
+      </HStack>
     );
 
   if (error)
@@ -102,7 +126,7 @@ const HotelBookings = (props: Props) => {
                 variant="outline"
                 size="sm"
                 width="fit-content"
-                className=" sort-button-color"
+                className="hotel-sort-button-color"
                 // bgColor="#a2d5cb"
                 // color="#0b4f4a"
                 height={10}

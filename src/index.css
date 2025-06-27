@@ -4,82 +4,28 @@
 /*BODY*/
 body{
   background-color: rgb(239, 236, 236);
+  background-color: rgb(230, 230, 230);
+  /* background-color: rgb(225, 225, 225); */
 }
 :root[class~="dark"] body {
   background-color: #222222;
 }
 
-/*SIDEBAR*/
-.sidebar-color {
-  background-color: #00585A;
-}
-:root[class~="dark"] .sidebar-color {
-  background-color: #034041;
-}
-
+/*SHARED SIDEBAR TEXT COLOR*/
 .sidebar-text-color{
   color: rgb(239, 236, 236);
 }
 :root[class~="dark"] .sidebar-text-color{
   color: rgb(239, 236, 236);
- 
-}
-
-.sidebar-selected-items {
-    background-color: #009688;
-  
-}
-:root[class~="dark"] .sidebar-selected-items {
-  background-color: #047f73;
-}
-
-.sidebar-not-selected-items:hover {
-  background-color: #b2dfdb;
-  color: #000000;
-}
-:root[class~=dark] .sidebar-not-selected-items:hover {
-  background-color: #a0c5c2;
-  color: #000000;
-}
-
-/*BUTTONS*/
-.button-color{
-  background-color: #00585A;
-  color: rgb(245, 244, 244);
-}
-:root[class~="dark"] .button-color{
-  background-color: #093d39;
-  background-color: #034041;
-  color: rgb(245, 244, 244);
-}
-
-.sort-button-color {
-  background-color: #b2dfdb;
-  color: #00585A;
-}
-:root[class~="dark"] .sort-button-color {
-  background-color: #a0c5c2;
-  color: #034041;
-}
-
-.accent-button{
-   color:  #009688;
-   border-color : #009688;
-}
-:root[class~=dark] .accent-button{
-   color:  #047f73;
-   border-color : #047f73;
-   color:  #009688;
-   border-color : #009688;
 }
 
 /*COMPONENTS*/
 .card, .drawer {
   background-color: rgb(245, 244, 244);
+  /* background-color: rgb(225, 225, 225); */
 }
 :root[class~="dark"] .card, :root[class~="dark"] .drawer{
   background-color: #2d2c2c;  
- 
 }
 
 /*BOREDR*/
@@ -91,29 +37,131 @@ body{
   border-color: #444444;
 }
 
-/*TEXT*/
-.text-color {
-  color:gray.700; 
+
+
+/*HOTEL MANAGER THEME*/
+.hotel-sidebar-color {
+  background-color: #00585A;
 }
-:root[class~="dark"] .text-color {
-  color:gray.300;
+:root[class~="dark"] .hotel-sidebar-color {
+  background-color: #034041;
 }
-.secondary-text-color {
-  color:gray.500; 
+
+.hotel-selected-items {
+  background-color: #009688;
 }
-:root[class~="dark"] .secondary-text-color {
-  color:gray.400;
+:root[class~="dark"] .hotel-selected-items {
+  background-color: #047f73;
+}
+
+.hotel-not-selected-items:hover {
+  background-color: #b2dfdb;
+  color: #000000;
+}
+:root[class~="dark"] .hotel-not-selected-items:hover {
+  background-color: #a0c5c2;
+  color: #000000;
+}
+
+/*HOTEL BUTTONS*/
+.hotel-button-color{
+  background-color: #00585A;
+  color: rgb(245, 244, 244);
+}
+:root[class~="dark"] .hotel-button-color{
+  background-color: #093d39;
+  background-color: #034041;
+  color: rgb(245, 244, 244);
+}
+
+.hotel-sort-button-color {
+  background-color: #b2dfdb;
+  color: #00585A;
+}
+:root[class~="dark"] .hotel-sort-button-color {
+  background-color: #a0c5c2;
+  color: #034041;
+}
+
+.hotel-accent-button{
+   color:  #009688;
+   border-color : #009688;
+}
+:root[class~=dark] .hotel-accent-button{
+   color:  #047f73;
+   border-color : #047f73;
+   color:  #009688;
+   border-color : #009688;
+}
+
+.hotel-change-avatar{
+  color: #009688;
 }
 
 
+
+
+/*ROUTE MANAGER THEME*/
+.route-sidebar-color {
+  background-color: #E84F0B;
+  background-color: #4f2407;
+  background-color: #950d0d;
+  background-color: #37110a;
+  background-color: #432004;
+  background-color: #0b3a1f;
+  background-color: #053345;
+  /* background-color: #BF360C;  */
+  /* background-color: #ce3813;  */
+}
+:root[class~="dark"] .route-sidebar-color {
+  background-color: #DF440D;
+  background-color: #052938;
+  /* background-color: #bf3b13; 
+  background-color: #7b0c0c;  */
+}
+
+.route-selected-items {
+  background-color: #ff6f00;
+  /* background-color: #4f2407;
+  background-color: #ff9d73; */
+  background-color: #FF7043; 
+  background-color: #ff9180 ;
+  background-color: #ff8680 ;
+  background-color: #fe7070 ;
+  background-color: #ff6464 ;
+  background-color: #E84F0B ;
+ 
+}
+:root[class~="dark"] .route-selected-items {
+  background-color: #f57c00;
+  background-color: #ec6a42; 
+  background-color: #e45757 ;
+  background-color: #DF440D ;
+}
+
+.route-not-selected-items:hover {
+  background-color: #ffccbc;
+  /* background-color: #ffc6bc;
+  background-color: #ffbcbc; */
+  color: #000000;
+}
+:root[class~="dark"] .route-not-selected-items:hover {
+  background-color: #efbdae;
+  /* background-color: #efaeae; */
+  color: #000000;
+}
+
+/*TRAIN BUTTONS*/
 .train-button-color {
   background-color: #E84F0B;
+  /* background-color: #053345; */
   /* background-color: #ff6f00f9; */
  
   color: rgb(245, 244, 244);
 }
 :root[class~="dark"] .train-button-color {
   background-color: #DF440D;
+  /* background-color: #053345; */
   /* background-color: #DF440D; */
 
   color: rgb(245, 244, 244);
@@ -129,10 +177,99 @@ body{
 }
 
 .timeline-color {
-  background-color: #E84F0B;
+  background-color: #053345;
   color: rgb(245, 244, 244);
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 :root[class~="dark"] .timeline-color {
-  background-color: #DF440D;
-  color: rgb(245, 244, 244);
+  /* background-color: #052938; */
+  /* color: rgb(245, 244, 244); */
+  background-color: rgb(245, 244, 244);
+  color: #052938;
+  font-weight: bold;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
+.train-change-avatar{
+  color: #DF440D;
+}
+
+
+
+
+
+
+
+/*AIRLINE OWNER THEME*/
+.airline-sidebar-color {
+  background-color: #1976D2;
+}
+:root[class~="dark"] .airline-sidebar-color {
+  background-color: #1565C0;
+}
+
+.airline-selected-items {
+  background-color: #2196F3;
+}
+:root[class~="dark"] .airline-selected-items {
+  background-color: #1E88E5;
+}
+
+.airline-not-selected-items:hover {
+  background-color: #BBDEFB;
+  color: #000000;
+}
+:root[class~="dark"] .airline-not-selected-items:hover {
+  background-color: #90CAF9;
+  color: #000000;
+}
+
+/*DEFAULT THEME (Keeping your original theme as default)*/
+/* .sidebar-color {
+  background-color: #00585A;
+}
+:root[class~="dark"] .sidebar-color {
+  background-color: #034041;
+} */
+
+
+
+
+/* .sidebar-selected-items {
+  background-color: #009688;
+}
+:root[class~="dark"] .sidebar-selected-items {
+  background-color: #047f73;
+}
+
+.sidebar-not-selected-items:hover {
+  background-color: #b2dfdb;
+  color: #000000;
+}
+:root[class~=dark] .sidebar-not-selected-items:hover {
+  background-color: #a0c5c2;
+  color: #000000;
+} */
+
+
+
+
+
+
+/*TEXT*/
+.text-color {
+  color:gray.700; 
+}
+:root[class~="dark"] .text-color {
+  color:gray.300;
+}
+.secondary-text-color {
+  color:gray.500; 
+}
+:root[class~="dark"] .secondary-text-color {
+  color:gray.400;
+}
+

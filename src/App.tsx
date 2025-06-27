@@ -1,23 +1,17 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import AppRoutes from "./routes";
-import SessionTimer from "./components/SessionTimer";
+import SessionTimer from "./components/Navbar/SessionTimer";
 import system from "./theme";
 import { ColorModeProvider } from "./components/ui/color-mode";
-import { StationsProvider } from "./contexts/StationsContext";
-import { TrainsProvider } from "./contexts/TrainsContext";
-import { RoutesProvider } from "./contexts/RoutesContext";
+import { RoleBasedProvider } from "./contexts/RoleBasedProvider";
 
 function App() {
   return (
     <ColorModeProvider>
-      <RoutesProvider>
-        <StationsProvider>
-          <TrainsProvider>
-            <SessionTimer />
-            <AppRoutes />
-          </TrainsProvider>
-        </StationsProvider>
-      </RoutesProvider>
+      <RoleBasedProvider>
+        <SessionTimer />
+        <AppRoutes />
+      </RoleBasedProvider>
     </ColorModeProvider>
   );
 }

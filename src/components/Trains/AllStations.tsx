@@ -63,7 +63,7 @@ const allStations = (props: Props) => {
           rounded="lg"
           height="fit-content"
           w="75%"
-          mt={10}
+          mt={4}
         >
           <Table.Root size="lg" stickyHeader>
             <Table.Header>
@@ -73,17 +73,19 @@ const allStations = (props: Props) => {
                 // _dark={{ bgColor: "#a0c5c2" }}
                 bgColor="#E84F0B"
                 _dark={{ bgColor: "#DF440D" }}
+                // bgColor="#053345"
+                // _dark={{ bgColor: "#053345" }}
               >
-                <Table.ColumnHeader color="rgb(239, 236, 236)" width="12.5%">
+                <Table.ColumnHeader color="#ffccbc" width="12.5%">
                   Station
                 </Table.ColumnHeader>
-                <Table.ColumnHeader color="rgb(239, 236, 236)" width="12.5%">
+                <Table.ColumnHeader color="#ffccbc" width="12.5%">
                   Country
                 </Table.ColumnHeader>
-                <Table.ColumnHeader color="rgb(239, 236, 236)" width="12.5%">
+                <Table.ColumnHeader color="#ffccbc" width="12.5%">
                   City
                 </Table.ColumnHeader>
-                <Table.ColumnHeader color="rgb(239, 236, 236)" width="12.5%">
+                <Table.ColumnHeader color="#ffccbc" width="12.5%">
                   Code
                 </Table.ColumnHeader>
               </Table.Row>

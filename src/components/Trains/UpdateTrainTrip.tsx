@@ -380,7 +380,7 @@ const UpdateTrainTrip = ({ isOpen, onClose, tripId }: Props) => {
                       Cancel
                     </Button>
                   </Dialog.ActionTrigger>
-                  <Button type="submit" className="button-color">
+                  <Button type="submit" className="train-button-color">
                     Update
                   </Button>
                 </Dialog.Footer>

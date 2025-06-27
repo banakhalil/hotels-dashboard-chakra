@@ -7,6 +7,7 @@ interface LoginResponse {
       _id: string;
       // add other user fields as needed
       role: "hotelManager" | "routeManager" | "airlineOwner" | "admin"; // ADDED
+      firstName: string;
     };
   };
 }

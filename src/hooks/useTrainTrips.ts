@@ -29,14 +29,13 @@ interface TrainTripResponse {
 }
 
 //get trip by city
-const useTrainTrips = (keyword?: string) => {
-  const url = keyword
-    ? `/train-trips/managerTrips?city=${keyword}`
-    : `/train-trips/managerTrips`;
+const useTrainTrips = () => {
   return useQuery({
     queryKey: ["traintrips"],
     queryFn: async () => {
-      const response = await axiosInstance.get<TrainTripResponse>(url);
+      const response = await axiosInstance.get<TrainTripResponse>(
+        `/train-trips/managerTrips`
+      );
       return response.data.data.trips;
     },
   });

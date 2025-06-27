@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { isTokenExpired, getUserData } from "@/services/authService";
+import { useNavigate } from "react-router-dom";
 
 //ADDED
 interface User {
   _id: string;
   role: "hotelManager" | "routeManager" | "airlineOwner" | "admin";
+  firstName: string;
 }
 
 interface AuthContextType {
@@ -23,6 +25,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const navigate = useNavigate();
   const [token, setTokenState] = useState<string | null>(() => {
     // Initialize token from localStorage and check expiration
     if (typeof window === "undefined") return null;
@@ -64,7 +67,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.removeItem("userData");
     setTokenState(null);
     setUser(null);
-    window.location.href = "/login";
+    navigate("/login", { replace: true });
   };
 
   // Effect to check token expiration periodically

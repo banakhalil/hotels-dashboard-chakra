@@ -12,9 +12,9 @@ import {
   useBreakpoint,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import Logo from "../assets/react.svg";
-import { ColorModeButton, ColorModeIcon } from "./ui/color-mode";
-import { Search } from "./Search";
+// import Logo from "../assets/react.svg";
+import { ColorModeButton, ColorModeIcon } from "../ui/color-mode";
+import { Search } from "../Search";
 import AvatarNav from "./AvatarNav";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import useMediaQuery from "@/hooks/useMediaQuery";

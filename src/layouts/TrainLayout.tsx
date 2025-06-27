@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { SelectedPage } from "../shared/types";
 import { useBreakpointValue } from "@chakra-ui/react";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/Navbar/NavBar";
 import SideBar, { SideBarItem } from "../components/SideBar";
 import { LayoutDashboard, Settings } from "lucide-react";
 import { GiRailRoad } from "react-icons/gi";
 import { FaRoute } from "react-icons/fa";
-import { MdTrain } from "react-icons/md";
+import { MdOutlineTrain } from "react-icons/md";
 import { HiOutlineTicket } from "react-icons/hi2";
 import { ColorModeProvider } from "../components/ui/color-mode";
 
@@ -44,33 +44,38 @@ const TrainLayout = ({ selectedPage, setSelectedPage }: TrainLayoutProps) => {
           >
             <SideBarItem
               icon={<LayoutDashboard size={20} />}
-              text="Dashboard"
+              text="Train Dashboard"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
+              page={SelectedPage.TrainDashboard}
             />
             <SideBarItem
               icon={<GiRailRoad size={20} />}
               text="Stations"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
+              page={SelectedPage.Stations}
             />
             <SideBarItem
-              icon={<MdTrain size={20} />}
+              icon={<MdOutlineTrain size={25} />}
               text="Trains"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
+              page={SelectedPage.Trains}
             />
             <SideBarItem
               icon={<FaRoute size={20} />}
               text="Routes"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
+              page={SelectedPage.Routes}
             />
             <SideBarItem
               icon={<HiOutlineTicket size={25} />}
-              text="traintrips"
+              text="Train Trips"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
+              page={SelectedPage.Trips}
             />
           </SideBar>
         </div>

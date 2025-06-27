@@ -195,9 +195,9 @@ const ShowRooms = ({ hotelId }: Props) => {
                     variant="outline"
                     size="sm"
                     width="fit-content"
-                    className="sort-button-color"
-                    bgColor="#a2d5cb"
-                    color="#0b4f4a"
+                    className="hotel-sort-button-color"
+                    // bgColor="#a2d5cb"
+                    // color="#0b4f4a"
                     height={10}
                   >
                     <HiSortAscending /> Sort
@@ -224,7 +224,7 @@ const ShowRooms = ({ hotelId }: Props) => {
               <Button
                 // bgColor="rgb(0,54,49)"
                 // bgColor="#372aac"
-                className="button-color"
+                className="hotel-button-color"
                 height={10}
                 onClick={() => setIsOpen(true)}
               >
