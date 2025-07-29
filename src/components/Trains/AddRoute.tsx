@@ -5,15 +5,14 @@ import {
   createListCollection,
   Dialog,
   Field,
-  Input,
   Portal,
   Select,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import React, { useRef, useState, type FormEvent } from "react";
-import useCities from "@/hooks/useCities";
-import { useAddRoute } from "@/hooks/useRoutes";
+import { useState, type FormEvent } from "react";
+import useCities from "@/hooks/Trains/useCities";
+import { useAddRoute } from "@/hooks/Trains/useRoutes";
 import { toaster } from "@/components/ui/toaster";
 
 interface Props {

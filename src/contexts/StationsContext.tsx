@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from "react";
-import type { StationData } from "@/hooks/useStations";
-import useStations from "@/hooks/useStations";
+import type { StationData } from "@/hooks/Trains/useStations";
+import useStations from "@/hooks/Trains/useStations";
 
 interface StationsContextType {
   stations: StationData[] | undefined;

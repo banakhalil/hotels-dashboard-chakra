@@ -5,8 +5,10 @@ import { useContext, createContext, type ReactNode } from "react";
 import { SelectedPage } from "@/shared/types";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { LuTrainTrack } from "react-icons/lu";
 import { BsFillBuildingsFill } from "react-icons/bs";
+import { LuTrainTrack } from "react-icons/lu";
+import { SiEthiopianairlines } from "react-icons/si";
+import { FaRoad } from "react-icons/fa";
 
 interface SidebarContextType {
   expanded: boolean;
@@ -41,6 +43,12 @@ const getRoleBasedClasses = (role: string | undefined) => {
         selectedItem: "airline-selected-items",
         notSelectedItem: "airline-not-selected-items",
       };
+    case "officeManager":
+      return {
+        sidebarColor: "car-sidebar-color",
+        selectedItem: "car-selected-items",
+        notSelectedItem: "car-not-selected-items",
+      };
     default:
       return {
         sidebarColor: "sidebar-color",
@@ -57,19 +65,25 @@ const getRoleBasedTitle = (role: string | undefined) => {
     case "routeManager":
       return "Rail Ninja";
     case "airlineOwner":
-      return "AirlineTransylvania";
+      return "Eurowings";
+    case "officeManager":
+      return "CarVoy";
     default:
       return "Transylvania";
   }
 };
-const getRoleBasedLodo = (role: string | undefined) => {
+const getRoleBasedLogo = (role: string | undefined) => {
   switch (role) {
     case "hotelManager":
       return <BsFillBuildingsFill size={38} color="#a0c5c2" />;
     case "routeManager":
       return <LuTrainTrack size={38} color="#ffccbc" />;
     case "airlineOwner":
-      return "AirlineTransylvania";
+      return <SiEthiopianairlines size={38} color="#a3b3ff" />;
+    case "officeManager":
+      return <FaRoad size={38} color="#a9b3bc" />;
+    case "admin":
+      return "admin";
     default:
       return "Transylvania";
   }
@@ -85,7 +99,7 @@ const SidebarContent = ({
   const { user } = useAuth();
   const themeClasses = getRoleBasedClasses(user?.role);
   const title = getRoleBasedTitle(user?.role);
-  const logo = getRoleBasedLodo(user?.role);
+  const logo = getRoleBasedLogo(user?.role);
   return (
     <>
       <br />

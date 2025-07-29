@@ -15,14 +15,16 @@ import React, { useEffect, useRef, useState, type FormEvent } from "react";
 
 import { toaster } from "@/components/ui/toaster";
 import { useTrainsContext } from "@/contexts/TrainsContext";
-import { useRoutesContext } from "@/contexts/RoutesContext";
-import { useUpdateTrip, useSpecificTrainTrip } from "@/hooks/useTrainTrips";
+import {
+  useUpdateTrip,
+  useSpecificTrainTrip,
+} from "@/hooks/Trains/useTrainTrips";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   tripId: string;
-  tripRoute: string;
+  // tripRoute: string;
   tripTrain: string;
   tripDeparture: string;
   tripPrice: number;
@@ -38,19 +40,19 @@ const UpdateTrainTrip = ({ isOpen, onClose, tripId }: Props) => {
   const { data: specificTrip, isLoading, error } = useSpecificTrainTrip(tripId);
   console.log(specificTrip);
   const { trains } = useTrainsContext();
-  const { routes } = useRoutesContext();
+  // const { routes } = useRoutesContext();
   const [selectedTrain, setSelectedTrain] = useState<string>(
     specificTrip?.train || ""
   );
   //   const [selectedCity, setSelectedCity] = useState<string>("");
-  const [selectedRoute, setSelectedRoute] = useState<string>(
-    specificTrip?.route || ""
-  );
+  // const [selectedRoute, setSelectedRoute] = useState<string>(
+  //   specificTrip?.route || ""
+  // );
 
   useEffect(() => {
     // Update form values when specific room data is loaded
     if (specificTrip) {
-      setSelectedRoute(specificTrip.route);
+      // setSelectedRoute(specificTrip.route);
       setSelectedTrain(specificTrip.train);
       if (priceRef.current) {
         priceRef.current.value = specificTrip.price.toString();
@@ -84,13 +86,13 @@ const UpdateTrainTrip = ({ isOpen, onClose, tripId }: Props) => {
       })) ?? [],
   });
 
-  const routesCollection = createListCollection({
-    items:
-      routes?.map((route) => ({
-        label: route.name,
-        value: route._id,
-      })) ?? [],
-  });
+  // const routesCollection = createListCollection({
+  //   items:
+  //     routes?.map((route) => ({
+  //       label: route.name,
+  //       value: route._id,
+  //     })) ?? [],
+  // });
 
   //   function formatDateTimeToISO(dateString:string, timeString = "00:00") {
   //     const [day, month, year] = dateString.split('-');
@@ -105,7 +107,7 @@ const UpdateTrainTrip = ({ isOpen, onClose, tripId }: Props) => {
 
     if (
       !selectedTrain ||
-      !selectedRoute ||
+      // !selectedRoute ||
       !priceRef ||
       !dateRef ||
       !timeRef ||
@@ -123,7 +125,7 @@ const UpdateTrainTrip = ({ isOpen, onClose, tripId }: Props) => {
     const formData = new FormData(e.currentTarget as HTMLFormElement);
     try {
       const tripData = {
-        route: selectedRoute,
+        // route: selectedRoute,
         train: selectedTrain,
         price: parseInt(formData.get("price")?.toString() || "0"),
         departureTime: `${formData.get("date")?.toString()}T${formData.get(
@@ -144,7 +146,7 @@ const UpdateTrainTrip = ({ isOpen, onClose, tripId }: Props) => {
 
       // Reset form
       setSelectedTrain("");
-      setSelectedRoute("");
+      // setSelectedRoute("");
 
       onClose();
     } catch (error) {
@@ -189,11 +191,12 @@ const UpdateTrainTrip = ({ isOpen, onClose, tripId }: Props) => {
           <Dialog.Positioner>
             <Dialog.Content>
               <Dialog.Header className="drawer">
-                <Dialog.Title>Add New Trip</Dialog.Title>
+                <Dialog.Title>Update Trip</Dialog.Title>
               </Dialog.Header>
               <Dialog.Body pb="4" className="drawer">
                 <Text color="red.500">
-                  Error loading trip. Please try again.
+                  {error.message}
+                  {/* Error loading trip. Please try again. */}
                 </Text>
               </Dialog.Body>
             </Dialog.Content>
@@ -210,12 +213,12 @@ const UpdateTrainTrip = ({ isOpen, onClose, tripId }: Props) => {
         <Dialog.Positioner>
           <Dialog.Content>
             <Dialog.Header className="drawer">
-              <Dialog.Title>Add New Trip</Dialog.Title>
+              <Dialog.Title>Edit Trip</Dialog.Title>
             </Dialog.Header>
             <Dialog.Body pb="4" className="drawer">
               <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <Stack gap="4">
-                  <Field.Root>
+                  {/* <Field.Root>
                     <Field.Label>Route</Field.Label>
                     <Box position="relative" zIndex="dropdown">
                       <Select.Root
@@ -254,7 +257,7 @@ const UpdateTrainTrip = ({ isOpen, onClose, tripId }: Props) => {
                         </Select.Positioner>
                       </Select.Root>
                     </Box>
-                  </Field.Root>
+                  </Field.Root> */}
                   <Field.Root>
                     <Field.Label>Train</Field.Label>
                     <Box position="relative" zIndex="docked">

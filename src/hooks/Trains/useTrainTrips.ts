@@ -50,6 +50,12 @@ interface AddTripData {
   departureTime: string;
   stopDuration: number;
 }
+interface UpdateTripData {
+  train: string;
+  price: number;
+  departureTime: string;
+  stopDuration: number;
+}
 
 //add trip
 export const useAddTrip = () => {
@@ -70,8 +76,8 @@ export const useAddTrip = () => {
 
 interface SpecificTripData {
   data: {
-    traintrip: {
-      route: string;
+    trainTrip: {
+      // route: string;
       train: string;
       price: number;
       departureTime: string;
@@ -88,7 +94,7 @@ export const useSpecificTrainTrip = (tripId: string) => {
       const response = await axiosInstance.get<SpecificTripData>(
         `/train-trips/${tripId}`
       );
-      return response.data.data.traintrip;
+      return response.data.data.trainTrip;
     },
   });
 };
@@ -98,7 +104,7 @@ export const useUpdateTrip = (tripId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (tripData: AddTripData) => {
+    mutationFn: async (tripData: UpdateTripData) => {
       const response = await axiosInstance.put(
         `/train-trips/${tripId}`,
         tripData

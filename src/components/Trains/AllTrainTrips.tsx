@@ -1,10 +1,9 @@
-import useTrainTrips from "@/hooks/useTrainTrips";
+import useTrainTrips from "@/hooks/Trains/useTrainTrips";
 import React, { useState } from "react";
 import {
   Text,
   Separator,
   Card,
-  Heading,
   Flex,
   VStack,
   HStack,
@@ -13,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import { MdOutlineTrain } from "react-icons/md";
 import { FaCircle } from "react-icons/fa";
-import { NotImmediateSearch } from "../Search";
 import AddTrainTrip from "./AddTrainTrip";
 import UpdateTrainTrip from "./UpdateTrainTrip";
 import { AllTrainsSkeleton } from "./TrainsSkeletons";
@@ -148,7 +146,7 @@ const TrainTrips = (props: Props) => {
         position="sticky"
         top={0}
         zIndex={1}
-        bg="rgb(239, 236, 236)"
+        bg="rgb(230, 230, 230)"
         _dark={{
           bg: "#222222",
         }}
@@ -327,7 +325,7 @@ const TrainTrips = (props: Props) => {
             setSelectedTrip("");
           }}
           tripId={selectedTrip}
-          tripRoute={""}
+          // tripRoute={""}
           tripTrain={""}
           tripDeparture={""}
           tripPrice={0}

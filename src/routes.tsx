@@ -16,6 +16,21 @@ import { SelectedPage } from "./shared/types";
 import HotelLayout from "./layouts/HotelLayout";
 import TrainLayout from "./layouts/TrainLayout";
 import PageSection from "./components/PageSection";
+import AirplaneLayout from "./layouts/AirplaneLayout";
+import AirplaneDashboard from "./components/Airplanes/AirplaneDashboard";
+import Airline from "./components/Airplanes/Airline";
+import Airplanes from "./components/Airplanes/Airplanes";
+import Flights from "./components/Airplanes/Flights";
+import CarsDashboard from "./components/Cars/CarsDashboard";
+import CarsLayout from "./layouts/CarsLayout";
+import Office from "./components/Cars/Office";
+import Cars from "./components/Cars/Cars";
+import CarBookings from "./components/Cars/CarBookings";
+import TrainDashboard from "./components/Trains/TrainDashboard";
+import AirplaneBookings from "./components/Airplanes/AirplaneBookings";
+// import CarOffice from "./components/Cars/CarOffice";
+// import Cars from "./components/Cars/Cars";
+// import CarBookings from "./components/Cars/CarBookings";
 
 const AppRoutes = () => {
   const { user } = useAuth();
@@ -33,6 +48,8 @@ const AppRoutes = () => {
         return SelectedPage.TrainDashboard;
       case "airlineOwner":
         return SelectedPage.AirlineDashboard;
+      case "officeManager":
+        return SelectedPage.CarsDashboard;
       case "admin":
         return SelectedPage.AdminDashboard;
       default:
@@ -72,6 +89,33 @@ const AppRoutes = () => {
         break;
       case SelectedPage.Trips:
         targetPath = "/train/traintrips";
+        break;
+      case SelectedPage.AirlineDashboard:
+        targetPath = "/airline";
+        break;
+      case SelectedPage.Airlines:
+        targetPath = "/airline/airlines";
+        break;
+      case SelectedPage.Airplanes:
+        targetPath = "/airline/airplanes";
+        break;
+      case SelectedPage.Flights:
+        targetPath = "/airline/flights";
+        break;
+      case SelectedPage.AirlineBookings:
+        targetPath = "/airline/airlineBookings";
+        break;
+      case SelectedPage.CarsDashboard:
+        targetPath = "/carOffice";
+        break;
+      case SelectedPage.Office:
+        targetPath = "/carOffice/office";
+        break;
+      case SelectedPage.Cars:
+        targetPath = "/carOffice/cars";
+        break;
+      case SelectedPage.CarBookings:
+        targetPath = "/carOffice/carBookings";
         break;
     }
 
@@ -164,7 +208,7 @@ const AppRoutes = () => {
                 id={SelectedPage.TrainDashboard}
                 setSelectedPage={setSelectedPage}
               >
-                <Dashboard setSelectedPage={setSelectedPage} />
+                <TrainDashboard setSelectedPage={setSelectedPage} />
               </PageSection>
             }
           />
@@ -215,6 +259,114 @@ const AppRoutes = () => {
         </Route>
       </Route>
 
+      {/* Airplane Routes */}
+      <Route element={<ProtectedRoute allowedRoles={["airlineOwner"]} />}>
+        <Route
+          path="/airline/*"
+          element={
+            <AirplaneLayout
+              selectedPage={selectedPage}
+              setSelectedPage={setSelectedPage}
+            />
+          }
+        >
+          <Route
+            index
+            element={
+              <PageSection
+                id={SelectedPage.AirlineDashboard}
+                setSelectedPage={setSelectedPage}
+              >
+                <AirplaneDashboard setSelectedPage={setSelectedPage} />
+              </PageSection>
+            }
+          />
+          <Route
+            path="airlines"
+            element={
+              <PageSection
+                id={SelectedPage.Airlines}
+                setSelectedPage={setSelectedPage}
+              >
+                <Airline setSelectedPage={setSelectedPage} />
+              </PageSection>
+            }
+          />
+          <Route
+            path="airplanes"
+            element={<Airplanes setSelectedPage={setSelectedPage} />}
+          />
+          <Route
+            path="flights"
+            element={<Flights setSelectedPage={setSelectedPage} />}
+          />
+          <Route
+            path="airlineBookings"
+            element={<AirplaneBookings setSelectedPage={setSelectedPage} />}
+          />
+        </Route>
+      </Route>
+
+      {/* Car Routes */}
+      <Route element={<ProtectedRoute allowedRoles={["officeManager"]} />}>
+        <Route
+          path="/carOffice/*"
+          element={
+            <CarsLayout
+              selectedPage={selectedPage}
+              setSelectedPage={setSelectedPage}
+            />
+          }
+        >
+          <Route
+            index
+            element={
+              <PageSection
+                id={SelectedPage.CarsDashboard}
+                setSelectedPage={setSelectedPage}
+              >
+                <CarsDashboard setSelectedPage={setSelectedPage} />
+              </PageSection>
+            }
+          />
+          <Route
+            path="office"
+            element={
+              <PageSection
+                id={SelectedPage.Office}
+                setSelectedPage={setSelectedPage}
+              >
+                <Office setSelectedPage={setSelectedPage} />
+              </PageSection>
+            }
+          />
+
+          <Route
+            path="cars"
+            element={
+              <PageSection
+                id={SelectedPage.Cars}
+                setSelectedPage={setSelectedPage}
+              >
+                <Cars setSelectedPage={setSelectedPage} />
+              </PageSection>
+            }
+          />
+
+          <Route
+            path="carBookings"
+            element={
+              <PageSection
+                id={SelectedPage.CarBookings}
+                setSelectedPage={setSelectedPage}
+              >
+                <CarBookings setSelectedPage={setSelectedPage} />
+              </PageSection>
+            }
+          />
+        </Route>
+      </Route>
+
       {/* Default redirect based on role */}
       <Route path="/" element={<RoleBasedRedirect />} />
       <Route path="*" element={<RoleBasedRedirect />} />
@@ -236,6 +388,8 @@ const RoleBasedRedirect = () => {
       return <Navigate to="/train" replace />;
     case "airlineOwner":
       return <Navigate to="/airline" replace />;
+    case "officeManager":
+      return <Navigate to="/carOffice" replace />;
     case "admin":
       return <Navigate to="/admin" replace />;
     default:

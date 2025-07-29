@@ -1,4 +1,3 @@
-import { useStationsContext } from "@/contexts/StationsContext";
 import {
   Box,
   Button,
@@ -9,15 +8,12 @@ import {
   Portal,
   Select,
   Stack,
-  Text,
 } from "@chakra-ui/react";
-import React, { useRef, useState, type FormEvent } from "react";
-import useCities from "@/hooks/useCities";
-import { useAddRoute } from "@/hooks/useRoutes";
+import { useRef, useState, type FormEvent } from "react";
 import { toaster } from "@/components/ui/toaster";
 import { useTrainsContext } from "@/contexts/TrainsContext";
 import { useRoutesContext } from "@/contexts/RoutesContext";
-import { useAddTrip } from "@/hooks/useTrainTrips";
+import { useAddTrip } from "@/hooks/Trains/useTrainTrips";
 
 interface Props {
   isOpen: boolean;

@@ -23,7 +23,7 @@ import useHotels, {
   useSpecificHotel,
   useUpdateHotel,
   type RoomData,
-} from "@/hooks/useHotels";
+} from "@/hooks/Hotels/useHotels";
 import { LuArrowRight, LuCircleCheck } from "react-icons/lu";
 import { HiSortAscending } from "react-icons/hi";
 import { FaStar } from "react-icons/fa";
@@ -75,27 +75,42 @@ export const CardHotels = ({
   const [keyWord, setKeyWord] = useState("");
   const [hotelIdClicked, setHotelIdClicked] = useState("");
   const { data: hotels, isLoading, error } = useHotels(value, keyWord);
-
-  // const [isScrolled, setIsScrolled] = useState(false);
   const flexRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
-  // useEffect(() => {
-  //   const handleScroll = (e: Event) => {
-  //     const target = e.target as HTMLDivElement;
-  //     setIsScrolled(target.scrollTop > 10);
-  //   };
+  const [objectUrls, setObjectUrls] = useState<string[]>([]);
 
-  //   const flexElement = flexRef.current;
-  //   if (flexElement) {
-  //     flexElement.addEventListener("scroll", handleScroll);
-  //   }
+  // Create object URLs when hotels data changes
+  useEffect(() => {
+    const newUrls: string[] = [];
+    hotels?.forEach((hotel) => {
+      if (hotel.coverImage instanceof File) {
+        newUrls.push(URL.createObjectURL(hotel.coverImage));
+      }
+    });
+    setObjectUrls((prev) => {
+      // Cleanup old URLs
+      prev.forEach((url) => URL.revokeObjectURL(url));
+      return newUrls;
+    });
+  }, [hotels]);
 
-  //   return () => {
-  //     if (flexElement) {
-  //       flexElement.removeEventListener("scroll", handleScroll);
-  //     }
-  //   };
-  // }, []);
+  // Cleanup object URLs when component unmounts
+  useEffect(() => {
+    return () => {
+      objectUrls.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, [objectUrls]);
+
+  // Cleanup object URLs when component unmounts or hotels data changes
+  useEffect(() => {
+    return () => {
+      hotels?.forEach((hotel) => {
+        if (hotel.coverImage instanceof File) {
+          URL.revokeObjectURL(URL.createObjectURL(hotel.coverImage));
+        }
+      });
+    };
+  }, [hotels]);
 
   if (error)
     return (
@@ -104,7 +119,7 @@ export const CardHotels = ({
         fontWeight="bold"
         color="gray.500"
         marginTop="auto"
-        margin="auto"
+        marginX="auto"
         marginY={6}
       >
         Error loading hotels
@@ -280,7 +295,7 @@ export const CardHotels = ({
               src={
                 typeof hotel.coverImage === "string"
                   ? hotel.coverImage
-                  : URL.createObjectURL(hotel.coverImage)
+                  : objectUrls[hotels.indexOf(hotel)] || ""
               }
               alt={hotel.name}
             />
@@ -409,6 +424,17 @@ export const CardHotelsDetails = ({ hotelId, onClose }: HotelDetailsProps) => {
   const { data: specificHotel, isLoading, error } = useSpecificHotel(hotelId);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const { mutate, isPending } = useDeleteHotel();
+  const [objectUrl, setObjectUrl] = useState<string>("");
+
+  // Create object URL when hotel data changes
+  useEffect(() => {
+    if (specificHotel?.coverImage instanceof File) {
+      const url = URL.createObjectURL(specificHotel.coverImage);
+      setObjectUrl(url);
+      return () => URL.revokeObjectURL(url);
+    }
+  }, [specificHotel]);
+
   if (error)
     return (
       <Text
@@ -491,12 +517,12 @@ export const CardHotelsDetails = ({ hotelId, onClose }: HotelDetailsProps) => {
       </Card.Title>
       <Image
         objectFit="cover"
-        w={{ base: "100%", md: "auto" }}
-        h={{ base: "280px", md: "auto" }}
+        w={{ base: "100%", md: "300px" }}
+        h={{ base: "280px", md: "300px" }}
         src={
           typeof specificHotel.coverImage === "string"
             ? specificHotel.coverImage
-            : URL.createObjectURL(specificHotel.coverImage)
+            : objectUrl
         }
         // src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
         alt={specificHotel.name}

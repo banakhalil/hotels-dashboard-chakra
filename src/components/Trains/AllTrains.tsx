@@ -1,14 +1,21 @@
-import { Badge, Flex, Table, Text } from "@chakra-ui/react";
-import React from "react";
-import useTrains from "@/hooks/useTrains";
+import {
+  Badge,
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Table,
+  Text,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
 import { useTrainsContext } from "@/contexts/TrainsContext";
+// import AddTrain from "./AddTrain";
 
 type Props = {};
 
 const allTrains = (props: Props) => {
-  // const { data: trains, isLoading, error } = useTrains();
   const { trains, isLoading, error } = useTrainsContext();
-
+  // const [isAddOpen, setIsAddOpen] = useState(false);
   if (isLoading)
     return (
       <Text
@@ -52,6 +59,18 @@ const allTrains = (props: Props) => {
     );
   return (
     <>
+      {/* <HStack mx={{ base: 4, md: 24 }} justifyContent="space-between" my={4}>
+        <Box width="30% "></Box>
+        <Button
+          className="train-button-color"
+          onClick={() => setIsAddOpen(true)}
+        >
+          Add Train
+        </Button>
+      </HStack>
+      {isAddOpen && (
+        <AddTrain isOpen={isAddOpen} onClose={() => setIsAddOpen(false)} />
+      )} */}
       <Flex
         direction="column"
         w="full"

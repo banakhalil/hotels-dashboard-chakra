@@ -1,4 +1,4 @@
-import useRoutes from "@/hooks/useRoutes";
+import useRoutes from "@/hooks/Trains/useRoutes";
 import {
   Avatar,
   Button,
@@ -12,7 +12,7 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
-import type { Route } from "@/hooks/useRoutes";
+import type { Route } from "@/hooks/Trains/useRoutes";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";

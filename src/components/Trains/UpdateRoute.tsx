@@ -12,12 +12,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState, type FormEvent } from "react";
-import useCities from "@/hooks/useCities";
+import useCities from "@/hooks/Trains/useCities";
 import {
   type StationInRoute,
   useSpecificRoute,
   useUpdateRoute,
-} from "@/hooks/useRoutes";
+} from "@/hooks/Trains/useRoutes";
 import { toaster } from "@/components/ui/toaster";
 
 interface Props {

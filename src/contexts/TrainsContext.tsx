@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react";
-import useTrains, { type TrainData } from "@/hooks/useTrains";
+import useTrains, { type TrainData } from "@/hooks/Trains/useTrains";
 
 interface TrainsContextType {
   trains: TrainData[] | undefined;

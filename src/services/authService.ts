@@ -6,7 +6,12 @@ interface LoginResponse {
     user: {
       _id: string;
       // add other user fields as needed
-      role: "hotelManager" | "routeManager" | "airlineOwner" | "admin"; // ADDED
+      role:
+        | "hotelManager"
+        | "routeManager"
+        | "airlineOwner"
+        | "officeManager"
+        | "admin"; // ADDED
       firstName: string;
     };
   };

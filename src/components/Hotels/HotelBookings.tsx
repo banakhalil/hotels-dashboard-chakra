@@ -6,12 +6,12 @@ import {
   Menu,
   Portal,
   Skeleton,
-  SkeletonText,
+  Stack,
   Table,
   Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useBookings } from "@/hooks/useBookings";
+import { useBookings } from "@/hooks/Hotels/useBookings";
 import { Search } from "../Search";
 import { HiSortAscending } from "react-icons/hi";
 
@@ -182,16 +182,16 @@ const HotelBookings = (props: Props) => {
                   Room Type
                 </Table.ColumnHeader>
                 <Table.ColumnHeader color="#b2dfdb" width="12.5%">
-                  Check In
+                  Check In - Check Out
                 </Table.ColumnHeader>
-                <Table.ColumnHeader color="#b2dfdb" width="12.5%">
+                {/* <Table.ColumnHeader color="#b2dfdb" width="12.5%">
                   Check Out
-                </Table.ColumnHeader>
+                </Table.ColumnHeader> */}
                 <Table.ColumnHeader color="#b2dfdb" width="12.5%">
                   Price
                 </Table.ColumnHeader>
                 <Table.ColumnHeader color="#b2dfdb" width="12.5%">
-                  Status
+                  Payment
                 </Table.ColumnHeader>
               </Table.Row>
             </Table.Header>
@@ -200,7 +200,18 @@ const HotelBookings = (props: Props) => {
               {bookings.map((booking) => (
                 <Table.Row key={booking._id} className="card ">
                   <Table.Cell textAlign="start" className="border-color">
-                    {booking.user.firstName} {booking.user.lastName}
+                    <Stack>
+                      <HStack>
+                        {booking.user.firstName} {booking.user.lastName}
+                      </HStack>
+                      <Text
+                        fontSize="sm"
+                        color="gray.700"
+                        _dark={{ color: "gray.300" }}
+                      >
+                        {booking.user.email}
+                      </Text>
+                    </Stack>
                   </Table.Cell>
                   <Table.Cell textAlign="start" className="border-color">
                     {booking.hotel.name}
@@ -212,25 +223,31 @@ const HotelBookings = (props: Props) => {
                     {booking.room.roomType}
                   </Table.Cell>
                   <Table.Cell textAlign="start" className="border-color">
-                    {booking.checkInDate.substring(0, 10)}
-                  </Table.Cell>
-                  <Table.Cell textAlign="start" className="border-color">
+                    {booking.checkInDate.substring(0, 10)} -{" "}
                     {booking.checkOutDate.substring(0, 10)}
                   </Table.Cell>
+                  {/* <Table.Cell textAlign="start" className="border-color">
+                    {booking.checkOutDate.substring(0, 10)}
+                  </Table.Cell> */}
                   <Table.Cell textAlign="start" className="border-color">
                     $ {booking.totalPrice}
                   </Table.Cell>
                   <Table.Cell textAlign="start" className="border-color">
                     <Badge
+                      size="md"
                       colorPalette={
-                        booking.status === "pending"
+                        booking.status === "pending_payment"
                           ? "yellow"
-                          : booking.status === "confirmed"
+                          : booking.status === "paid"
                           ? "green"
-                          : "gray"
+                          : "red"
                       }
                     >
-                      {booking.status}
+                      {booking.status === "pending_payment"
+                        ? "Pending"
+                        : booking.status === "paid"
+                        ? "Paid"
+                        : "Failed"}
                     </Badge>
                   </Table.Cell>
                 </Table.Row>

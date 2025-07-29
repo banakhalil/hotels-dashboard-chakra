@@ -5,7 +5,12 @@ import { useNavigate } from "react-router-dom";
 //ADDED
 interface User {
   _id: string;
-  role: "hotelManager" | "routeManager" | "airlineOwner" | "admin";
+  role:
+    | "hotelManager"
+    | "routeManager"
+    | "airlineOwner"
+    | "officeManager"
+    | "admin";
   firstName: string;
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import useHotels from "@/hooks/useHotels";
+import useHotels from "@/hooks/Hotels/useHotels";
 import {
   Button,
   HStack,
@@ -53,90 +53,6 @@ const ShowRooms = ({ hotelId }: Props) => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
-  // if (hotelId !== null) {
-  //   return (
-  //     <>
-  //       <HStack paddingX={14} paddingY={4} gap={8} justify="space-between">
-  //         <Select.Root
-  //           collection={hotelCollection}
-  //           size="sm"
-  //           width="320px"
-  //           defaultValue={[hotelId]}
-  //           // onValueChange={(v) => {
-  //           //   // Take the first item if it's an array, or use the value directly
-  //           //   const value = Array.isArray(v.value) ? v.value[0] : v.value;
-  //           //   console.log(value);
-  //           //   setSelectedHotel(hotelId);
-  //           // }}
-  //           onValueChange={(v) => {
-  //             console.log(v, v.value[0]);
-  //             setSelectedHotel(v.value[0]);
-  //           }}
-  //         >
-  //           {/* <Select.HiddenSelect /> */}
-
-  //           {/* <Select.Label>Select Hotel</Select.Label> */}
-  //           <Select.Control>
-  //             <Select.Trigger>
-  //               <Select.ValueText placeholder="Select a hotel to view rooms" />
-  //             </Select.Trigger>
-  //             <Select.IndicatorGroup>
-  //               <Select.Indicator />
-  //             </Select.IndicatorGroup>
-  //           </Select.Control>
-  //           <Portal>
-  //             <Select.Positioner>
-  //               <Select.Content>
-  //                 {hotelCollection.items.map((hotel) => (
-  //                   <Select.Item item={hotel} key={hotel.value}>
-  //                     {hotel.label}
-  //                     <Select.ItemIndicator />
-  //                   </Select.Item>
-  //                 ))}
-  //               </Select.Content>
-  //             </Select.Positioner>
-  //           </Portal>
-  //         </Select.Root>
-  //         <HStack>
-  //           <Menu.Root>
-  //             <Menu.Trigger asChild>
-  //               <Button variant="outline" size="sm" width="fit-content">
-  //                 <HiSortAscending /> Sort
-  //               </Button>
-  //             </Menu.Trigger>
-  //             <Portal>
-  //               <Menu.Positioner>
-  //                 <Menu.Content minW="10rem">
-  //                   <Menu.RadioItemGroup
-  //                     value={value}
-  //                     onValueChange={(e) => setValue(e.value)}
-  //                   >
-  //                     {items.map((item) => (
-  //                       <Menu.RadioItem key={item.value} value={item.value}>
-  //                         {item.label}
-  //                         <Menu.ItemIndicator />
-  //                       </Menu.RadioItem>
-  //                     ))}
-  //                   </Menu.RadioItemGroup>
-  //                 </Menu.Content>
-  //               </Menu.Positioner>
-  //             </Portal>
-  //           </Menu.Root>
-  //           <Button bgColor="firebrick" onClick={() => setIsOpen(true)}>
-  //             Add Room
-  //           </Button>
-  //         </HStack>
-  //         <CreateRoom
-  //           isOpen={isOpen}
-  //           onClose={() => setIsOpen(false)}
-  //           hotelId={hotelId}
-  //         />
-  //       </HStack>
-  //       <Rooms hotelId={hotelId} sortValue={value} />;
-  //     </>
-  //   );
-  // }
 
   return (
     <>

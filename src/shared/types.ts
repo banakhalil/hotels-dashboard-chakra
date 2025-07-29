@@ -11,5 +11,15 @@ export enum SelectedPage {
   Trips = "train trips",
 
   AirlineDashboard = "airline dashboard",
+  Airlines = "airlines",
+  Airplanes = "airplanes",
+  Flights = "flights",
+  AirlineBookings = "airline bookings",
+
+  CarsDashboard = "cars dashboard",
+  Office = "office",
+  Cars = "cars",
+  CarBookings = "car bookings",
+
   AdminDashboard = "admin dashboard",
 }

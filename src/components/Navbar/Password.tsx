@@ -24,6 +24,8 @@ const getRoleBasedButtonClass = (role: string) => {
       return "train-button-color";
     case "airlineOwner":
       return "airline-button-color";
+    case "officeManager":
+      return "car-button-color";
     default:
       return "button-color";
   }

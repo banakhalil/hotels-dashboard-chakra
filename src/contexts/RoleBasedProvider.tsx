@@ -3,6 +3,7 @@ import { useAuth } from "./AuthContext";
 import { TrainsProvider } from "./TrainsContext";
 import { StationsProvider } from "./StationsContext";
 import { RoutesProvider } from "./RoutesContext";
+import { AirlinesProvider } from "./AirlinesContext";
 
 interface RoleBasedProviderProps {
   children: ReactNode;
@@ -23,6 +24,10 @@ const HotelManagerProviders = ({ children }: { children: ReactNode }) => (
 
 const AirlineOwnerProviders = ({ children }: { children: ReactNode }) => (
   // Add airline-related providers here when they're created
+  <AirlinesProvider>{children}</AirlinesProvider>
+);
+const OfficeManagerProviders = ({ children }: { children: ReactNode }) => (
+  // Add hotel-related providers here when they're created
   <>{children}</>
 );
 
@@ -52,6 +57,8 @@ export const RoleBasedProvider = ({ children }: RoleBasedProviderProps) => {
       return <HotelManagerProviders>{children}</HotelManagerProviders>;
     case "airlineOwner":
       return <AirlineOwnerProviders>{children}</AirlineOwnerProviders>;
+    case "officeManager":
+      return <OfficeManagerProviders>{children}</OfficeManagerProviders>;
     case "admin":
       return <AdminProviders>{children}</AdminProviders>;
     default:

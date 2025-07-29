@@ -44,6 +44,8 @@ const getRoleBasedButtonClass = (role: string) => {
       return "train-button-color";
     case "airlineOwner":
       return "airline-button-color";
+    case "officeManager":
+      return "car-button-color";
     default:
       return "button-color";
   }
@@ -57,6 +59,8 @@ const getRoleBasedChangeAvatarClass = (role: string) => {
       return "train-change-avatar";
     case "airlineOwner":
       return "airline-change-avatar";
+    case "officeManager":
+      return "car-change-avatar";
     default:
       return "change-avatar";
   }

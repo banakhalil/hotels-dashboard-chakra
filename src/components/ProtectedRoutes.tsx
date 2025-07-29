@@ -3,7 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 interface ProtectedRouteProps {
   allowedRoles?: Array<
-    "hotelManager" | "routeManager" | "airlineOwner" | "admin"
+    "hotelManager" | "routeManager" | "airlineOwner" | "officeManager" | "admin"
   >;
   redirectPath?: string;
 }
