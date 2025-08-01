@@ -81,7 +81,6 @@ const HotelBookings = (props: Props) => {
     { label: "Highest Price", value: "?sort=-totalPrice" },
     { label: "Lowest Price", value: "?sort=totalPrice" },
     { label: "Check In", value: "?sort=checkInDate" },
-    { label: "Check Out", value: "?sort=checkOutDate" },
     { label: "Status", value: "?sort=status" },
   ];
   if (!bookings?.length)
@@ -118,7 +117,7 @@ const HotelBookings = (props: Props) => {
         mt={2}
         mb={8}
       >
-        <HStack justifyContent="space-between" w="75%" my={6}>
+        <HStack justifyContent="space-between" w="80%" my={6}>
           <Search keyWord={keyWord} setKeyWord={setKeyWord} />
           <Menu.Root>
             <Menu.Trigger asChild>
@@ -158,7 +157,7 @@ const HotelBookings = (props: Props) => {
           borderWidth="0.5px"
           rounded="lg"
           height="fit-content"
-          w="75%"
+          w="80%"
         >
           <Table.Root size="lg" stickyHeader>
             <Table.Header>
@@ -192,6 +191,9 @@ const HotelBookings = (props: Props) => {
                 </Table.ColumnHeader>
                 <Table.ColumnHeader color="#b2dfdb" width="12.5%">
                   Payment
+                </Table.ColumnHeader>
+                <Table.ColumnHeader color="#b2dfdb" width="12.5%">
+                  Status
                 </Table.ColumnHeader>
               </Table.Row>
             </Table.Header>
@@ -236,18 +238,36 @@ const HotelBookings = (props: Props) => {
                     <Badge
                       size="md"
                       colorPalette={
-                        booking.status === "pending_payment"
+                        booking.paymentStatus === "pending_payment"
                           ? "yellow"
-                          : booking.status === "paid"
+                          : booking.paymentStatus === "paid"
                           ? "green"
                           : "red"
                       }
                     >
-                      {booking.status === "pending_payment"
+                      {booking.paymentStatus === "pending_payment"
                         ? "Pending"
-                        : booking.status === "paid"
+                        : booking.paymentStatus === "paid"
                         ? "Paid"
                         : "Failed"}
+                    </Badge>
+                  </Table.Cell>
+                  <Table.Cell textAlign="start" className="border-color">
+                    <Badge
+                      size="md"
+                      colorPalette={
+                        booking.status === "active"
+                          ? "green"
+                          : booking.status === "expired"
+                          ? "blue"
+                          : "gray"
+                      }
+                    >
+                      {booking.status === "active"
+                        ? "Active"
+                        : booking.status === "expired"
+                        ? "Expired"
+                        : "Cancelled"}
                     </Badge>
                   </Table.Cell>
                 </Table.Row>

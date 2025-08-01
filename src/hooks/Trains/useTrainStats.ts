@@ -9,7 +9,7 @@ interface TrainStats {
       change: number;
       trend: string;
     };
-    activeTrips: 0;
+    activeTrips: number;
     cancelledTrips: {
       current: number;
       previous: number;

@@ -22,6 +22,7 @@ interface BookingData {
   checkOutDate: string;
   totalPrice: number;
   status: string;
+  paymentStatus: string;
 }
 
 interface AllBookings {

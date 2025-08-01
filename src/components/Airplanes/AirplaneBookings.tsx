@@ -143,6 +143,13 @@ const CarBookings = ({ setSelectedPage }: Props) => {
                 >
                   Payment
                 </Table.ColumnHeader>
+                <Table.ColumnHeader
+                  color="#b6c2ff"
+                  _dark={{ color: "#25225f" }}
+                  width="12.5%"
+                >
+                  Status
+                </Table.ColumnHeader>
               </Table.Row>
             </Table.Header>
 
@@ -213,27 +220,24 @@ const CarBookings = ({ setSelectedPage }: Props) => {
                     </Badge>
                   </Table.Cell>
 
-                  {/* <Table.Cell textAlign="start" className="border-color">
+                  <Table.Cell textAlign="start" className="border-color">
                     <Badge
                       size="md"
                       colorPalette={
                         booking.status === "active"
                           ? "green"
                           : booking.status === "expired"
-                          ? "red"
-                          : 
-                           "gray"
+                          ? "blue"
+                          : "gray"
                       }
                     >
-                      {booking.status === "pending"
-                        ? "Pending"
-                        : booking.status === "confirmed"
-                        ? "Confirmed"
-                        : booking.status === "cancelled"
-                        ? "Cancelled"
-                        : "Completed"}
+                      {booking.status === "active"
+                        ? "Active"
+                        : booking.status === "expired"
+                        ? "Expired"
+                        : "Cancelled"}
                     </Badge>
-                  </Table.Cell> */}
+                  </Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>

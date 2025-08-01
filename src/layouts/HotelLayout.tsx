@@ -52,14 +52,14 @@ const HotelLayout = ({ selectedPage, setSelectedPage }: HotelLayoutProps) => {
               page={SelectedPage.HotelDashboard}
             />
             <SideBarItem
-              icon={<LiaHotelSolid size={20} />}
+              icon={<LiaHotelSolid size={24} />}
               text="Hotels"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
               page={SelectedPage.Hotels}
             />
             <SideBarItem
-              icon={<MdOutlineBedroomParent size={20} />}
+              icon={<MdOutlineBedroomParent size={22} />}
               text="Rooms"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}

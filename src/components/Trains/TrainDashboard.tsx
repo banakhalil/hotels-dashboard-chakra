@@ -119,7 +119,7 @@ const TrainDashboard = ({ setSelectedPage }: Props) => {
           </GridItem>
           <GridItem colSpan={1}>
             <CardRevenue
-              title="Canceled Trips"
+              title="Cancelled Trips"
               value={stats?.cancelledTrips.current || "0"}
               percentageChange={stats?.cancelledTrips.change || 0}
               icon={

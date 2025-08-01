@@ -262,7 +262,7 @@ export const CardHotels = ({
             justifyContent="start"
             width={{ base: "sm", md: "95%" }}
             maxW="95%"
-            minH={{ base: "auto", md: "fit-content" }}
+            minH={isDetailsOpen ? { md: "fit-content" } : { md: "250px" }}
             onClick={() => {
               onClick(hotel._id as string);
               setHotelIdClicked(hotel._id as string);
@@ -517,7 +517,7 @@ export const CardHotelsDetails = ({ hotelId, onClose }: HotelDetailsProps) => {
       </Card.Title>
       <Image
         objectFit="cover"
-        w={{ base: "100%", md: "300px" }}
+        w="100%"
         h={{ base: "280px", md: "300px" }}
         src={
           typeof specificHotel.coverImage === "string"
