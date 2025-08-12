@@ -53,7 +53,7 @@ function NextArrow(props: any) {
       rounded="full"
       minW="40px"
       h="40px"
-      className="hotel-sort-button-color"
+      className="car-secondary-button-color"
     >
       <ArrowRight size={20} />
     </Button>
@@ -78,7 +78,7 @@ function PrevArrow(props: any) {
       rounded="full"
       minW="40px"
       h="40px"
-      className="hotel-sort-button-color"
+      className="car-secondary-button-color"
     >
       <ArrowLeft size={20} />
     </Button>

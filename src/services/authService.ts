@@ -52,7 +52,19 @@ export const login = async (credentials: LoginCredentials) => {
     }
 
     const token = response.data.data.token;
-    const user = response.data.data.user; //ADDED
+    const user = response.data.data.user;
+
+    // Validate user role
+    const validRoles = [
+      "hotelManager",
+      "routeManager",
+      "airlineOwner",
+      "officeManager",
+      "admin",
+    ];
+    if (!validRoles.includes(user.role)) {
+      throw new Error("Only managers are allowed to log in");
+    }
 
     // Store token expiration time
     const payload = JSON.parse(atob(token.split(".")[1]));
@@ -66,8 +78,14 @@ export const login = async (credentials: LoginCredentials) => {
       // user: response.data.data.user,
       user, //ALTERED
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Auth service error:", error);
+    // Check if it's a 401 error
+    if (error.response?.status === 401) {
+      throw new Error(
+        "Wrong credentials. Please check your email and password."
+      );
+    }
     throw error;
   }
 };

@@ -117,7 +117,7 @@ const HotelBookings = (props: Props) => {
         mt={2}
         mb={8}
       >
-        <HStack justifyContent="space-between" w="80%" my={6}>
+        <HStack justifyContent="space-between" w="85%" my={6}>
           <Search keyWord={keyWord} setKeyWord={setKeyWord} />
           <Menu.Root>
             <Menu.Trigger asChild>
@@ -157,7 +157,7 @@ const HotelBookings = (props: Props) => {
           borderWidth="0.5px"
           rounded="lg"
           height="fit-content"
-          w="80%"
+          w="85%"
         >
           <Table.Root size="lg" stickyHeader>
             <Table.Header>

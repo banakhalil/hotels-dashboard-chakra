@@ -25,7 +25,7 @@ interface UpdateCarProps {
   images: (File | string)[];
 }
 
-const statusOptions = ["available", "maintenance"];
+const statusOptions = ["available", "booked", "maintenance"];
 
 export const UpdateCar = ({
   isOpen,
