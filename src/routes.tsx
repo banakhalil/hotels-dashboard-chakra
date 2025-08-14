@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { ProtectedRoute } from "./components/ProtectedRoutes";
-import { ColorModeProvider } from "./components/ui/color-mode";
 import { useAuth } from "./contexts/AuthContext";
 import { Login } from "./components/Auth/Login";
 import Dashboard from "./components/Hotels/HotelDashboard";
@@ -147,7 +146,7 @@ const AppRoutes = () => {
                 id={SelectedPage.HotelDashboard}
                 setSelectedPage={setSelectedPage}
               >
-                <Dashboard setSelectedPage={setSelectedPage} />
+                <Dashboard />
               </PageSection>
             }
           />
@@ -208,7 +207,7 @@ const AppRoutes = () => {
                 id={SelectedPage.TrainDashboard}
                 setSelectedPage={setSelectedPage}
               >
-                <TrainDashboard setSelectedPage={setSelectedPage} />
+                <TrainDashboard />
               </PageSection>
             }
           />
@@ -277,7 +276,7 @@ const AppRoutes = () => {
                 id={SelectedPage.AirlineDashboard}
                 setSelectedPage={setSelectedPage}
               >
-                <AirplaneDashboard setSelectedPage={setSelectedPage} />
+                <AirplaneDashboard />
               </PageSection>
             }
           />
@@ -288,21 +287,42 @@ const AppRoutes = () => {
                 id={SelectedPage.Airlines}
                 setSelectedPage={setSelectedPage}
               >
-                <Airline setSelectedPage={setSelectedPage} />
+                <Airline />
               </PageSection>
             }
           />
           <Route
             path="airplanes"
-            element={<Airplanes setSelectedPage={setSelectedPage} />}
+            element={
+              <PageSection
+                id={SelectedPage.Airplanes}
+                setSelectedPage={setSelectedPage}
+              >
+                <Airplanes />
+              </PageSection>
+            }
           />
           <Route
             path="flights"
-            element={<Flights setSelectedPage={setSelectedPage} />}
+            element={
+              <PageSection
+                id={SelectedPage.Flights}
+                setSelectedPage={setSelectedPage}
+              >
+                <Flights />
+              </PageSection>
+            }
           />
           <Route
             path="airlineBookings"
-            element={<AirplaneBookings setSelectedPage={setSelectedPage} />}
+            element={
+              <PageSection
+                id={SelectedPage.AirlineBookings}
+                setSelectedPage={setSelectedPage}
+              >
+                <AirplaneBookings />
+              </PageSection>
+            }
           />
         </Route>
       </Route>
@@ -325,7 +345,7 @@ const AppRoutes = () => {
                 id={SelectedPage.CarsDashboard}
                 setSelectedPage={setSelectedPage}
               >
-                <CarsDashboard setSelectedPage={setSelectedPage} />
+                <CarsDashboard />
               </PageSection>
             }
           />
@@ -336,7 +356,7 @@ const AppRoutes = () => {
                 id={SelectedPage.Office}
                 setSelectedPage={setSelectedPage}
               >
-                <Office setSelectedPage={setSelectedPage} />
+                <Office />
               </PageSection>
             }
           />
@@ -348,7 +368,7 @@ const AppRoutes = () => {
                 id={SelectedPage.Cars}
                 setSelectedPage={setSelectedPage}
               >
-                <Cars setSelectedPage={setSelectedPage} />
+                <Cars />
               </PageSection>
             }
           />
@@ -360,7 +380,7 @@ const AppRoutes = () => {
                 id={SelectedPage.CarBookings}
                 setSelectedPage={setSelectedPage}
               >
-                <CarBookings setSelectedPage={setSelectedPage} />
+                <CarBookings />
               </PageSection>
             }
           />

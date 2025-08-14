@@ -1,5 +1,4 @@
 import axiosInstance from "@/lib/axios";
-import { type StationData } from "./useStations";
 import {
   useInfiniteQuery,
   useMutation,

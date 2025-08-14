@@ -7,19 +7,10 @@ import {
   Table,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { Search } from "../Search";
 import { useCarBookings } from "@/hooks/Cars/useCarBookings";
 import { useOffice } from "@/hooks/Cars/useOffice";
-import type { SelectedPage } from "@/shared/types";
 
-type Props = {
-  setSelectedPage: (newPage: SelectedPage) => void;
-};
-
-const CarBookings = ({ setSelectedPage }: Props) => {
-  const [value, setValue] = useState("");
-  const [keyWord, setKeyWord] = useState("");
+const CarBookings = () => {
   const { data: officeData } = useOffice();
   const {
     data: bookings,

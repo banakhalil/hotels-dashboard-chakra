@@ -1,5 +1,5 @@
 import useTrainTrips from "@/hooks/Trains/useTrainTrips";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Text,
   Separator,
@@ -16,9 +16,8 @@ import AddTrainTrip from "./AddTrainTrip";
 import UpdateTrainTrip from "./UpdateTrainTrip";
 import { AllTrainsSkeleton } from "./TrainsSkeletons";
 
-type Props = {};
 const skeletons = [1, 2, 3, 4];
-const TrainTrips = (props: Props) => {
+const TrainTrips = () => {
   // const [keyWord, setKeyWord] = useState("");
   const [isAddTripOpen, setIsAddTripOpen] = useState(false);
   const [isUpdateTripOpen, setIsUpdateTripOpen] = useState(false);

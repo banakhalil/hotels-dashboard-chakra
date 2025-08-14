@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Box,
   Button,
   Dialog,
   Field,
@@ -55,7 +54,7 @@ const UpdateAirline = ({ isOpen, onClose }: Props) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget as HTMLFormElement);
+    // const formData = new FormData(e.currentTarget as HTMLFormElement);
 
     // Get the files and log them
     const coverImageInput = document.getElementById(

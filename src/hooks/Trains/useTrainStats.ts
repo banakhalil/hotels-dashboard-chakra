@@ -32,12 +32,12 @@ interface TripTicketSalesStats {
   data: number[];
 }
 
-interface TripTripCountStats {
-  periodType: string;
-  totalTickets: number;
-  labels: string[];
-  data: number[];
-}
+// interface TripTripCountStats {
+//   periodType: string;
+//   totalTickets: number;
+//   labels: string[];
+//   data: number[];
+// }
 
 //get stats
 export const useTrainStats = () => {

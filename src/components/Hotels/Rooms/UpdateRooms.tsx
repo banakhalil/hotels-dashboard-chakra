@@ -52,26 +52,16 @@ export const UpdateRoom = ({
   onClose,
   hotelId,
   roomId,
-  roomType,
-  capacity,
   pricePerNight,
-  isAvailable,
-  isActive,
-  amenities,
   image,
 }: UpdateRoomProps) => {
-  const ref = useRef<HTMLInputElement>(null);
-  const roomTypeRef = useRef<HTMLInputElement>(null);
-  const capacityRef = useRef<HTMLInputElement>(null);
   const pricePerNightRef = useRef<HTMLInputElement>(null);
-  const isAvailableRef = useRef<HTMLSelectElement>(null);
-  const isActiveRef = useRef<HTMLSelectElement>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [selectedAvailability, setSelectedAvailability] = useState<string>("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
-  const [additionalImages, setAdditionalImages] = useState<
-    { file: File; preview: string }[]
-  >([]);
+  // const [additionalImages, setAdditionalImages] = useState<
+  //   { file: File; preview: string }[]
+  // >([]);
   const { data: specificRoom, isLoading } = useSpecificRoom(hotelId, roomId);
   const updateRoom = useUpdateRoom(hotelId, roomId);
 
@@ -106,18 +96,6 @@ export const UpdateRoom = ({
     }
   };
 
-  // Handle multiple file selection for additional images
-  const handleMultipleFileChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const files = Array.from(event.target.files || []);
-    const newImages = files.map((file) => ({
-      file,
-      preview: URL.createObjectURL(file),
-    }));
-    setAdditionalImages((prev) => [...prev, ...newImages]);
-  };
-
   // Remove an additional image
   //   const removeAdditionalImage = (index: number) => {
   //     setAdditionalImages((prev) => {
@@ -134,11 +112,8 @@ export const UpdateRoom = ({
       if (imagePreview) {
         URL.revokeObjectURL(imagePreview);
       }
-      additionalImages.forEach((img) => {
-        URL.revokeObjectURL(img.preview);
-      });
     };
-  }, [imagePreview, additionalImages]);
+  }, [imagePreview]);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -160,7 +135,7 @@ export const UpdateRoom = ({
     const coverImageFile = coverImageInput?.files?.[0];
 
     // Use the new image if selected, otherwise use the existing image
-    const imageToUse = coverImageFile || specificRoom?.image || image;
+    // const imageToUse = coverImageFile || specificRoom?.image || image;
 
     // Create the room data object
     const RoomData: {

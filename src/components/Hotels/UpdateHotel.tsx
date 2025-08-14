@@ -54,7 +54,6 @@ export const UpdateHotel = ({
   coverImage,
   images,
 }: UpdateHotelProps) => {
-  const ref = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLInputElement>(null);
   const cityRef = useRef<HTMLInputElement>(null);

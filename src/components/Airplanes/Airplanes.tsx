@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { SelectedPage } from "@/shared/types";
+import { useState, useRef } from "react";
+// import { SelectedPage } from "@/shared/types";
 import useAirplanes from "@/hooks/Airlines/useAirplanes";
 import {
   Badge,
@@ -18,9 +18,9 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-type Props = {
-  setSelectedPage: (newPage: SelectedPage) => void;
-};
+// type Props = {
+//   setSelectedPage: (newPage: SelectedPage) => void;
+// };
 
 // Custom arrow components
 function NextArrow(props: any) {
@@ -71,7 +71,7 @@ function PrevArrow(props: any) {
   );
 }
 
-const Airplanes = ({ setSelectedPage }: Props) => {
+const Airplanes = () => {
   const { data: airplanes, isLoading, error } = useAirplanes();
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const [isAddOpen, setIsAddOpen] = useState(false);

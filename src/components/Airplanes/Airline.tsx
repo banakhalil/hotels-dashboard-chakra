@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import airplane2 from "../../assets/airplane2.jpg";
-import { SelectedPage } from "@/shared/types";
+// import { SelectedPage } from "@/shared/types";
 import {
   Box,
   Flex,
@@ -16,11 +16,11 @@ import { useAirlinesContext } from "@/contexts/AirlinesContext";
 import UpdateAirline from "./UpdateAirline";
 import CreateAirline from "./CreateAirline";
 
-type Props = {
-  setSelectedPage: (newPage: SelectedPage) => void;
-};
+// type Props = {
+//   setSelectedPage: (newPage: SelectedPage) => void;
+// };
 
-const Airline = ({ setSelectedPage }: Props) => {
+const Airline = () => {
   const { airline, isLoading, error } = useAirlinesContext();
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isAddOpen, setIsAddOpen] = useState(false);

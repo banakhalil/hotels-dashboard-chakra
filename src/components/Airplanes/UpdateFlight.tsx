@@ -1,19 +1,16 @@
 import {
-  Box,
   Button,
-  createListCollection,
   Dialog,
   Field,
   Input,
   Portal,
-  Select,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, type FormEvent } from "react";
 import { toaster } from "@/components/ui/toaster";
 import useFlights, { useUpdateFlight } from "@/hooks/Airlines/useFlights";
-import useAirplanes from "@/hooks/Airlines/useAirplanes";
+import useAirlines from "@/hooks/Airlines/useAirlines";
 
 interface Props {
   isOpen: boolean;
@@ -30,8 +27,8 @@ const UpdateFlight = ({ isOpen, onClose, flightId }: Props) => {
   const economyRef = useRef<HTMLInputElement>(null);
   const businessRef = useRef<HTMLInputElement>(null);
 
-  const { data: flights } = useFlights();
-  const { data: planes } = useAirplanes();
+  const { data: airline } = useAirlines();
+  const { data: flights } = useFlights(airline?._id || "");
   const flight = flights?.find((f) => f._id === flightId);
   const updateFlightMutation = useUpdateFlight(flightId);
 

@@ -1,19 +1,8 @@
-import {
-  Badge,
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Table,
-  Text,
-} from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Badge, Flex, Table, Text } from "@chakra-ui/react";
 import { useTrainsContext } from "@/contexts/TrainsContext";
 // import AddTrain from "./AddTrain";
 
-type Props = {};
-
-const allTrains = (props: Props) => {
+const allTrains = () => {
   const { trains, isLoading, error } = useTrainsContext();
   // const [isAddOpen, setIsAddOpen] = useState(false);
   if (isLoading)

@@ -11,7 +11,6 @@ interface Props {
   onClose: () => void;
 }
 const AddTrain = ({ isOpen, onClose }: Props) => {
-  const ref = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const speedRef = useRef<HTMLInputElement>(null);
   const numberOfSeatsRef = useRef<HTMLInputElement>(null);
@@ -69,9 +68,7 @@ const AddTrain = ({ isOpen, onClose }: Props) => {
   return (
     <Dialog.Root
       open={isOpen}
-      onOpenChange={(open) => {
-        onClose();
-      }}
+      onOpenChange={onClose}
       initialFocusEl={() => nameRef.current}
     >
       <Portal>

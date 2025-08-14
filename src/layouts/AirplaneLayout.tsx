@@ -5,7 +5,6 @@ import { useBreakpointValue } from "@chakra-ui/react";
 import NavBar from "../components/Navbar/NavBar";
 import SideBar, { SideBarItem } from "../components/SideBar";
 import { LayoutDashboard } from "lucide-react";
-import { BsAirplane } from "react-icons/bs";
 import { MdLocalAirport } from "react-icons/md";
 import { MdOutlineConnectingAirports } from "react-icons/md";
 import { MdOutlineAirplaneTicket } from "react-icons/md";

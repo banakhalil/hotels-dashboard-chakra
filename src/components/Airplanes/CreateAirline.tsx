@@ -21,7 +21,6 @@ interface Props {
 
 const CreateAirline = ({ isOpen, onClose }: Props) => {
   const nameRef = useRef<HTMLInputElement>(null);
-  const descriptionRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLInputElement>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 

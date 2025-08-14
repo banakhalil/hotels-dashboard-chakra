@@ -29,7 +29,6 @@ const amenitiesOptions = [
 ];
 
 const CreateHotel = ({ isOpen, onClose }: Props) => {
-  const ref = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLInputElement>(null);
   const cityRef = useRef<HTMLInputElement>(null);

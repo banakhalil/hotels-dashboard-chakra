@@ -15,7 +15,6 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { HiUpload } from "react-icons/hi";
 import { toaster } from "../ui/toaster";
 import { useAddCar } from "@/hooks/Cars/useCars";
-import { useOffice } from "@/hooks/Cars/useOffice";
 
 interface Props {
   isOpen: boolean;
@@ -27,11 +26,10 @@ const gearOptions = ["manual", "automatic"];
 const fuelOptions = ["petrol", "diesel", "electric", "hybrid"];
 
 const CreateCar = ({ isOpen, onClose, officeId }: Props) => {
-  const ref = useRef<HTMLInputElement>(null);
   const brandRef = useRef<HTMLInputElement>(null);
   const modelRef = useRef<HTMLInputElement>(null);
   const colorRef = useRef<HTMLInputElement>(null);
-  const statusRef = useRef<HTMLInputElement>(null);
+
   const seatsRef = useRef<HTMLInputElement>(null);
   const yearRef = useRef<HTMLInputElement>(null);
   const priceRef = useRef<HTMLInputElement>(null);

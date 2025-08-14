@@ -8,7 +8,6 @@ import {
   Portal,
   Select,
   Stack,
-  Text,
 } from "@chakra-ui/react";
 import { useRef, useState, type FormEvent } from "react";
 import { toaster } from "@/components/ui/toaster";

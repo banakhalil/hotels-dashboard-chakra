@@ -36,7 +36,6 @@ export const UpdateCar = ({
   status,
   images,
 }: UpdateCarProps) => {
-  const ref = useRef<HTMLInputElement>(null);
   const priceRef = useRef<HTMLInputElement>(null);
   const [currentImages, setCurrentImages] = useState<(File | string)[]>(
     images || []
@@ -88,7 +87,7 @@ export const UpdateCar = ({
     console.log("Selected Status:", selectedStatus);
 
     // Add images - handle both URLs and Files
-    currentImages.forEach((image, index) => {
+    currentImages.forEach((image) => {
       if (image instanceof File) {
         console.log("Adding new image file:", image.name);
         formData.append("images", image);

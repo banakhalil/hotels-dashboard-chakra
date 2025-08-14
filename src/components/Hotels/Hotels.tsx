@@ -1,12 +1,10 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import {
-  Container,
   Stack,
   VStack,
   useBreakpointValue,
   Portal,
   Box,
-  Card,
 } from "@chakra-ui/react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { CardHotels, CardHotelsDetails } from "./CardHotels";

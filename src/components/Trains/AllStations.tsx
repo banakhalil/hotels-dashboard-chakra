@@ -1,10 +1,7 @@
 import { useStationsContext } from "@/contexts/StationsContext";
-import { Badge, Flex, Table, Text } from "@chakra-ui/react";
-import React from "react";
+import { Flex, Table, Text } from "@chakra-ui/react";
 
-type Props = {};
-
-const allStations = (props: Props) => {
+const allStations = () => {
   const { stations, isLoading, error } = useStationsContext();
 
   if (isLoading)

@@ -21,11 +21,7 @@ interface Props {
 }
 
 const AddRoute = ({ isOpen, onClose }: Props) => {
-  const {
-    stations,
-    isLoading: stationsLoading,
-    error: stationsError,
-  } = useStationsContext();
+  const { stations } = useStationsContext();
   const [selectedStations, setSelectedStations] = useState<string[]>([]);
   const {
     data: cities,
@@ -155,11 +151,7 @@ const AddRoute = ({ isOpen, onClose }: Props) => {
   }
 
   return (
-    <Dialog.Root
-      scrollBehavior="inside"
-      open={isOpen}
-      onOpenChange={(open) => {}}
-    >
+    <Dialog.Root scrollBehavior="inside" open={isOpen} onOpenChange={onClose}>
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>

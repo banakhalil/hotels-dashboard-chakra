@@ -3,19 +3,17 @@ import {
   Circle,
   Grid,
   GridItem,
-  Heading,
   HStack,
   Text,
   VStack,
 } from "@chakra-ui/react";
 
 import CardRevenue from "../CardRevenue";
-import { SelectedPage } from "@/shared/types";
+// import { SelectedPage } from "@/shared/types";
 import {
   useHotelMonthlyTrend,
   useHotelPerformance,
   useHotelStats,
-  useHotelStatusDistributions,
   useRoomAvailability,
 } from "@/hooks/Hotels/useHotelStats";
 import { FaRegCalendarCheck } from "react-icons/fa";
@@ -25,21 +23,17 @@ import { BiHotel } from "react-icons/bi";
 import { BarSegment, Chart, useChart } from "@chakra-ui/charts";
 import type { BarSegmentData } from "@chakra-ui/charts";
 import {
-  BarChart,
   Cell,
   Pie,
-  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
-  Legend,
-  Bar,
   PieChart,
   AreaChart,
   Area,
 } from "recharts";
 
-type Props = { setSelectedPage: (newPage: SelectedPage) => void };
+// type Props = { setSelectedPage: (newPage: SelectedPage) => void };
 
 type RoomType = "Single" | "Double" | "Suite";
 
@@ -50,11 +44,10 @@ interface ChartDataItem extends BarSegmentData {
   color: string;
 }
 
-const HotelDashboard = ({ setSelectedPage }: Props) => {
+const HotelDashboard = () => {
   const { data: stats } = useHotelStats();
   const { data: roomAvailability } = useRoomAvailability();
   const { data: hotelPerformance } = useHotelPerformance();
-  const { data: hotelStatusDistributions } = useHotelStatusDistributions();
   const { data: hotelMonthlyTrend } = useHotelMonthlyTrend();
 
   //stacked bar room availability
@@ -126,7 +119,7 @@ const HotelDashboard = ({ setSelectedPage }: Props) => {
 
   //area chart monthly trend
   const monthlyTrendData =
-    hotelMonthlyTrend?.map((day, index) => ({
+    hotelMonthlyTrend?.map((day) => ({
       date: day.month + " " + day.year,
       revenue: day.revenue,
     })) ?? [];

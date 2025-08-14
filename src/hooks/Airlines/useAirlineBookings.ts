@@ -1,5 +1,4 @@
 import axiosInstance from "@/lib/axios";
-import { useQrCode } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 
 interface Flight {

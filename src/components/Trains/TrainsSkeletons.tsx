@@ -1,4 +1,4 @@
-import { Flex, Skeleton, SkeletonText, VStack } from "@chakra-ui/react";
+import { Flex, Skeleton, VStack } from "@chakra-ui/react";
 
 export const AllTrainsSkeleton = () => {
   return (

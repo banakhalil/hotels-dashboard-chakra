@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 
 import CardRevenue from "../CardRevenue";
-import { SelectedPage } from "@/shared/types";
 import {
   useTrainStats,
   useTrainTicketSalesStats,
@@ -37,9 +36,7 @@ import {
 import { HiSortAscending } from "react-icons/hi";
 import { useState } from "react";
 
-type Props = { setSelectedPage: (newPage: SelectedPage) => void };
-
-const TrainDashboard = ({ setSelectedPage }: Props) => {
+const TrainDashboard = () => {
   const [value, setValue] = useState("");
   const [tripValue, setTripValue] = useState("");
   const { data: stats } = useTrainStats();

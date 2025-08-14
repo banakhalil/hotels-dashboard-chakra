@@ -3,7 +3,6 @@ import { Text } from "@chakra-ui/react";
 import { Drawer, useBreakpointValue, Portal } from "@chakra-ui/react";
 import { useContext, createContext, type ReactNode } from "react";
 import { SelectedPage } from "@/shared/types";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { LuTrainTrack } from "react-icons/lu";
@@ -97,7 +96,7 @@ const SidebarContent = ({
   expanded: boolean;
 }) => {
   const { user } = useAuth();
-  const themeClasses = getRoleBasedClasses(user?.role);
+  // const themeClasses = getRoleBasedClasses(user?.role);
   const title = getRoleBasedTitle(user?.role);
   const logo = getRoleBasedLogo(user?.role);
   return (
@@ -196,7 +195,6 @@ interface SidebarItemProps {
 export function SideBarItem({
   icon,
   text,
-  active,
   selectedPage,
   setSelectedPage,
   page,

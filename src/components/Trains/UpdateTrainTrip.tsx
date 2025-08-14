@@ -1,4 +1,4 @@
-import { useStationsContext } from "@/contexts/StationsContext";
+
 import {
   Box,
   Button,
@@ -11,7 +11,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 
 import { toaster } from "@/components/ui/toaster";
 import { useTrainsContext } from "@/contexts/TrainsContext";
@@ -210,7 +210,7 @@ const UpdateTrainTrip = ({ isOpen, onClose, tripId }: Props) => {
     <Dialog.Root
       scrollBehavior="inside"
       open={isOpen}
-      onOpenChange={(open) => {}}
+      onOpenChange={onClose}
     >
       <Portal>
         <Dialog.Backdrop />

@@ -1,6 +1,5 @@
 import useRoutes from "@/hooks/Trains/useRoutes";
 import {
-  Avatar,
   Button,
   Card,
   Timeline,
@@ -11,7 +10,7 @@ import {
   Flex,
   HStack,
 } from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import type { Route } from "@/hooks/Trains/useRoutes";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Slider from "react-slick";
@@ -19,7 +18,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import AddRoute from "./AddRoute";
 import UpdateRoute from "./UpdateRoute";
-import { RoomsSkeleton } from "../Hotels/HotelsSkeleton";
 import { RoutesSkeleton } from "./TrainsSkeletons";
 
 // Custom arrow components
@@ -102,10 +100,10 @@ const AllRoutes = () => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [selectedRouteId, setSelectedRouteId] = useState<string | null>(null);
   const allRoutes = routesData?.pages.flatMap((page) => page.routes) || [];
-  const currentPage =
-    routesData?.pages[routesData.pages.length - 1]?.pagination.currentPage || 1;
-  const numOfPages =
-    routesData?.pages[routesData.pages.length - 1]?.pagination.numOfPages || 1;
+  // const currentPage =
+  //   routesData?.pages[routesData.pages.length - 1]?.pagination.currentPage || 1;
+  // const numOfPages =
+  //   routesData?.pages[routesData.pages.length - 1]?.pagination.numOfPages || 1;
 
   console.log(routesData);
   // Slider settings
@@ -133,7 +131,7 @@ const AllRoutes = () => {
         },
       },
     ],
-    beforeChange: (current: number, next: number) => {
+    beforeChange: (next: number) => {
       // Load more routes when reaching near the end
       if (next >= allRoutes.length - 2 && hasNextPage && !isFetchingNextPage) {
         fetchNextPage();

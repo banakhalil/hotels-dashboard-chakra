@@ -7,14 +7,14 @@ import {
   Table,
   Text,
 } from "@chakra-ui/react";
-import type { SelectedPage } from "@/shared/types";
+// import type { SelectedPage } from "@/shared/types";
 import { useFlightBookings } from "@/hooks/Airlines/useAirlineBookings";
 
-type Props = {
-  setSelectedPage: (newPage: SelectedPage) => void;
-};
+// type Props = {
+//   setSelectedPage: (newPage: SelectedPage) => void;
+// };
 
-const CarBookings = ({ setSelectedPage }: Props) => {
+const CarBookings = () => {
   const { data: bookings, isLoading, error } = useFlightBookings();
 
   if (isLoading)

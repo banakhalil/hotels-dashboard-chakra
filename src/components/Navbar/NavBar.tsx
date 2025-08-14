@@ -1,22 +1,15 @@
 import {
   Button,
-  createListCollection,
   HStack,
-  Image,
   Menu,
   Portal,
-  Select,
   Spinner,
   Stack,
   Text,
-  useBreakpoint,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-// import Logo from "../assets/react.svg";
-import { ColorModeButton, ColorModeIcon } from "../ui/color-mode";
-import { Search } from "../Search";
+import { useState } from "react";
+import { ColorModeButton } from "../ui/color-mode";
 import AvatarNav from "./AvatarNav";
-import { IoMdNotificationsOutline } from "react-icons/io";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { GoSidebarCollapse } from "react-icons/go";
 import Profile from "./Profile";

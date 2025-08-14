@@ -1,11 +1,11 @@
 import { Box, Grid, GridItem, Text, HStack, Card } from "@chakra-ui/react";
 import { FiUsers, FiLogIn, FiLogOut, FiDollarSign } from "react-icons/fi";
 import CardRevenue from "../CardRevenue";
-import { SelectedPage } from "@/shared/types";
+// import { SelectedPage } from "@/shared/types";
 
-type Props = { setSelectedPage: (newPage: SelectedPage) => void };
+// type Props = { setSelectedPage: (newPage: SelectedPage) => void };
 
-const AirplaneDashboard = ({ setSelectedPage }: Props) => {
+const AirplaneDashboard = () => {
   return (
     <section className="min-h-screen py-6">
       <Box
@@ -79,7 +79,7 @@ const AirplaneDashboard = ({ setSelectedPage }: Props) => {
                   <Text>•••</Text>
                 </HStack>
                 <Grid templateColumns="repeat(2, 1fr)" gap={4}>
-                <Box height={10}></Box>
+                  <Box height={10}></Box>
                   <Box>
                     <Text color="gray.500" fontSize="sm">
                       Occupied

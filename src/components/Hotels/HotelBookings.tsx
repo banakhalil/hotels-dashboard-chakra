@@ -10,14 +10,14 @@ import {
   Table,
   Text,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useBookings } from "@/hooks/Hotels/useBookings";
 import { Search } from "../Search";
 import { HiSortAscending } from "react-icons/hi";
 
-type Props = {};
 
-const HotelBookings = (props: Props) => {
+
+const HotelBookings = () => {
   const [value, setValue] = useState("");
   const [keyWord, setKeyWord] = useState("");
   const { data: bookings, isLoading, error } = useBookings(value, keyWord);

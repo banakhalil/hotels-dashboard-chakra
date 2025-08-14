@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Text,
   Separator,
@@ -13,18 +13,18 @@ import { GiAirplaneDeparture } from "react-icons/gi";
 import { FaCircle } from "react-icons/fa";
 import { AllTrainsSkeleton } from "../Trains/TrainsSkeletons";
 import useFlights from "@/hooks/Airlines/useFlights";
-import { SelectedPage } from "@/shared/types";
+// import { SelectedPage } from "@/shared/types";
 import UpdateFlight from "./UpdateFlight";
 import CreateFlight from "./CreateFlight";
 import useAirlines from "@/hooks/Airlines/useAirlines";
 
-type Props = {
-  setSelectedPage: (newPage: SelectedPage) => void;
-};
+// type Props = {
+//   setSelectedPage: (newPage: SelectedPage) => void;
+// };
 
 const skeletons = [1, 2, 3, 4];
 
-const Flights = ({ setSelectedPage }: Props) => {
+const Flights = () => {
   const [isUpdateFlightOpen, setIsUpdateFlightOpen] = useState(false);
   const [selectedFlightId, setSelectedFlightId] = useState("");
 

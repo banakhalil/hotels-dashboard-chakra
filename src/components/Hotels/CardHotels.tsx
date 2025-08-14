@@ -1,28 +1,21 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
-  Badge,
   Box,
   Button,
   Card,
   Flex,
   HStack,
   Image,
-  Span,
   Text,
-  VStack,
   Grid,
   GridItem,
-  Combobox,
   Menu,
   Portal,
   Link,
 } from "@chakra-ui/react";
 import useHotels, {
-  useAddHotel,
   useDeleteHotel,
   useSpecificHotel,
-  useUpdateHotel,
-  type RoomData,
 } from "@/hooks/Hotels/useHotels";
 import { LuArrowRight, LuCircleCheck } from "react-icons/lu";
 import { HiSortAscending } from "react-icons/hi";
@@ -446,13 +439,13 @@ export const CardHotelsDetails = ({ hotelId, onClose }: HotelDetailsProps) => {
   const { data: specificHotel, isLoading, error } = useSpecificHotel(hotelId);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const { mutate, isPending } = useDeleteHotel();
-  const [objectUrl, setObjectUrl] = useState<string>("");
+  // const [objectUrl, setObjectUrl] = useState<string>("");
 
   // Create object URL when hotel data changes
   useEffect(() => {
     if (specificHotel?.coverImage instanceof File) {
       const url = URL.createObjectURL(specificHotel.coverImage);
-      setObjectUrl(url);
+      // setObjectUrl(url);
       return () => URL.revokeObjectURL(url);
     }
   }, [specificHotel]);

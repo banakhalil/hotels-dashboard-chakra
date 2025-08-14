@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import cars1 from "../../assets/cars1.jpg";
-import { SelectedPage } from "@/shared/types";
+// import { SelectedPage } from "@/shared/types";
 import {
   Box,
   Button,
@@ -14,21 +14,18 @@ import {
 } from "@chakra-ui/react";
 import { useOffice } from "@/hooks/Cars/useOffice";
 import { useCars } from "@/hooks/Cars/useCars";
-import { useAddCar } from "@/hooks/Cars/useCars";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { toaster } from "../ui/toaster";
 import { RoomsSkeleton } from "../Hotels/HotelsSkeleton";
 import CreateCar from "./CreateCar";
 import { UpdateCar } from "./UpdateCar";
-import { FaPerson } from "react-icons/fa6";
 import { GiGearStickPattern } from "react-icons/gi";
 import { BsFillFuelPumpFill } from "react-icons/bs";
-type Props = {
-  setSelectedPage: (newPage: SelectedPage) => void;
-};
+// type Props = {
+//   setSelectedPage: (newPage: SelectedPage) => void;
+// };
 const skeletons = [1, 2, 3];
 // Custom arrow components
 function NextArrow(props: any) {
@@ -85,7 +82,7 @@ function PrevArrow(props: any) {
   );
 }
 
-const Cars = ({ setSelectedPage }: Props) => {
+const Cars = () => {
   const { data: officeData, isLoading, error } = useOffice();
   const { data: cars } = useCars(officeData?._id || "");
   const sliderRef = useRef<Slider | null>(null);

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import cars1 from "../../assets/cars1.jpg";
-import { SelectedPage } from "@/shared/types";
+// import { SelectedPage } from "@/shared/types";
 import {
   Box,
   Flex,
@@ -13,18 +13,18 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useOffice } from "@/hooks/Cars/useOffice";
-import { useCars } from "@/hooks/Cars/useCars";
+// import { useCars } from "@/hooks/Cars/useCars";
 import { UpdateOffice } from "./UpdateOffice";
 import CreateOffice from "./CreateOffice";
 
-type Props = {
-  setSelectedPage: (newPage: SelectedPage) => void;
-};
+// type Props = {
+//   setSelectedPage: (newPage: SelectedPage) => void;
+// };
 
-const Office = ({ setSelectedPage }: Props) => {
+const Office = () => {
   const { data: officeData, isLoading, error } = useOffice();
   console.log(officeData);
-  const { data: cars } = useCars(officeData?._id || "");
+  // const { data: cars } = useCars(officeData?._id || "");
   const [isAddOpen, setIsAddOpen] = useState(false);
 
   const [isEditOpen, setIsEditOpen] = useState(false);

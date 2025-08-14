@@ -31,7 +31,6 @@ export const UpdateOffice = ({
   phone,
   coverImage,
 }: UpdateOfficeProps) => {
-  const ref = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);

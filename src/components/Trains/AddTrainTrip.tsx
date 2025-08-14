@@ -21,12 +21,8 @@ interface Props {
 }
 
 const AddTrainTrip = ({ isOpen, onClose }: Props) => {
-  const { trains, isLoading, error } = useTrainsContext();
-  const {
-    routes,
-    isLoading: routesLoading,
-    error: RoutesError,
-  } = useRoutesContext();
+  const { trains } = useTrainsContext();
+  const { routes } = useRoutesContext();
   const [selectedTrain, setSelectedTrain] = useState<string>("");
   //   const [selectedCity, setSelectedCity] = useState<string>("");
   const [selectedRoute, setSelectedRoute] = useState<string>("");
@@ -171,11 +167,7 @@ const AddTrainTrip = ({ isOpen, onClose }: Props) => {
   //   }
 
   return (
-    <Dialog.Root
-      scrollBehavior="inside"
-      open={isOpen}
-      onOpenChange={(open) => {}}
-    >
+    <Dialog.Root scrollBehavior="inside" open={isOpen} onOpenChange={onClose}>
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>

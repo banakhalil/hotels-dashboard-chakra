@@ -1,8 +1,4 @@
-import {
-  useProfile,
-  useUpdatePassword,
-  useUpdateProfile,
-} from "@/hooks/useProfile";
+import { useProfile, useUpdatePassword } from "@/hooks/useProfile";
 import {
   Button,
   CloseButton,
@@ -13,7 +9,7 @@ import {
   Text,
   Input,
 } from "@chakra-ui/react";
-import React, { useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { toaster } from "../ui/toaster";
 
 const getRoleBasedButtonClass = (role: string) => {

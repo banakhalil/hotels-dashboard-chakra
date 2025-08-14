@@ -1,7 +1,6 @@
 import { Box, Grid, GridItem, Text, HStack, Circle } from "@chakra-ui/react";
-import { FiUsers, FiLogIn, FiLogOut, FiDollarSign } from "react-icons/fi";
 import CardRevenue from "../CardRevenue";
-import { SelectedPage } from "@/shared/types";
+// import { SelectedPage } from "@/shared/types";
 import { PiCurrencyCircleDollarBold } from "react-icons/pi";
 import { TbCalendarCancel } from "react-icons/tb";
 import { MdOutlineVerified } from "react-icons/md";
@@ -11,7 +10,6 @@ import {
   useCarStats,
   useTopCarsByDays,
 } from "@/hooks/Cars/useCarStats";
-import { HiSortAscending } from "react-icons/hi";
 import {
   BarChart,
   CartesianGrid,
@@ -26,9 +24,9 @@ import {
 } from "recharts";
 import { Chart, useChart } from "@chakra-ui/charts";
 
-type Props = { setSelectedPage: (newPage: SelectedPage) => void };
+// type Props = { setSelectedPage: (newPage: SelectedPage) => void };
 
-const CarsDashboard = ({ setSelectedPage }: Props) => {
+const CarsDashboard = () => {
   const { data: stats } = useCarStats();
   const { data: bookingsStats } = useCarBookingStats();
   const { data: topCarsByDays } = useTopCarsByDays();
@@ -252,7 +250,7 @@ const CarsDashboard = ({ setSelectedPage }: Props) => {
                 </Box>
                 {/* Legend */}
                 <Box mt={12} px={8}>
-                  {chart.data.map((item, index) => (
+                  {chart.data.map((item) => (
                     <HStack key={item.name} mb={2} gap={3}>
                       <Box
                         w="12px"

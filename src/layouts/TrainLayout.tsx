@@ -4,7 +4,7 @@ import { SelectedPage } from "../shared/types";
 import { useBreakpointValue } from "@chakra-ui/react";
 import NavBar from "../components/Navbar/NavBar";
 import SideBar, { SideBarItem } from "../components/SideBar";
-import { LayoutDashboard, Settings } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 import { GiRailRoad } from "react-icons/gi";
 import { FaRoute } from "react-icons/fa";
 import { MdOutlineTrain } from "react-icons/md";

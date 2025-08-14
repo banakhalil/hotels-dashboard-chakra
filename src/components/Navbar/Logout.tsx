@@ -1,6 +1,6 @@
 import { Button, CloseButton, Dialog, Portal, Text } from "@chakra-ui/react";
 import { useAuth } from "@/contexts/AuthContext";
-import React from "react";
+
 
 type Props = {
   isOpen: boolean;

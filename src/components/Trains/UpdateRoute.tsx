@@ -5,13 +5,12 @@ import {
   createListCollection,
   Dialog,
   Field,
-  Input,
   Portal,
   Select,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import useCities from "@/hooks/Trains/useCities";
 import {
   type StationInRoute,
@@ -32,18 +31,14 @@ const UpdateRoute = ({
   isOpen,
   onClose,
   routeId,
-  routeName,
+
   routeStations,
 }: Props) => {
   const cityRef = useRef<HTMLInputElement>(null);
   const destinationRef = useRef<HTMLInputElement>(null);
   const stationsRef = useRef<HTMLInputElement>(null);
 
-  const {
-    stations,
-    isLoading: stationsLoading,
-    error: stationsError,
-  } = useStationsContext();
+  const { stations } = useStationsContext();
 
   const {
     data: cities,
@@ -204,11 +199,7 @@ const UpdateRoute = ({
   }
 
   return (
-    <Dialog.Root
-      scrollBehavior="inside"
-      open={isOpen}
-      onOpenChange={(open) => {}}
-    >
+    <Dialog.Root scrollBehavior="inside" open={isOpen} onOpenChange={onClose}>
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>

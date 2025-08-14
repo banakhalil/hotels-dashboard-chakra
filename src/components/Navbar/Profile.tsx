@@ -3,20 +3,14 @@ import {
   Button,
   CloseButton,
   Drawer,
-  For,
-  NativeSelect,
   Field,
   Fieldset,
   Portal,
   Text,
-  Stack,
   Input,
-  Image,
   Avatar,
 } from "@chakra-ui/react";
-import * as Dialog from "@radix-ui/react-dialog";
-import React, { useEffect, useRef, useState, type FormEvent } from "react";
-import { type UserData } from "@/hooks/useProfile";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { toaster } from "../ui/toaster";
 import { HiUpload } from "react-icons/hi";
 
@@ -75,7 +69,7 @@ const Profile = ({
   role,
   avatar,
 }: Props) => {
-  const { data: user, isLoading, error } = useProfile();
+  const { isLoading, error } = useProfile();
   const updateProfile = useUpdateProfile();
   const firstRef = useRef<HTMLInputElement>(null);
   const lastRef = useRef<HTMLInputElement>(null);

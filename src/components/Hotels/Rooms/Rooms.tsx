@@ -12,7 +12,7 @@ import {
   Badge,
   Container,
 } from "@chakra-ui/react";
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { GoPeople } from "react-icons/go";
 import { IoBedOutline } from "react-icons/io5";
 import { LuBedDouble, LuBedSingle, LuCircleCheck } from "react-icons/lu";
@@ -81,7 +81,7 @@ const Rooms = ({ hotelId, sortValue }: Props) => {
         },
       },
     ],
-    beforeChange: (current: number, next: number) => {
+    beforeChange: ( next: number) => {
       // Load more rooms when reaching near the end
       if (
         next >= allRooms.length - 2 &&

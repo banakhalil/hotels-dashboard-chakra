@@ -12,7 +12,6 @@ interface Props {
 }
 
 const CreateOffice = ({ isOpen, onClose }: Props) => {
-  const ref = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLInputElement>(null);

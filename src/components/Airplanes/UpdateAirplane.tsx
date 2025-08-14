@@ -1,6 +1,4 @@
-import React from "react";
 import {
-  Box,
   Button,
   Dialog,
   Field,
@@ -8,10 +6,8 @@ import {
   Portal,
   Stack,
   Text,
-  Textarea,
 } from "@chakra-ui/react";
-import { useEffect, useRef, useState, type FormEvent } from "react";
-import { HiUpload } from "react-icons/hi";
+import { useEffect, useRef, type FormEvent } from "react";
 import { toaster } from "@/components/ui/toaster";
 import {
   useSpecificAirplane,
@@ -103,7 +99,7 @@ const UpdateAirplane = ({ isOpen, onClose, planeId }: Props) => {
     <Dialog.Root
       scrollBehavior="inside"
       open={isOpen}
-      onOpenChange={(open) => {
+      onOpenChange={() => {
         onClose();
       }}
     >

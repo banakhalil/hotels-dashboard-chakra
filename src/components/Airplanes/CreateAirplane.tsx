@@ -1,14 +1,4 @@
-import React from "react";
-import {
-  Box,
-  Button,
-  Dialog,
-  Field,
-  Input,
-  Portal,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Button, Dialog, Field, Input, Portal, Stack } from "@chakra-ui/react";
 import { useRef, type FormEvent } from "react";
 import { toaster } from "@/components/ui/toaster";
 import { useCreatePlane } from "@/hooks/Airlines/useAirplanes";
@@ -109,7 +99,7 @@ const CreateAirplane = ({ isOpen, onClose }: Props) => {
     <Dialog.Root
       scrollBehavior="inside"
       open={isOpen}
-      onOpenChange={(open) => {
+      onOpenChange={() => {
         onClose();
       }}
     >
