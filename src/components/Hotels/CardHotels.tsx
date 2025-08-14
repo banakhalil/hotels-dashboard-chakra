@@ -34,8 +34,8 @@ import AllHotelsSkeleton, {
 import { UpdateHotel } from "./UpdateHotel";
 import CreateHotel from "./CreateHotel";
 import { toaster } from "../ui/toaster";
-import AnchorLink from "react-anchor-link-smooth-scroll";
 import { SelectedPage } from "@/shared/types";
+import DefaultImage from "../../assets/defaultHotel.jpg";
 
 const items = [
   // { label: "Newest", value: "?sort=-createdAt" },
@@ -315,9 +315,11 @@ export const CardHotels = ({
               src={
                 typeof hotel.coverImage === "string"
                   ? hotel.coverImage
-                  : objectUrls[hotels.indexOf(hotel)] || ""
+                  : hotel.coverImage instanceof File
+                  ? URL.createObjectURL(hotel.coverImage)
+                  : DefaultImage
               }
-              alt={hotel.name}
+              alt={DefaultImage}
             />
 
             <Flex
@@ -544,12 +546,17 @@ export const CardHotelsDetails = ({ hotelId, onClose }: HotelDetailsProps) => {
         w="100%"
         h={{ base: "280px", md: "350px" }}
         src={
+          // typeof specificHotel.coverImage === "string"
+          //   ? specificHotel.coverImage
+          //   : objectUrl
           typeof specificHotel.coverImage === "string"
             ? specificHotel.coverImage
-            : objectUrl
+            : specificHotel.coverImage instanceof File
+            ? URL.createObjectURL(specificHotel.coverImage)
+            : DefaultImage
         }
         // src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-        alt={specificHotel.name}
+        alt={DefaultImage}
       />
       <Card.Body gap="2">
         <Text fontSize="md">Located in:</Text>

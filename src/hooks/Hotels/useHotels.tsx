@@ -250,6 +250,7 @@ export const useRooms = (hotelId: string, query: RoomsQuery) => {
     staleTime: 60 * 1000,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
+      if (!lastPage?.pagination) return undefined;
       return lastPage.pagination.hasNextPage
         ? lastPage.pagination.currentPage + 1
         : undefined;

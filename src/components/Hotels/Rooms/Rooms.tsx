@@ -23,6 +23,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import DefaultImage from "../../../assets/defaultRoom.jpg";
 
 type Props = {
   hotelId: string;
@@ -48,10 +49,10 @@ const Rooms = ({ hotelId, sortValue }: Props) => {
   const { mutate } = useDeleteRoom();
 
   const allRooms = rooms?.pages.flatMap((page) => page.rooms) || [];
-  const currentPage =
-    rooms?.pages[rooms.pages.length - 1]?.pagination.currentPage || 1;
-  const numOfPages =
-    rooms?.pages[rooms.pages.length - 1]?.pagination.numOfPages || 1;
+  const lastPage = rooms?.pages[rooms.pages.length - 1];
+  const currentPage = lastPage?.pagination?.currentPage || 1;
+  const numOfPages = lastPage?.pagination?.numOfPages || 1;
+  const hasMorePages = hasNextPage ?? false;
 
   const selectedRoom = allRooms.find((room) => room._id === selectedRoomId);
 
@@ -84,7 +85,7 @@ const Rooms = ({ hotelId, sortValue }: Props) => {
       // Load more rooms when reaching near the end
       if (
         next >= allRooms.length - 2 &&
-        hasNextPage &&
+        hasMorePages &&
         !isFetchingNextPage &&
         currentPage < numOfPages
       ) {
@@ -108,7 +109,7 @@ const Rooms = ({ hotelId, sortValue }: Props) => {
         boxShadow="md"
         onClick={onClick}
         display={
-          (!hasNextPage && currentPage === numOfPages) ||
+          (!hasMorePages && currentPage === numOfPages) ||
           props.currentSlide >= allRooms.length - settings.slidesToShow
             ? "none"
             : "flex"
@@ -153,7 +154,12 @@ const Rooms = ({ hotelId, sortValue }: Props) => {
     );
   }
 
-  if (error) return <Text fontSize="lg">Error loading rooms</Text>;
+  if (error)
+    return (
+      <Text fontSize="lg" textAlign="center">
+        Error loading rooms
+      </Text>
+    );
   if (isLoading)
     return (
       <HStack gap={4} justifyContent="center" alignItems="center" my={20}>
@@ -162,6 +168,29 @@ const Rooms = ({ hotelId, sortValue }: Props) => {
         ))}
       </HStack>
     );
+
+  if (allRooms.length === 0) {
+    return (
+      <Box textAlign="center" py={20}>
+        <Text
+          fontSize="2xl"
+          // className="font-oswald"
+          color="gray.600"
+          _dark={{ color: "gray.400" }}
+        >
+          No rooms available yet
+        </Text>
+        <Text
+          fontSize="md"
+          mt={2}
+          color="gray.500"
+          _dark={{ color: "gray.500" }}
+        >
+          Start by adding your first room
+        </Text>
+      </Box>
+    );
+  }
 
   return (
     <>
@@ -186,9 +215,11 @@ const Rooms = ({ hotelId, sortValue }: Props) => {
                       src={
                         typeof room.image === "string"
                           ? room.image
-                          : URL.createObjectURL(room.image)
+                          : room.image instanceof File
+                          ? URL.createObjectURL(room.image)
+                          : DefaultImage
                       }
-                      alt="Room picture"
+                      alt={DefaultImage}
                       objectFit="cover"
                       height="300px"
                       width="100%"
