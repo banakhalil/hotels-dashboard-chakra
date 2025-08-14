@@ -82,6 +82,8 @@ export const login = async (credentials: LoginCredentials) => {
     console.error("Auth service error:", error);
     // Check if it's a 401 error
     if (error.response?.status === 401) {
+      throw new Error("Email not registered. Please enter correct email.");
+    } else if (error.response?.status === 400) {
       throw new Error(
         "Wrong credentials. Please check your email and password."
       );

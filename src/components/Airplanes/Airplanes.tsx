@@ -142,6 +142,7 @@ const Airplanes = ({ setSelectedPage }: Props) => {
             {airplanes?.map((airplane) => (
               <Box key={airplane._id} px={2}>
                 <Card.Root
+                  borderRadius="2xl"
                   width="full"
                   maxW="420px"
                   height="fit-content"

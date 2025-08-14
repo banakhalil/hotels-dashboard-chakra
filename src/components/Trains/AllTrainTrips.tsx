@@ -118,6 +118,7 @@ const TrainTrips = (props: Props) => {
 
   return (
     <Flex
+      borderRadius="2xl"
       flexDirection="column"
       gap={4}
       width="90%"
@@ -169,6 +170,7 @@ const TrainTrips = (props: Props) => {
 
       {traintrips.map((trip) => (
         <Card.Root
+          borderRadius="2xl"
           size="lg"
           key={trip._id}
           onClick={() => {
@@ -177,7 +179,6 @@ const TrainTrips = (props: Props) => {
           }}
           cursor="pointer"
           borderWidth={2}
-          borderRadius="lg"
           transition="all 0.2s ease"
           _hover={{
             borderColor: "#ffccbc",
@@ -185,7 +186,7 @@ const TrainTrips = (props: Props) => {
             shadow: "lg",
           }}
         >
-          <Card.Body className="card" borderRadius="lg">
+          <Card.Body className="card" borderRadius="2xl">
             <HStack justifyContent="space-between" mx={4}>
               <VStack alignItems="start">
                 <Text

@@ -9,6 +9,8 @@ import {
   Stack,
   Text,
   Box,
+  Select,
+  createListCollection,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { HiUpload } from "react-icons/hi";
@@ -20,25 +22,40 @@ interface Props {
   onClose: () => void;
   hotelId: string;
 }
-const amenitiesOptions = [
-  "WiFi",
-  "Room Service",
-  "AC",
-  "TV",
-  "Balcony",
-  "Sea View",
-  "Mountain View",
-];
+const amenitiesOptions = ["AC", "TV", "Balcony", "Sea View"];
+
+// Collections for select components
+const roomTypeCollection = createListCollection({
+  items: [
+    { label: "Single", value: "Single" },
+    { label: "Double", value: "Double" },
+    { label: "Suite", value: "Suite" },
+  ],
+});
+
+const availabilityCollection = createListCollection({
+  items: [
+    { label: "Available", value: "available" },
+    { label: "Occupied", value: "occupied" },
+  ],
+});
+
+const statusCollection = createListCollection({
+  items: [
+    { label: "Active", value: "active" },
+    { label: "Maintenance", value: "maintenance" },
+  ],
+});
 
 const CreateRoom = ({ isOpen, onClose, hotelId }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
-  const roomTypeRef = useRef<HTMLSelectElement>(null);
   const capacityRef = useRef<HTMLInputElement>(null);
   const pricePerNightRef = useRef<HTMLInputElement>(null);
-  const isAvailableRef = useRef<HTMLSelectElement>(null);
-  const isActiveRef = useRef<HTMLSelectElement>(null);
   const roomNumberRef = useRef<HTMLInputElement>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [selectedRoomType, setSelectedRoomType] = useState<string>("");
+  const [selectedAvailability, setSelectedAvailability] = useState<string>("");
+  const [selectedStatus, setSelectedStatus] = useState<string>("");
   //   const [additionalImages, setAdditionalImages] = useState<
   //     { file: File; preview: string }[]
   //   >([]);
@@ -102,11 +119,14 @@ const CreateRoom = ({ isOpen, onClose, hotelId }: Props) => {
     const image = formData.get("image") as File;
 
     const newRoom: RoomData = {
-      roomType: formData.get("roomType")?.toString() || "",
+      // roomType: formData.get("roomType")?.toString() || "",
+      roomType: selectedRoomType,
       capacity: parseInt(formData.get("capacity")?.toString() || "1"),
       pricePerNight: parseInt(formData.get("pricePerNight")?.toString() || "1"),
-      isAvailable: formData.get("isAvailable")?.toString() === "Available",
-      isActive: formData.get("isActive")?.toString() === "Active",
+      // isAvailable: formData.get("isAvailable")?.toString() === "Available",
+      // isActive: formData.get("isActive")?.toString() === "Active",
+      isAvailable: selectedAvailability === "available" ? true : false,
+      isActive: selectedStatus === "active" ? true : false,
       roomNumber: formData.get("roomNumber")?.toString() || "",
       amenities: checkedAmenities,
       image: image,
@@ -153,6 +173,18 @@ const CreateRoom = ({ isOpen, onClose, hotelId }: Props) => {
       {
         onSuccess: () => {
           console.log("Room created successfully");
+          // Reset all form fields and state
+          setImagePreview(null);
+          setSelectedRoomType("");
+          setSelectedAvailability("");
+          setSelectedStatus("");
+
+          // Reset file input
+          const fileInput = document.getElementById(
+            "image"
+          ) as HTMLInputElement;
+          if (fileInput) fileInput.value = "";
+
           toaster.create({
             title: "Success",
             description: "Room created successfully",
@@ -184,6 +216,7 @@ const CreateRoom = ({ isOpen, onClose, hotelId }: Props) => {
 
   return (
     <Dialog.Root
+      scrollBehavior="inside"
       open={isOpen}
       onOpenChange={(open) => {
         if (!open) {
@@ -198,35 +231,66 @@ const CreateRoom = ({ isOpen, onClose, hotelId }: Props) => {
         }
         onClose();
       }}
-      initialFocusEl={() => roomTypeRef.current}
+
+      // initialFocusEl={() => roomTypeRef.current}
     >
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Header className="drawer">
+          <Dialog.Content borderRadius="2xl">
+            <Dialog.Header className="drawer" borderTopRadius="2xl">
               <Dialog.Title>Add New Hotel</Dialog.Title>
             </Dialog.Header>
-            <Dialog.Body pb="4" zIndex={10} className="drawer">
+            <Dialog.Body
+              p="4"
+              maxH="100vh"
+              overflowY="auto"
+              zIndex={10}
+              className="drawer"
+              borderBottomRadius="2xl"
+            >
               <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <Stack gap="4">
                   <Field.Root>
                     <Field.Label>Room Type</Field.Label>
-                    <select
-                      name="roomType"
-                      ref={roomTypeRef}
-                      style={{
-                        width: "100%",
-                        padding: "8px",
-                        borderRadius: "4px",
-                        border: "1px solid #e0e0e0",
-                      }}
-                    >
-                      <option value=""></option>
-                      <option value="Single">Single</option>
-                      <option value="Double">Double</option>
-                      <option value="Suite">Suite</option>
-                    </select>
+                    <Box position="relative" zIndex="dropdown">
+                      <Select.Root
+                        name="roomType"
+                        className="drawer"
+                        borderRadius="md"
+                        borderWidth="1px"
+                        collection={roomTypeCollection}
+                        size="sm"
+                        width="460px"
+                        value={selectedRoomType ? [selectedRoomType] : []}
+                        onValueChange={(v) => {
+                          const value = Array.isArray(v.value)
+                            ? v.value[0]
+                            : v.value;
+                          setSelectedRoomType(value);
+                        }}
+                      >
+                        <Select.Control>
+                          <Select.Trigger>
+                            <Select.ValueText placeholder="Select Room Type" />
+                          </Select.Trigger>
+                          <Select.IndicatorGroup>
+                            <Select.ClearTrigger>⨯</Select.ClearTrigger>
+                            <Select.Indicator />
+                          </Select.IndicatorGroup>
+                        </Select.Control>
+                        <Select.Positioner>
+                          <Select.Content className="drawer">
+                            {roomTypeCollection.items.map((item) => (
+                              <Select.Item item={item} key={item.value}>
+                                {item.label}
+                                <Select.ItemIndicator>✓</Select.ItemIndicator>
+                              </Select.Item>
+                            ))}
+                          </Select.Content>
+                        </Select.Positioner>
+                      </Select.Root>
+                    </Box>
                   </Field.Root>
                   <Field.Root>
                     <Field.Label>Capacity</Field.Label>
@@ -248,38 +312,87 @@ const CreateRoom = ({ isOpen, onClose, hotelId }: Props) => {
                   </Field.Root>
                   <Field.Root>
                     <Field.Label>Availability</Field.Label>
-                    <select
-                      name="isAvailable"
-                      // placeholder="Available or Occupied"
-                      ref={isAvailableRef}
-                      style={{
-                        width: "100%",
-                        padding: "8px",
-                        borderRadius: "4px",
-                        border: "1px solid #e0e0e0",
-                      }}
-                    >
-                      <option value=""></option>
-                      <option value="Available">Available</option>
-                      <option value="Occupied">Occupied</option>
-                    </select>
+                    <Box position="relative" zIndex="docked">
+                      <Select.Root
+                        name="isAvailable"
+                        className="drawer"
+                        borderRadius="md"
+                        borderWidth="1px"
+                        collection={availabilityCollection}
+                        size="sm"
+                        width="460px"
+                        value={
+                          selectedAvailability ? [selectedAvailability] : []
+                        }
+                        onValueChange={(v) => {
+                          const value = Array.isArray(v.value)
+                            ? v.value[0]
+                            : v.value;
+                          setSelectedAvailability(value);
+                        }}
+                      >
+                        <Select.Control>
+                          <Select.Trigger>
+                            <Select.ValueText placeholder="Select Availability" />
+                          </Select.Trigger>
+                          <Select.IndicatorGroup>
+                            <Select.ClearTrigger>⨯</Select.ClearTrigger>
+                            <Select.Indicator />
+                          </Select.IndicatorGroup>
+                        </Select.Control>
+                        <Select.Positioner>
+                          <Select.Content className="drawer">
+                            {availabilityCollection.items.map((item) => (
+                              <Select.Item item={item} key={item.value}>
+                                {item.label}
+                                <Select.ItemIndicator>✓</Select.ItemIndicator>
+                              </Select.Item>
+                            ))}
+                          </Select.Content>
+                        </Select.Positioner>
+                      </Select.Root>
+                    </Box>
                   </Field.Root>
                   <Field.Root>
                     <Field.Label>Status</Field.Label>
-                    <select
-                      name="isActive"
-                      ref={isActiveRef}
-                      style={{
-                        width: "100%",
-                        padding: "8px",
-                        borderRadius: "4px",
-                        border: "1px solid #e0e0e0",
-                      }}
-                    >
-                      <option value=""></option>
-                      <option value="Active">Active</option>
-                      <option value="Maintenance">Maintenance</option>
-                    </select>
+                    <Box position="relative" zIndex="2">
+                      <Select.Root
+                        name="isActive"
+                        className="drawer"
+                        borderRadius="md"
+                        borderWidth="1px"
+                        collection={statusCollection}
+                        size="sm"
+                        width="460px"
+                        value={selectedStatus ? [selectedStatus] : []}
+                        onValueChange={(v) => {
+                          const value = Array.isArray(v.value)
+                            ? v.value[0]
+                            : v.value;
+                          setSelectedStatus(value);
+                        }}
+                      >
+                        <Select.Control>
+                          <Select.Trigger>
+                            <Select.ValueText placeholder="Select Status" />
+                          </Select.Trigger>
+                          <Select.IndicatorGroup>
+                            <Select.ClearTrigger>⨯</Select.ClearTrigger>
+                            <Select.Indicator />
+                          </Select.IndicatorGroup>
+                        </Select.Control>
+                        <Select.Positioner>
+                          <Select.Content className="drawer">
+                            {statusCollection.items.map((item) => (
+                              <Select.Item item={item} key={item.value}>
+                                {item.label}
+                                <Select.ItemIndicator>✓</Select.ItemIndicator>
+                              </Select.Item>
+                            ))}
+                          </Select.Content>
+                        </Select.Positioner>
+                      </Select.Root>
+                    </Box>
                   </Field.Root>
                   <Field.Root>
                     <Field.Label>Room Number</Field.Label>

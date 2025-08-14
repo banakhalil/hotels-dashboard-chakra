@@ -101,6 +101,7 @@ const UpdateAirplane = ({ isOpen, onClose, planeId }: Props) => {
 
   return (
     <Dialog.Root
+      scrollBehavior="inside"
       open={isOpen}
       onOpenChange={(open) => {
         onClose();
@@ -109,11 +110,18 @@ const UpdateAirplane = ({ isOpen, onClose, planeId }: Props) => {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Header className="drawer">
+          <Dialog.Content borderRadius="2xl">
+            <Dialog.Header className="drawer" borderTopRadius="2xl">
               <Dialog.Title>Update Airplane</Dialog.Title>
             </Dialog.Header>
-            <Dialog.Body pb="4" zIndex={10} className="drawer">
+            <Dialog.Body
+              p="4"
+              maxH="100vh"
+              overflowY="auto"
+              borderBottomRadius="2xl"
+              zIndex={10}
+              className="drawer"
+            >
               {isLoading ? (
                 <Text>Loading airplane details...</Text>
               ) : (

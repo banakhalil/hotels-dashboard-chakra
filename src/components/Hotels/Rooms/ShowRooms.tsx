@@ -26,10 +26,10 @@ const ShowRooms = ({ hotelId }: Props) => {
   );
   const [isOpen, setIsOpen] = useState(false);
   const items = [
-    { label: "No Sorting", value: "" },
+    { label: "Room Type", value: "" },
     { label: "Highest Price", value: "?sort=-pricePerNight" },
     { label: "Lowest Price", value: "?sort=pricePerNight" },
-    { label: "Room Type", value: "?sort=roomType" },
+    // { label: "Room Type", value: "?sort=roomType" },
     { label: "Availability", value: "?sort=isAvailable" },
   ];
   const [value, setValue] = useState("");

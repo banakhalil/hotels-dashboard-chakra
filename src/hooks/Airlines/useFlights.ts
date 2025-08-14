@@ -65,11 +65,13 @@ interface CreateFlightData {
 }
 
 //get flights
-const useFlights = () => {
+const useFlights = (airlineId: string) => {
   return useQuery({
     queryKey: ["flights"],
     queryFn: async () => {
-      const response = await axiosInstance.get<FlightData>("/flights");
+      const response = await axiosInstance.get<FlightData>(
+        `/airlines/${airlineId}/flights`
+      );
       return response.data.data;
     },
   });

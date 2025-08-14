@@ -129,27 +129,45 @@ export const CardHotels = ({
     return skeletons.map((skeleton) => <AllHotelsSkeleton key={skeleton} />);
   if (!hotels?.length)
     return (
-      <Flex
-        justify="center"
-        align="start"
-        h="100%"
-        direction="column"
-        gap={4}
-        marginX={10}
-        marginY={6}
-      >
-        <Search keyWord={keyWord} setKeyWord={setKeyWord} />
-        <Text
-          fontSize="xl"
-          fontWeight="bold"
-          color="gray.500"
-          marginTop="auto"
-          margin="auto"
+      <>
+        <Flex justify="flex-end" mt={8} mb={6} mr={10}>
+          <Button
+            width="fit-content"
+            height={10}
+            className="hotel-button-color"
+            onClick={() => setIsOpen(true)}
+          >
+            Add Hotel
+          </Button>
+          <CreateHotel
+            isOpen={isOpen}
+            onClose={() => {
+              setIsOpen(false);
+              setHotelIdClicked("");
+            }}
+          />
+        </Flex>
+        <Flex
+          justify="center"
+          align="start"
+          h="100%"
+          direction="column"
+          gap={4}
+          marginX={10}
+          marginY={6}
         >
-          No hotel found
-        </Text>
-        {/* <Button onClick={() => setKeyWord("")}>Clear</Button> */}
-      </Flex>
+          <Text
+            fontSize="xl"
+            fontWeight="bold"
+            color="gray.500"
+            marginTop="auto"
+            margin="auto"
+          >
+            No hotel found
+          </Text>
+          {/* <Button onClick={() => setKeyWord("")}>Clear</Button> */}
+        </Flex>
+      </>
     );
 
   return (
@@ -256,6 +274,7 @@ export const CardHotels = ({
           <Card.Root
             className="card"
             key={hotel._id as string}
+            borderRadius="2xl"
             display="flex"
             flexDirection={{ base: "column", md: "row" }}
             overflow="hidden"
@@ -269,7 +288,6 @@ export const CardHotels = ({
             }}
             cursor="pointer"
             borderWidth={2}
-            borderRadius="lg"
             transition="all 0.2s ease"
             _hover={{
               borderColor: "#009688",
@@ -283,7 +301,9 @@ export const CardHotels = ({
             }
           >
             <Image
+              loading="eager"
               objectFit="cover"
+              borderRadius="xl"
               w={
                 isDetailsOpen
                   ? { base: "100%", md: "270px" }
@@ -462,6 +482,7 @@ export const CardHotelsDetails = ({ hotelId, onClose }: HotelDetailsProps) => {
       minW="sm"
       overflow="hidden"
       height="fit-content"
+      borderRadius="2xl"
       p={4}
       opacity={1}
       mb={8}
@@ -515,10 +536,13 @@ export const CardHotelsDetails = ({ hotelId, onClose }: HotelDetailsProps) => {
       <Card.Title fontSize="2xl" fontWeight="bold" mb={4}>
         {specificHotel.name}
       </Card.Title>
+
       <Image
+        loading="eager"
         objectFit="cover"
+        borderRadius="xl"
         w="100%"
-        h={{ base: "280px", md: "300px" }}
+        h={{ base: "280px", md: "350px" }}
         src={
           typeof specificHotel.coverImage === "string"
             ? specificHotel.coverImage
@@ -528,15 +552,17 @@ export const CardHotelsDetails = ({ hotelId, onClose }: HotelDetailsProps) => {
         alt={specificHotel.name}
       />
       <Card.Body gap="2">
-        <Text fontSize="sm">Located in:</Text>
-        <Text fontWeight="bold" fontSize="md">
+        <Text fontSize="md">Located in:</Text>
+        <Text fontWeight="bold" fontSize="lg">
           {specificHotel.country +
             ", " +
             specificHotel.city +
             ", " +
             specificHotel.location}
         </Text>
-        <Card.Description>{specificHotel.description}</Card.Description>
+        <Card.Description fontSize="md">
+          {specificHotel.description}
+        </Card.Description>
         {/* {specificHotel.rooms.length ? (
           <>
             <Text
@@ -559,7 +585,13 @@ export const CardHotelsDetails = ({ hotelId, onClose }: HotelDetailsProps) => {
           </>
         ) : null} */}
 
-        <Text textStyle="lg" fontWeight="medium" letterSpacing="tight" mt="2">
+        <Text
+          fontSize="lg"
+          textStyle="lg"
+          fontWeight="medium"
+          letterSpacing="tight"
+          mt="2"
+        >
           Amenities
         </Text>
         <Grid templateColumns="repeat(2,1fr)">

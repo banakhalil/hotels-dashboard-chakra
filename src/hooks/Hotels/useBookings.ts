@@ -37,12 +37,12 @@ export const useBookings = (value: string, keyWord?: string) => {
     queryFn: async () => {
       const url =
         value && keyWord
-          ? `/hotelBookings?keyWord=${keyWord}&${value}`
+          ? `/hotelBookings/manager?keyWord=${keyWord}&${value}`
           : value && !keyWord
-          ? `/hotelBookings${value}`
+          ? `/hotelBookings/manager${value}`
           : keyWord && !value
-          ? `/hotelBookings?keyWord=${keyWord}`
-          : "/hotelBookings";
+          ? `/hotelBookings/manager?keyWord=${keyWord}`
+          : "/hotelBookings/manager";
       const response = await axiosInstance.get<AllBookings>(url);
       return response.data.data.bookings;
     },

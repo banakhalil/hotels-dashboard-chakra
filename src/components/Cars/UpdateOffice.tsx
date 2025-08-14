@@ -129,6 +129,7 @@ export const UpdateOffice = ({
 
   return (
     <Dialog.Root
+      scrollBehavior="inside"
       open={isOpen}
       onOpenChange={(open) => {
         if (!open) {
@@ -144,11 +145,18 @@ export const UpdateOffice = ({
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Header className="drawer">
+          <Dialog.Content borderRadius="2xl">
+            <Dialog.Header className="drawer" borderTopRadius="2xl">
               <Dialog.Title>Editing Office</Dialog.Title>
             </Dialog.Header>
-            <Dialog.Body pb="4" zIndex={10} className="drawer">
+            <Dialog.Body
+              pb="4"
+              zIndex={10}
+              className="drawer"
+              maxH="100vh"
+              overflowY="auto"
+              borderBottomRadius="2xl"
+            >
               <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <Stack gap="4">
                   <Field.Root>

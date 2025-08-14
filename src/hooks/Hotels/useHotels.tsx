@@ -23,9 +23,7 @@ export interface HotelData {
   updatedAt: string;
 }
 export interface AllHotels {
-  data: {
-    hotels: HotelData[];
-  };
+  data: HotelData[];
 }
 
 interface SpecificHotels {
@@ -64,14 +62,14 @@ const useHotels = (sortValue: string, keyWord?: string) => {
     queryFn: async () => {
       const url =
         sortValue && keyWord
-          ? `/hotels${sortValue}&keyWord=${keyWord}`
+          ? `/hotels/manager${sortValue}&keyWord=${keyWord}`
           : sortValue && !keyWord
-          ? `/hotels${sortValue}`
+          ? `/hotels/manager${sortValue}`
           : keyWord
-          ? `/hotels?keyWord=${keyWord}`
-          : `/hotels`;
+          ? `/hotels/manager?keyWord=${keyWord}`
+          : `/hotels/manager`;
       const response = await axiosInstance.get<AllHotels>(url);
-      return response.data.data.hotels;
+      return response.data.data;
     },
     // Optional: keep previous data while fetching new data
   });

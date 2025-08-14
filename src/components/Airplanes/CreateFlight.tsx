@@ -136,7 +136,7 @@ const CreateFlight = ({ isOpen, onClose }: Props) => {
 
       toaster.create({
         title: "Success",
-        description: "Flight updated successfully",
+        description: "Flight Added successfully",
         type: "success",
         duration: 3000,
         closable: true,
@@ -149,7 +149,7 @@ const CreateFlight = ({ isOpen, onClose }: Props) => {
         description:
           error instanceof Error
             ? error.message
-            : "Failed to update flight. Please try again.",
+            : "Failed to add flight. Please try again.",
         type: "error",
         duration: 5000,
         closable: true,
@@ -158,16 +158,22 @@ const CreateFlight = ({ isOpen, onClose }: Props) => {
   };
 
   return (
-    <Dialog.Root open={isOpen}>
+    <Dialog.Root scrollBehavior="inside" open={isOpen}>
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Header className="drawer">
+          <Dialog.Content borderRadius="2xl">
+            <Dialog.Header className="drawer" borderTopRadius="2xl">
               <Dialog.Title>Add Flight</Dialog.Title>
               <Dialog.CloseTrigger onClick={onClose} />
             </Dialog.Header>
-            <Dialog.Body pb="4" className="drawer">
+            <Dialog.Body
+              p="4"
+              maxH="100vh"
+              overflowY="auto"
+              borderBottomRadius="2xl"
+              className="drawer"
+            >
               <form onSubmit={handleSubmit}>
                 <Stack gap="4">
                   <Field.Root>

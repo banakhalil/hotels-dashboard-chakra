@@ -110,7 +110,7 @@ const Airline = ({ setSelectedPage }: Props) => {
         maxW="4xl"
         h="500px"
         bg="white"
-        borderRadius="xl"
+        borderRadius="2xl"
         overflow="hidden"
         boxShadow="xl"
         backgroundColor="rgb(230, 230, 230)"

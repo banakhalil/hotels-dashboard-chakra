@@ -110,11 +110,12 @@ const Office = ({ setSelectedPage }: Props) => {
   return (
     <Container maxW="6xl" centerContent py={24} minH="100vh">
       <Flex
+        className="card"
         w="full"
         maxW="4xl"
         h="500px"
         bg="white"
-        borderRadius="xl"
+        borderRadius="2xl"
         overflow="hidden"
         boxShadow="xl"
         backgroundColor="rgb(230, 230, 230)"
@@ -140,6 +141,7 @@ const Office = ({ setSelectedPage }: Props) => {
             borderRadius="md"
           >
             <Image
+              loading="eager"
               src={
                 typeof officeData?.coverImage === "string"
                   ? `${officeData.coverImage}?t=${Date.now()}`
@@ -151,7 +153,6 @@ const Office = ({ setSelectedPage }: Props) => {
               maxH="80%"
               maxW="80%"
               objectFit="contain"
-              loading="eager"
               rounded="2xl"
             />
           </Box>

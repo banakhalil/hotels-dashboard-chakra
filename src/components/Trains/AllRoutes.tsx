@@ -177,16 +177,30 @@ const AllRoutes = () => {
 
   if (!allRoutes || allRoutes.length === 0)
     return (
-      <Text
-        fontSize="xl"
-        fontWeight="bold"
-        color="gray.500"
-        marginTop="auto"
-        margin="auto"
-        marginY={6}
-      >
-        No routes found
-      </Text>
+      <>
+        <Flex justify="flex-end" mb={6} mr={10}>
+          <Button
+            px={4}
+            py={2}
+            rounded="md"
+            onClick={() => setIsOpen(true)}
+            className="train-secondary-button-color"
+          >
+            Add Route
+          </Button>
+          <AddRoute isOpen={isOpen} onClose={() => setIsOpen(false)} />
+        </Flex>
+        <Text
+          fontSize="xl"
+          fontWeight="bold"
+          color="gray.500"
+          marginTop="auto"
+          margin="auto"
+          marginY={6}
+        >
+          No routes found
+        </Text>
+      </>
     );
 
   return (
@@ -208,6 +222,7 @@ const AllRoutes = () => {
           {allRoutes.map((route: Route) => (
             <Box key={route._id} px={2}>
               <Card.Root
+                borderRadius="2xl"
                 width="full"
                 maxW="400px"
                 className="card"

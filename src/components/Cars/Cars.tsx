@@ -190,6 +190,7 @@ const Cars = ({ setSelectedPage }: Props) => {
           {cars?.map((car) => (
             <Box key={car._id} px={2}>
               <Card.Root
+                borderRadius="2xl"
                 className="card"
                 width="full"
                 maxW="400px"
@@ -199,6 +200,7 @@ const Cars = ({ setSelectedPage }: Props) => {
                 height="full"
               >
                 <Image
+                  loading="eager"
                   src={
                     car.images && car.images.length > 0
                       ? Array.isArray(car.images) &&

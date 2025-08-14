@@ -315,9 +315,9 @@ const Profile = ({
                         fontSize="2xl"
                       />
                       {imagePreview ? (
-                        <Avatar.Image src={imagePreview} />
+                        <Avatar.Image src={imagePreview} loading="eager" />
                       ) : typeof avatar === "string" ? (
-                        <Avatar.Image src={avatar} />
+                        <Avatar.Image src={avatar} loading="eager" />
                       ) : null}
                     </Avatar.Root>
                     <Field.Root alignItems="center">

@@ -9,6 +9,8 @@ import {
   Portal,
   Stack,
   Text,
+  Select,
+  createListCollection,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { HiUpload } from "react-icons/hi";
@@ -29,15 +31,21 @@ interface UpdateRoomProps {
   isActive: boolean;
 }
 
-const amenitiesOptions = [
-  "WiFi",
-  "Room Service",
-  "AC",
-  "TV",
-  "Balcony",
-  "Sea View",
-  "Mountain View",
-];
+const amenitiesOptions = ["AC", "TV", "Balcony", "Sea View"];
+
+const availabilityCollection = createListCollection({
+  items: [
+    { label: "Available", value: "available" },
+    { label: "Occupied", value: "occupied" },
+  ],
+});
+
+const statusCollection = createListCollection({
+  items: [
+    { label: "Active", value: "active" },
+    { label: "Maintenance", value: "maintenance" },
+  ],
+});
 
 export const UpdateRoom = ({
   isOpen,
@@ -59,6 +67,8 @@ export const UpdateRoom = ({
   const isAvailableRef = useRef<HTMLSelectElement>(null);
   const isActiveRef = useRef<HTMLSelectElement>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [selectedAvailability, setSelectedAvailability] = useState<string>("");
+  const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [additionalImages, setAdditionalImages] = useState<
     { file: File; preview: string }[]
   >([]);
@@ -71,16 +81,15 @@ export const UpdateRoom = ({
       if (pricePerNightRef.current) {
         pricePerNightRef.current.value = specificRoom.pricePerNight.toString();
       }
-      if (isAvailableRef.current) {
-        isAvailableRef.current.value = specificRoom.isAvailable
-          ? "Available"
-          : "Occupied";
-      }
-      if (isActiveRef.current) {
-        isActiveRef.current.value = specificRoom.isActive
-          ? "Active"
-          : "Maintenance";
-      }
+
+      // Set availability state
+      setSelectedAvailability(
+        specificRoom.isAvailable ? "available" : "occupied"
+      );
+
+      // Set status state
+      setSelectedStatus(specificRoom.isActive ? "active" : "maintenance");
+
       // Set image preview if it exists
       if (typeof specificRoom.image === "string") {
         setImagePreview(specificRoom.image);
@@ -140,12 +149,9 @@ export const UpdateRoom = ({
       formData.getAll("amenities")
     ) as string[];
 
-    // Get isAvailable value and convert to boolean
-    const isAvailableValue = formData.get("isAvailable")?.toString() || "";
-    const isAvailableBoolean = isAvailableValue.toLowerCase() === "available";
-
-    const isActiveValue = formData.get("isActive")?.toString() || "";
-    const isActiveBoolean = isActiveValue.toLowerCase() === "active";
+    // Use the state values for availability and status
+    const isAvailableBoolean = selectedAvailability === "available";
+    const isActiveBoolean = selectedStatus === "active";
 
     // Get the files and log them
     const coverImageInput = document.getElementById(
@@ -227,6 +233,7 @@ export const UpdateRoom = ({
 
   return (
     <Dialog.Root
+      scrollBehavior="inside"
       open={isOpen}
       onOpenChange={(open) => {
         if (!open) {
@@ -241,11 +248,18 @@ export const UpdateRoom = ({
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Header className="drawer">
+          <Dialog.Content borderRadius="2xl">
+            <Dialog.Header className="drawer" borderTopRadius="2xl">
               <Dialog.Title>Editing Room</Dialog.Title>
             </Dialog.Header>
-            <Dialog.Body pb="4" zIndex={10} className="drawer">
+            <Dialog.Body
+              p="4"
+              maxH="100vh"
+              overflowY="auto"
+              zIndex={10}
+              className="drawer"
+              borderBottomRadius="2xl"
+            >
               {isLoading ? (
                 <Text>Loading room details...</Text>
               ) : (
@@ -278,49 +292,87 @@ export const UpdateRoom = ({
                     </Field.Root> */}
                     <Field.Root>
                       <Field.Label>Availability</Field.Label>
-                      <select
-                        name="isAvailable"
-                        defaultValue={
-                          specificRoom?.isAvailable || isAvailable
-                            ? "Available"
-                            : "Occupied"
-                        }
-                        ref={isAvailableRef}
-                        className="border-color"
-                        style={{
-                          width: "100%",
-                          padding: "8px",
-                          borderRadius: "4px",
-                          border: "1px solid #e0e0e0",
-                        }}
-                      >
-                        <option value=""></option>
-                        <option value="Available">Available</option>
-                        <option value="Occupied">Occupied</option>
-                      </select>
+                      <Box position="relative" zIndex="docked">
+                        <Select.Root
+                          name="isAvailable"
+                          className="drawer"
+                          borderRadius="md"
+                          borderWidth="1px"
+                          collection={availabilityCollection}
+                          size="sm"
+                          width="460px"
+                          value={
+                            selectedAvailability ? [selectedAvailability] : []
+                          }
+                          onValueChange={(v) => {
+                            const value = Array.isArray(v.value)
+                              ? v.value[0]
+                              : v.value;
+                            setSelectedAvailability(value);
+                          }}
+                        >
+                          <Select.Control>
+                            <Select.Trigger>
+                              <Select.ValueText placeholder="Select Availability" />
+                            </Select.Trigger>
+                            <Select.IndicatorGroup>
+                              <Select.ClearTrigger>⨯</Select.ClearTrigger>
+                              <Select.Indicator />
+                            </Select.IndicatorGroup>
+                          </Select.Control>
+                          <Select.Positioner>
+                            <Select.Content className="drawer">
+                              {availabilityCollection.items.map((item) => (
+                                <Select.Item item={item} key={item.value}>
+                                  {item.label}
+                                  <Select.ItemIndicator>✓</Select.ItemIndicator>
+                                </Select.Item>
+                              ))}
+                            </Select.Content>
+                          </Select.Positioner>
+                        </Select.Root>
+                      </Box>
                     </Field.Root>
                     <Field.Root>
                       <Field.Label>Status</Field.Label>
-                      <select
-                        name="isActive"
-                        defaultValue={
-                          specificRoom?.isActive || isActive
-                            ? "Active"
-                            : "Maintenance"
-                        }
-                        ref={isActiveRef}
-                        className="border-color"
-                        style={{
-                          width: "100%",
-                          padding: "8px",
-                          borderRadius: "4px",
-                          border: "1px solid #e0e0e0",
-                        }}
-                      >
-                        <option value=""></option>
-                        <option value="Active">Active</option>
-                        <option value="Maintenance">Maintenance</option>
-                      </select>
+                      <Box position="relative" zIndex="2">
+                        <Select.Root
+                          name="isActive"
+                          className="drawer"
+                          borderRadius="md"
+                          borderWidth="1px"
+                          collection={statusCollection}
+                          size="sm"
+                          width="460px"
+                          value={selectedStatus ? [selectedStatus] : []}
+                          onValueChange={(v) => {
+                            const value = Array.isArray(v.value)
+                              ? v.value[0]
+                              : v.value;
+                            setSelectedStatus(value);
+                          }}
+                        >
+                          <Select.Control>
+                            <Select.Trigger>
+                              <Select.ValueText placeholder="Select Status" />
+                            </Select.Trigger>
+                            <Select.IndicatorGroup>
+                              <Select.ClearTrigger>⨯</Select.ClearTrigger>
+                              <Select.Indicator />
+                            </Select.IndicatorGroup>
+                          </Select.Control>
+                          <Select.Positioner>
+                            <Select.Content className="drawer">
+                              {statusCollection.items.map((item) => (
+                                <Select.Item item={item} key={item.value}>
+                                  {item.label}
+                                  <Select.ItemIndicator>✓</Select.ItemIndicator>
+                                </Select.Item>
+                              ))}
+                            </Select.Content>
+                          </Select.Positioner>
+                        </Select.Root>
+                      </Box>
                     </Field.Root>
                     <Field.Root>
                       <Field.Label>Amenities</Field.Label>

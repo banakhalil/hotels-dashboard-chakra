@@ -179,8 +179,10 @@ const Rooms = ({ hotelId, sortValue }: Props) => {
                     maxH="700px"
                     mx="auto"
                     height="full"
+                    borderRadius="2xl"
                   >
                     <Image
+                      loading="eager"
                       src={
                         typeof room.image === "string"
                           ? room.image

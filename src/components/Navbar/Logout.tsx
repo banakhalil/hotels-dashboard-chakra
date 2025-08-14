@@ -28,8 +28,8 @@ const Logout = ({ isOpen, onClose }: Props) => {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Header className="drawer">
+          <Dialog.Content borderRadius="2xl">
+            <Dialog.Header className="drawer" borderTopRadius="2xl">
               {/* <Dialog.Title>Attention</Dialog.Title> */}
             </Dialog.Header>
             <Dialog.Body className="drawer">
@@ -37,7 +37,7 @@ const Logout = ({ isOpen, onClose }: Props) => {
                 Are you sure you want to log out?
               </Text>
             </Dialog.Body>
-            <Dialog.Footer className="drawer">
+            <Dialog.Footer className="drawer" borderBottomRadius="2xl">
               <Dialog.ActionTrigger asChild>
                 <Button variant="outline" onClick={onClose}>
                   Cancel

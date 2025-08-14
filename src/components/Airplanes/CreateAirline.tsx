@@ -98,6 +98,7 @@ const CreateAirline = ({ isOpen, onClose }: Props) => {
 
   return (
     <Dialog.Root
+      scrollBehavior="inside"
       open={isOpen}
       onOpenChange={(open) => {
         if (!open) {
@@ -113,11 +114,18 @@ const CreateAirline = ({ isOpen, onClose }: Props) => {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Header className="drawer">
+          <Dialog.Content borderRadius="2xl">
+            <Dialog.Header className="drawer" borderTopRadius="2xl">
               <Dialog.Title>Add Your Airline</Dialog.Title>
             </Dialog.Header>
-            <Dialog.Body pb="4" zIndex={10} className="drawer">
+            <Dialog.Body
+              p="4"
+              maxH="100vh"
+              overflowY="auto"
+              borderBottomRadius="2xl"
+              zIndex={10}
+              className="drawer"
+            >
               <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <Stack gap="4">
                   <Field.Root>

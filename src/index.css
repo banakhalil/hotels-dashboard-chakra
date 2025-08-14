@@ -1,5 +1,15 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200;300;400;500;600;700&display=swap');
+
+/* Font Classes */
+.font-bebas-neue {
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.font-oswald {
+  font-family: 'Oswald', sans-serif;
+}
 
 /*BODY*/
 body {
@@ -14,6 +24,7 @@ body {
 /*SHARED SIDEBAR TEXT COLOR*/
 .sidebar-text-color {
   color: rgb(239, 236, 236);
+  /* color: rgb(218, 214, 214); */
 }
 :root[class~="dark"] .sidebar-text-color {
   color: rgb(239, 236, 236);
@@ -37,6 +48,17 @@ body {
 }
 :root[class~="dark"] .border-color {
   border-color: #444444;
+}
+.border-color-login {
+  border-color: #e0e0e0;
+  border-color: #c0bbbb;
+  border-color: whiteAlpha.700;
+}
+:root[class~="dark"] .border-color-login {
+  border-color: #323131;
+  border-color: #c0bbbb;
+  border-color: whiteAlpha.700;
+  /* border-color: #396b9c; */
 }
 
 /*HOTEL MANAGER THEME*/
@@ -308,4 +330,45 @@ body {
 }
 :root[class~="dark"] .secondary-text-color {
   color: gray.400;
+}
+
+/* Custom Scrollbar Styling */
+.drawer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.drawer::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.drawer::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.drawer::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* For Firefox */
+.drawer {
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+}
+
+/* Hide default password reveal button */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input[type="password"]::-webkit-contacts-auto-fill-button,
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-strong-password-auto-fill-button {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
 }

@@ -16,6 +16,7 @@ import useFlights from "@/hooks/Airlines/useFlights";
 import { SelectedPage } from "@/shared/types";
 import UpdateFlight from "./UpdateFlight";
 import CreateFlight from "./CreateFlight";
+import useAirlines from "@/hooks/Airlines/useAirlines";
 
 type Props = {
   setSelectedPage: (newPage: SelectedPage) => void;
@@ -26,7 +27,10 @@ const skeletons = [1, 2, 3, 4];
 const Flights = ({ setSelectedPage }: Props) => {
   const [isUpdateFlightOpen, setIsUpdateFlightOpen] = useState(false);
   const [selectedFlightId, setSelectedFlightId] = useState("");
-  const { data: flights, isLoading, error } = useFlights();
+
+  const { data: airline } = useAirlines();
+  const { data: flights, isLoading, error } = useFlights(airline?._id || "");
+
   const [isAddOpen, setIsAddOpen] = useState(false);
 
   const handleFlightClick = (flightId: string) => {
@@ -148,12 +152,12 @@ const Flights = ({ setSelectedPage }: Props) => {
 
       {flights.map((flight) => (
         <Card.Root
+          borderRadius="2xl"
           size="lg"
           key={flight._id}
           onClick={() => handleFlightClick(flight._id)}
           cursor="pointer"
           borderWidth={2}
-          borderRadius="lg"
           transition="all 0.2s ease"
           _hover={{
             borderColor: "#2c2875",
@@ -164,7 +168,7 @@ const Flights = ({ setSelectedPage }: Props) => {
             _hover: { borderColor: "#a3b3ff", borderWidth: "2px" },
           }}
         >
-          <Card.Body className="card" borderRadius="lg">
+          <Card.Body className="card" borderRadius="2xl">
             <HStack justifyContent="space-between" mx={4}>
               <VStack alignItems="start" width="200px">
                 <Text

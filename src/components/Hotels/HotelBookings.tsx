@@ -158,6 +158,7 @@ const HotelBookings = (props: Props) => {
           rounded="lg"
           height="fit-content"
           w="85%"
+          borderRadius="2xl"
         >
           <Table.Root size="lg" stickyHeader>
             <Table.Header>

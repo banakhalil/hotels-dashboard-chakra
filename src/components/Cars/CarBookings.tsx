@@ -126,7 +126,8 @@ const CarBookings = ({ setSelectedPage }: Props) => {
           borderWidth="0.5px"
           rounded="lg"
           height="fit-content"
-          w="80%"
+          w="85%"
+          borderRadius="2xl"
         >
           <Table.Root size="lg" stickyHeader>
             <Table.Header>
