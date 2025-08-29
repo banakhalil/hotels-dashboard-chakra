@@ -14,6 +14,7 @@ import { HiUpload } from "react-icons/hi";
 import { toaster } from "@/components/ui/toaster";
 import { useSpecificEvent, useUpdateEvent } from "@/hooks/Trips/useEvents";
 import { AxiosError } from "axios";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 type Props = {
   isOpen: boolean;
@@ -22,6 +23,7 @@ type Props = {
 };
 
 const EditEvent = ({ isOpen, onClose, eventId }: Props) => {
+  const { t } = useTranslation();
   const titleRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -96,9 +98,13 @@ const EditEvent = ({ isOpen, onClose, eventId }: Props) => {
         title: "Error",
         description:
           error instanceof AxiosError
-            ? error.response?.data.errors
-                .map((err: any) => err.msg)
-                .join(`  ////  `)
+            ? Array.isArray(error.response?.data.errors)
+              ? error.response.data.errors
+                  .map((err: any) => err.msg)
+                  .join(`  ////  `)
+              : error.response?.data.errors?.msg ||
+                error.response?.data.message ||
+                "Failed to update event. Please try again."
             : "Failed to update event. Please try again.",
         type: "error",
         duration: 5000,
@@ -126,7 +132,9 @@ const EditEvent = ({ isOpen, onClose, eventId }: Props) => {
         <Dialog.Positioner>
           <Dialog.Content borderRadius="2xl">
             <Dialog.Header className="drawer" borderTopRadius="2xl">
-              <Dialog.Title>Edit Event</Dialog.Title>
+              <Dialog.Title className="translated-text">
+                {t("buttons.editEvent")}
+              </Dialog.Title>
             </Dialog.Header>
             <Dialog.Body
               p="4"
@@ -137,25 +145,29 @@ const EditEvent = ({ isOpen, onClose, eventId }: Props) => {
               className="drawer"
             >
               {isLoading ? (
-                <Text>Loading event details...</Text>
+                <Text className="translated-text">{t("common.loading")}</Text>
               ) : (
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                   <Stack gap="4">
                     <Field.Root>
-                      <Field.Label>Event Title:</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.title")}:
+                      </Field.Label>
                       <Input
                         name="title"
-                        placeholder="Title"
+                        placeholder={t("common.title")}
                         ref={titleRef}
                         className="border-color"
                       />
                     </Field.Root>
 
                     <Field.Root>
-                      <Field.Label>Description:</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.description")}:
+                      </Field.Label>
                       <Textarea
                         name="description"
-                        placeholder="Description"
+                        placeholder={t("common.description")}
                         ref={descriptionRef}
                         className="border-color"
                         rows={4}
@@ -164,17 +176,21 @@ const EditEvent = ({ isOpen, onClose, eventId }: Props) => {
                       />
                     </Field.Root>
                     <Field.Root>
-                      <Field.Label>Location:</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.location")}:
+                      </Field.Label>
                       <Input
                         name="location"
-                        placeholder="Location, City, Country"
+                        placeholder={t("common.location")}
                         ref={locationRef}
                         className="border-color"
                       />
                     </Field.Root>
 
                     <Field.Root>
-                      <Field.Label>Image</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.image")}
+                      </Field.Label>
                       <input
                         type="file"
                         accept="image/*"
@@ -191,7 +207,7 @@ const EditEvent = ({ isOpen, onClose, eventId }: Props) => {
                         }
                         className="border-color"
                       >
-                        <HiUpload /> Change Image
+                        <HiUpload /> {t("buttons.changeImage")}
                       </Button>
                       {imagePreview && (
                         <img
@@ -209,12 +225,19 @@ const EditEvent = ({ isOpen, onClose, eventId }: Props) => {
                   </Stack>
                   <Dialog.Footer>
                     <Dialog.ActionTrigger asChild>
-                      <Button variant="outline" onClick={onClose}>
-                        Cancel
+                      <Button
+                        variant="outline"
+                        onClick={onClose}
+                        className="translated-text"
+                      >
+                        {t("common.cancel")}
                       </Button>
                     </Dialog.ActionTrigger>
-                    <Button type="submit" className="trip-button-color">
-                      Save Changes
+                    <Button
+                      type="submit"
+                      className="trip-button-color translated-text"
+                    >
+                      {t("buttons.saveChanges")}
                     </Button>
                   </Dialog.Footer>
                 </form>

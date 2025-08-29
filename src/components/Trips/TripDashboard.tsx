@@ -83,6 +83,8 @@ const TripDashboard = () => {
       >
         {/* Top Stats Cards */}
         <Grid
+          className="font-oswald"
+          letterSpacing="wide"
           templateColumns={{
             base: "1fr",
             md: "repeat(2, 1fr)",
@@ -144,6 +146,8 @@ const TripDashboard = () => {
 
         {/* Main Content Grid */}
         <Grid
+          className="font-oswald"
+          letterSpacing="wide"
           templateColumns={{ base: "1fr", lg: "repeat(4, 1fr)" }}
           templateRows={{ lg: "repeat(3, auto)" }}
           gap={4}

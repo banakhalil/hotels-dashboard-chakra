@@ -18,6 +18,7 @@ import { toaster } from "@/components/ui/toaster";
 import { useSpecificTrip, useUpdateTrip } from "@/hooks/Trips/useTrips";
 import { useGuides } from "@/hooks/Trips/useGuides";
 import { AxiosError } from "axios";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 type Props = {
   isOpen: boolean;
@@ -26,6 +27,7 @@ type Props = {
 };
 
 const EditTrip = ({ isOpen, onClose, tripId }: Props) => {
+  const { t } = useTranslation();
   const titleRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLInputElement>(null);
   const cityRef = useRef<HTMLInputElement>(null);
@@ -135,9 +137,13 @@ const EditTrip = ({ isOpen, onClose, tripId }: Props) => {
         title: "Error",
         description:
           error instanceof AxiosError
-            ? error.response?.data.errors
-                .map((err: any) => err.msg)
-                .join(`  ////  `)
+            ? Array.isArray(error.response?.data.errors)
+              ? error.response.data.errors
+                  .map((err: any) => err.msg)
+                  .join(`  ////  `)
+              : error.response?.data.errors?.msg ||
+                error.response?.data.message ||
+                "Failed to update trip. Please try again."
             : "Failed to update trip. Please try again.",
         type: "error",
         duration: 5000,
@@ -165,7 +171,9 @@ const EditTrip = ({ isOpen, onClose, tripId }: Props) => {
         <Dialog.Positioner>
           <Dialog.Content borderRadius="2xl">
             <Dialog.Header className="drawer" borderTopRadius="2xl">
-              <Dialog.Title>Edit Trip</Dialog.Title>
+              <Dialog.Title className="translated-text">
+                {t("buttons.editTrip")}
+              </Dialog.Title>
             </Dialog.Header>
             <Dialog.Body
               p="4"
@@ -176,25 +184,29 @@ const EditTrip = ({ isOpen, onClose, tripId }: Props) => {
               className="drawer"
             >
               {isLoading ? (
-                <Text>Loading trip details...</Text>
+                <Text className="translated-text">{t("common.loading")}</Text>
               ) : (
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                   <Stack gap="4">
                     <Field.Root>
-                      <Field.Label>Trip Title:</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.title")}:
+                      </Field.Label>
                       <Input
                         name="title"
-                        placeholder="Title"
+                        placeholder={t("common.title")}
                         ref={titleRef}
                         className="border-color"
                       />
                     </Field.Root>
 
                     <Field.Root>
-                      <Field.Label>Description:</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.description")}:
+                      </Field.Label>
                       <Textarea
                         name="description"
-                        placeholder="Description"
+                        placeholder={t("common.description")}
                         ref={descriptionRef}
                         className="border-color"
                         rows={4}
@@ -203,26 +215,32 @@ const EditTrip = ({ isOpen, onClose, tripId }: Props) => {
                       />
                     </Field.Root>
                     <Field.Root>
-                      <Field.Label>Country:</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.country")}:
+                      </Field.Label>
                       <Input
                         name="country"
-                        placeholder="Country"
+                        placeholder={t("common.country")}
                         ref={countryRef}
                         className="border-color"
                       />
                     </Field.Root>
 
                     <Field.Root>
-                      <Field.Label>City:</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.city")}:
+                      </Field.Label>
                       <Input
                         name="city"
-                        placeholder="City"
+                        placeholder={t("common.city")}
                         ref={cityRef}
                         className="border-color"
                       />
                     </Field.Root>
                     <Field.Root>
-                      <Field.Label>Trip Guide:</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.tripGuide")}:
+                      </Field.Label>
                       <Box position="relative" zIndex="10">
                         <Select.Root
                           className="drawer"
@@ -241,7 +259,9 @@ const EditTrip = ({ isOpen, onClose, tripId }: Props) => {
                         >
                           <Select.Control>
                             <Select.Trigger>
-                              <Select.ValueText placeholder="Select A Guide" />
+                              <Select.ValueText
+                                placeholder={t("common.selectGuide")}
+                              />
                             </Select.Trigger>
                             <Select.IndicatorGroup>
                               <Select.ClearTrigger>⨯</Select.ClearTrigger>
@@ -262,52 +282,64 @@ const EditTrip = ({ isOpen, onClose, tripId }: Props) => {
                       </Box>
                     </Field.Root>
                     <Field.Root>
-                      <Field.Label>Language:</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.language")}:
+                      </Field.Label>
                       <Input
                         name="language"
-                        placeholder="Language"
+                        placeholder={t("common.language")}
                         ref={languageRef}
                         className="border-color"
                       />
                     </Field.Root>
                     <Field.Root>
-                      <Field.Label>Category:</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.category")}:
+                      </Field.Label>
                       <Input
                         name="category"
-                        placeholder="Category"
+                        placeholder={t("common.category")}
                         ref={categoryRef}
                         className="border-color"
                       />
                     </Field.Root>
                     <Field.Root>
-                      <Field.Label>Duration:</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.duration")}:
+                      </Field.Label>
                       <Input
                         name="duration"
-                        placeholder="Duration"
+                        placeholder={t("common.duration")}
                         ref={durationRef}
                         className="border-color"
                       />
                     </Field.Root>
                     <Field.Root>
-                      <Field.Label>Price:</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.price")}:
+                      </Field.Label>
                       <Input
                         name="price"
-                        placeholder="Price"
+                        placeholder={t("common.price")}
                         ref={priceRef}
                         className="border-color"
                       />
                     </Field.Root>
                     <Field.Root>
-                      <Field.Label>Max Group Size:</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.maxGroupSize")}:
+                      </Field.Label>
                       <Input
                         name="maxGroupSize"
-                        placeholder="Max Group Size"
+                        placeholder={t("common.maxGroupSize")}
                         ref={maxGroupSizeRef}
                         className="border-color"
                       />
                     </Field.Root>
                     <Field.Root>
-                      <Field.Label>Image</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.image")}
+                      </Field.Label>
                       <input
                         type="file"
                         accept="image/*"
@@ -324,7 +356,7 @@ const EditTrip = ({ isOpen, onClose, tripId }: Props) => {
                         }
                         className="border-color"
                       >
-                        <HiUpload /> Change Image
+                        <HiUpload /> {t("buttons.changeImage")}
                       </Button>
                       {imagePreview && (
                         <img
@@ -342,12 +374,19 @@ const EditTrip = ({ isOpen, onClose, tripId }: Props) => {
                   </Stack>
                   <Dialog.Footer>
                     <Dialog.ActionTrigger asChild>
-                      <Button variant="outline" onClick={onClose}>
-                        Cancel
+                      <Button
+                        variant="outline"
+                        onClick={onClose}
+                        className="translated-text"
+                      >
+                        {t("common.cancel")}
                       </Button>
                     </Dialog.ActionTrigger>
-                    <Button type="submit" className="trip-button-color">
-                      Save Changes
+                    <Button
+                      type="submit"
+                      className="trip-button-color translated-text"
+                    >
+                      {t("buttons.saveChanges")}
                     </Button>
                   </Dialog.Footer>
                 </form>

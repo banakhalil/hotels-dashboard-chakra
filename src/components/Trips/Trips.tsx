@@ -23,11 +23,13 @@ import CreateTrip from "./CreateTrip";
 import { EditIcon } from "lucide-react";
 import EditTrip from "./EditTrip";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 const Trips = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
+  const { t } = useTranslation();
 
   const { data, isLoading, error } = useTrips({
     page: currentPage,
@@ -61,8 +63,9 @@ const Trips = () => {
         marginX="auto"
         marginY={6}
         textAlign="center"
+        className="translated-text"
       >
-        Error loading trips
+        {t("messages.errorLoadingTrips")}
       </Text>
     );
 
@@ -73,9 +76,9 @@ const Trips = () => {
           <Box width="30%"></Box>
           <Button
             onClick={() => setIsAddOpen(true)}
-            className="trip-button-color"
+            className="trip-button-color translated-text"
           >
-            Add Trip
+            {t("buttons.addTrip")}
           </Button>
         </HStack>
         {isAddOpen && (
@@ -97,8 +100,9 @@ const Trips = () => {
             marginTop="auto"
             margin="auto"
             textAlign="center"
+            className="translated-text"
           >
-            No trips found
+            {t("messages.noTripsFound")}
           </Text>
         </Flex>
       </>
@@ -109,10 +113,10 @@ const Trips = () => {
       <HStack marginX={8} my={4} justifyContent="space-between" display="flex">
         <Box width="30%"></Box>
         <Button
-          className="trip-button-color"
+          className="trip-button-color translated-text"
           onClick={() => setIsAddOpen(true)}
         >
-          Add Trip
+          {t("buttons.addTrip")}
         </Button>
       </HStack>
       <Grid templateColumns="repeat(4, 1fr)" gap={6} margin={8}>

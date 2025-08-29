@@ -19,10 +19,12 @@ import CreateEvent from "./CreateEvent";
 import { useState } from "react";
 import EditEvent from "./EditEvent";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 type Props = {};
 
 const Events = (props: Props) => {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
 
@@ -60,8 +62,9 @@ const Events = (props: Props) => {
         marginX="auto"
         marginY={6}
         textAlign="center"
+        className="translated-text"
       >
-        Error loading events
+        {t("messages.errorLoadingEvents")}
       </Text>
     );
 
@@ -77,9 +80,9 @@ const Events = (props: Props) => {
           <Box width="30%"></Box>
           <Button
             onClick={() => setIsAddOpen(true)}
-            className="trip-button-color"
+            className="trip-button-color translated-text"
           >
-            Add Event
+            {t("buttons.addEvent")}
           </Button>
         </HStack>
         {isAddOpen && (
@@ -101,8 +104,9 @@ const Events = (props: Props) => {
             marginTop="auto"
             margin="auto"
             textAlign="center"
+            className="translated-text"
           >
-            No events found
+            {t("messages.noEventsFound")}
           </Text>
         </Flex>
       </>
@@ -114,9 +118,9 @@ const Events = (props: Props) => {
         <Box width="30%"></Box>
         <Button
           onClick={() => setIsAddOpen(true)}
-          className="trip-button-color"
+          className="trip-button-color translated-text"
         >
-          Add Event
+          {t("buttons.addEvent")}
         </Button>
       </HStack>
       <Grid templateColumns="repeat(4, 1fr)" gap={6} margin={8}>

@@ -83,9 +83,13 @@ const CreateOffice = ({ isOpen, onClose }: Props) => {
           title: "Error",
           description:
             error instanceof AxiosError
-              ? error.response?.data.errors
-                  .map((err: any) => err.msg)
-                  .join(`  ////  `)
+              ? Array.isArray(error.response?.data.errors)
+                ? error.response.data.errors
+                    .map((err: any) => err.msg)
+                    .join(`  ////  `)
+                : error.response?.data.errors?.msg ||
+                  error.response?.data.message ||
+                  "Failed to create office. Please try again."
               : "Failed to create office. Please try again.",
           type: "error",
           duration: 5000,

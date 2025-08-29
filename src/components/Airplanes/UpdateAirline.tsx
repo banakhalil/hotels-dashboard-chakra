@@ -93,11 +93,15 @@ const UpdateAirline = ({ isOpen, onClose }: Props) => {
         title: "Error",
         description:
           error instanceof AxiosError
-            ? error.response?.data.errors
-                .map((err: any) => err.msg)
-                .join(`  ////  `)
+           ? Array.isArray(error.response?.data.errors)
+              ? error.response.data.errors
+                  .map((err: any) => err.msg)
+                  .join(`  ////  `)
+              : error.response?.data.errors?.msg ||
+                error.response?.data.message ||
+                "Failed to update airline. Please try again."
             : "Failed to update airline. Please try again.",
-        type: "error",
+        type: "error",  
         duration: 5000,
         closable: true,
       });

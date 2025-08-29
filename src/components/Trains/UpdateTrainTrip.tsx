@@ -154,9 +154,13 @@ const UpdateTrainTrip = ({ isOpen, onClose, tripId }: Props) => {
         title: "Error",
         description:
           error instanceof AxiosError
-            ? error.response?.data.errors
-                .map((err: any) => err.msg)
-                .join(`  ////  `)
+            ? Array.isArray(error.response?.data.errors)
+              ? error.response.data.errors
+                  .map((err: any) => err.msg)
+                  .join(`  ////  `)
+              : error.response?.data.errors?.msg ||
+                error.response?.data.message ||
+                "Failed to update trip. Please try again."
             : "Failed to update trip. Please try again.",
         type: "error",
         duration: 5000,

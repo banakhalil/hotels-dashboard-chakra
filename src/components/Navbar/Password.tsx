@@ -12,6 +12,7 @@ import {
 import { useState, type FormEvent } from "react";
 import { toaster } from "../ui/toaster";
 import { AxiosError } from "axios";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 const getRoleBasedButtonClass = (role: string) => {
   switch (role) {
@@ -42,6 +43,7 @@ interface FormErrors {
 }
 
 const Password = ({ isOpen, onClose }: Props) => {
+  const { t } = useTranslation();
   const updatePassword = useUpdatePassword();
   const { data: user, isLoading } = useProfile();
   const [errors, setErrors] = useState<FormErrors>({});
@@ -127,7 +129,9 @@ const Password = ({ isOpen, onClose }: Props) => {
         <Drawer.Positioner>
           <Drawer.Content>
             <Drawer.Header className="drawer">
-              <Drawer.Title>Change Password</Drawer.Title>
+              <Drawer.Title className="translated-text">
+                {t("buttons.changePassword")}
+              </Drawer.Title>
             </Drawer.Header>
             <Drawer.Body className="drawer">
               <Fieldset.Root size="lg" maxW="md" marginTop="20px">
@@ -141,16 +145,18 @@ const Password = ({ isOpen, onClose }: Props) => {
                         marginY={6}
                         textAlign="center"
                       >
-                        Loading...
+                        {t("common.loading")}
                       </Text>
                     )}
 
                     <Field.Root>
-                      <Field.Label>Current Password</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.currentPassword")}
+                      </Field.Label>
                       <Input
                         name="currentPassword"
                         type="password"
-                        placeholder="Enter your current password"
+                        placeholder={t("common.enterCurrentPassword")}
                         className="border-color"
                       />
                       {errors.currentPassword && (
@@ -161,11 +167,13 @@ const Password = ({ isOpen, onClose }: Props) => {
                     </Field.Root>
 
                     <Field.Root>
-                      <Field.Label>New Password</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.newPassword")}
+                      </Field.Label>
                       <Input
                         name="newPassword"
                         type="password"
-                        placeholder="Enter your new password"
+                        placeholder={t("common.enterNewPassword")}
                         className="border-color"
                       />
                       {errors.newPassword && (
@@ -176,11 +184,13 @@ const Password = ({ isOpen, onClose }: Props) => {
                     </Field.Root>
 
                     <Field.Root>
-                      <Field.Label>Confirm New Password</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.confirmPassword")}
+                      </Field.Label>
                       <Input
                         name="passwordConfirm"
                         type="password"
-                        placeholder="Confirm your new password"
+                        placeholder={t("common.confirmNewPassword")}
                         className="border-color"
                       />
                       {errors.passwordConfirm && (
@@ -199,7 +209,7 @@ const Password = ({ isOpen, onClose }: Props) => {
                     loading={updatePassword.isPending}
                     className={buttonColorClass}
                   >
-                    Change Password
+                    {t("buttons.changePassword")}
                   </Button>
                 </form>
               </Fieldset.Root>

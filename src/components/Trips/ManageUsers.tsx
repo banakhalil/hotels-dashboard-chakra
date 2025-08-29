@@ -21,8 +21,10 @@ import { useState } from "react";
 import type { ChangeEvent } from "react";
 import { toaster } from "../ui/toaster";
 import { AxiosError } from "axios";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 const ManageUsers = () => {
+  const { t } = useTranslation();
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
   const [role, setRole] = useState("");
   const { data: users, isLoading, error } = useGetChangeableUsers();
@@ -210,9 +212,13 @@ const ManageUsers = () => {
                               title: "Error",
                               description:
                                 error instanceof AxiosError
-                                  ? error.response?.data.errors
-                                      .map((err: any) => err.msg)
-                                      .join(`  ////  `)
+                                  ? Array.isArray(error.response?.data.errors)
+                                    ? error.response.data.errors
+                                        .map((err: any) => err.msg)
+                                        .join(`  ////  `)
+                                    : error.response?.data.errors?.msg ||
+                                      error.response?.data.message ||
+                                      "Failed to make user a guide. Please try again."
                                   : "Failed to make user a guide. Please try again.",
                               type: "error",
                               duration: 5000,
@@ -225,7 +231,7 @@ const ManageUsers = () => {
                   }}
                   loading={createGuideMutation.isPending}
                 >
-                  Make Guide
+                  {t("buttons.makeGuide")}
                 </Button>
                 <Menu.Root>
                   <Menu.Trigger asChild>
@@ -238,7 +244,7 @@ const ManageUsers = () => {
                       // color="#0b4f4a"
                       // height={10}
                     >
-                      Make Manager
+                      {t("buttons.makeManager")}
                     </Button>
                   </Menu.Trigger>
                   <Portal>
@@ -267,9 +273,15 @@ const ManageUsers = () => {
                                     title: "Error",
                                     description:
                                       error instanceof AxiosError
-                                        ? error.response?.data.errors
-                                            .map((err: any) => err.msg)
-                                            .join(`  ////  `)
+                                        ? Array.isArray(
+                                            error.response?.data.errors
+                                          )
+                                          ? error.response.data.errors
+                                              .map((err: any) => err.msg)
+                                              .join(`  ////  `)
+                                          : error.response?.data.errors?.msg ||
+                                            error.response?.data.message ||
+                                            "Failed to update user role. Please try again."
                                         : "Failed to update user role. Please try again.",
                                     type: "error",
                                     duration: 5000,

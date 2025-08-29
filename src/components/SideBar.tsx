@@ -9,6 +9,7 @@ import { LuTrainTrack } from "react-icons/lu";
 import { SiEthiopianairlines } from "react-icons/si";
 import { FaRoad } from "react-icons/fa";
 import { RiLandscapeFill } from "react-icons/ri";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface SidebarContextType {
   expanded: boolean;
@@ -64,12 +65,15 @@ const getRoleBasedClasses = (role: string | undefined) => {
   }
 };
 
-const getRoleBasedTitle = (role: string | undefined) => {
+const getRoleBasedTitle = (
+  role: string | undefined,
+  t: (key: string) => string
+) => {
   switch (role) {
     case "hotelManager":
-      return "Saint Motel";
+      return "SaintMotel";
     case "routeManager":
-      return "Rail Ninja";
+      return "RailNinja";
     case "airlineOwner":
       return "Eurowings";
     case "officeManager":
@@ -106,8 +110,9 @@ const SidebarContent = ({
   expanded: boolean;
 }) => {
   const { user } = useAuth();
+  const { t } = useTranslation();
   // const themeClasses = getRoleBasedClasses(user?.role);
-  const title = getRoleBasedTitle(user?.role);
+  const title = getRoleBasedTitle(user?.role, t);
   const logo = getRoleBasedLogo(user?.role);
   return (
     <>
@@ -213,15 +218,42 @@ export function SideBarItem({
 }: SidebarItemProps) {
   const { expanded } = useContext(SidebarContext);
   const { user } = useAuth();
+  const { t } = useTranslation();
   const themeClasses = getRoleBasedClasses(user?.role);
 
   const handleClick = () => {
     setSelectedPage(page);
   };
 
+  // Get the translation key for the sidebar item text
+  const getTranslationKey = (text: string) => {
+    const textLower = text.toLowerCase();
+    if (textLower.includes("dashboard")) return "navigation.dashboard";
+    if (textLower.includes("events")) return "navigation.events";
+    if (textLower.includes("packages")) return "navigation.packages";
+    if (textLower.includes("stays")) return "navigation.stays";
+    if (textLower.includes("transport")) return "navigation.transport";
+    if (textLower.includes("manage users")) return "navigation.manageUsers";
+    if (textLower.includes("bookings")) return "navigation.bookings";
+    if (textLower.includes("users")) return "navigation.users";
+    // if (textLower.includes("hotels")) return "navigation.hotels";
+    // if (textLower.includes("rooms")) return "navigation.rooms";
+    // if (textLower.includes("airlines")) return "navigation.airlines";
+    // if (textLower.includes("airplanes")) return "navigation.airplanes";
+    // if (textLower.includes("flights")) return "navigation.flights";
+    // if (textLower.includes("trains")) return "navigation.trains";
+    // if (textLower.includes("routes")) return "navigation.routes";
+    // if (textLower.includes("stations")) return "navigation.stations";
+    // if (textLower.includes("cars")) return "navigation.cars";
+    // if (textLower.includes("office")) return "navigation.office";
+    return text;
+  };
+
+  const translatedText = t(getTranslationKey(text));
+
   return (
     <li
-      title={text}
+      title={translatedText}
       onClick={handleClick}
       style={{ fontWeight: "bold" }}
       className={`
@@ -237,7 +269,7 @@ export function SideBarItem({
     `}
     >
       <div
-        title={text}
+        title={translatedText}
         className={`flex items-center justify-center ${
           expanded ? "ml-4 " : "w-full h-full"
         }`}
@@ -245,11 +277,11 @@ export function SideBarItem({
         {icon}
       </div>
       <span
-        className={`overflow-hidden transition-all ${
+        className={`overflow-hidden transition-all translated-text ${
           expanded ? "w-52 ml-3 p-4" : "w-0"
         }`}
       >
-        {text}
+        {translatedText}
       </span>
 
       {!expanded && (
@@ -262,7 +294,7 @@ export function SideBarItem({
             whitespace-nowrap z-50
           `}
         >
-          {text}
+          {translatedText}
         </div>
       )}
     </li>

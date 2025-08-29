@@ -28,6 +28,7 @@ import { useRef, useState, useEffect, type FormEvent } from "react";
 import { useEvents } from "@/hooks/Trips/useEvents";
 import { toaster } from "../ui/toaster";
 import { AxiosError } from "axios";
+import { useTranslation } from "@/contexts/TranslationContext";
 type Props = {
   isOpen: boolean;
   onClose: () => void;
@@ -35,6 +36,7 @@ type Props = {
 };
 
 const TripDetails = ({ isOpen, onClose, tripId }: Props) => {
+  const { t } = useTranslation();
   const { data: specificTrip, isLoading } = useSpecificTrip(tripId);
   const { data: eventsData } = useEvents({ page: 1, pageSize: 1000 });
   const events = eventsData?.events || [];
@@ -83,7 +85,7 @@ const TripDetails = ({ isOpen, onClose, tripId }: Props) => {
                 {/* <Dialog.Title>Update Route</Dialog.Title> */}
               </Dialog.Header>
               <Dialog.Body pb="4" className="drawer">
-                <Text>Loading...</Text>
+                <Text className="translated-text">{t("common.loading")}</Text>
               </Dialog.Body>
             </Dialog.Content>
           </Dialog.Positioner>
@@ -102,7 +104,9 @@ const TripDetails = ({ isOpen, onClose, tripId }: Props) => {
                 {/* <Dialog.Title>Update Flight</Dialog.Title> */}
               </Dialog.Header>
               <Dialog.Body pb="4" className="drawer">
-                <Text color="red.500">Trip not found</Text>
+                <Text color="red.500" className="translated-text">
+                  {t("messages.tripNotFound")}
+                </Text>
               </Dialog.Body>
             </Dialog.Content>
           </Dialog.Positioner>
@@ -143,9 +147,13 @@ const TripDetails = ({ isOpen, onClose, tripId }: Props) => {
             title: "Error",
             description:
               error instanceof AxiosError
-                ? error.response?.data.errors
-                    .map((err: any) => err.msg)
-                    .join(`  ////  `)
+                ? Array.isArray(error.response?.data.errors)
+                  ? error.response.data.errors
+                      .map((err: any) => err.msg)
+                      .join(`  ////  `)
+                  : error.response?.data.errors?.msg ||
+                    error.response?.data.message ||
+                    "Failed to add event. Please try again."
                 : "Failed to add event. Please try again.",
             type: "error",
             duration: 5000,
@@ -492,7 +500,7 @@ const TripDetails = ({ isOpen, onClose, tripId }: Props) => {
                                 colorScheme="red"
                                 size="sm"
                               >
-                                Remove
+                                {t("common.remove")}
                               </Button>
                             </Flex>
                           ))}
@@ -536,7 +544,9 @@ const TripDetails = ({ isOpen, onClose, tripId }: Props) => {
                         >
                           <Stack gap={4}>
                             <Field.Root>
-                              <Field.Label>Event</Field.Label>
+                              <Field.Label className="translated-text">
+                                {t("common.event")}
+                              </Field.Label>
                               <Box position="relative" zIndex="8">
                                 <Select.Root
                                   className="drawer"
@@ -557,7 +567,9 @@ const TripDetails = ({ isOpen, onClose, tripId }: Props) => {
                                 >
                                   <Select.Control>
                                     <Select.Trigger>
-                                      <Select.ValueText placeholder="Select Event" />
+                                      <Select.ValueText
+                                        placeholder={t("common.selectEvent")}
+                                      />
                                     </Select.Trigger>
                                     <Select.IndicatorGroup>
                                       <Select.ClearTrigger>
@@ -588,16 +600,20 @@ const TripDetails = ({ isOpen, onClose, tripId }: Props) => {
                               </Box>
                             </Field.Root>
                             <Field.Root>
-                              <Field.Label>Event Duration</Field.Label>
+                              <Field.Label className="translated-text">
+                                {t("common.eventDuration")}
+                              </Field.Label>
                               <Input
                                 name="duration"
-                                placeholder="Duration"
+                                placeholder={t("common.duration")}
                                 ref={durationRef}
                                 className="border-color"
                               />
                             </Field.Root>
                             <Field.Root>
-                              <Field.Label>Event Date & Time</Field.Label>
+                              <Field.Label className="translated-text">
+                                {t("common.eventDateTime")}
+                              </Field.Label>
                               <Input
                                 ref={eventDateRef}
                                 name="startTime"
@@ -624,7 +640,7 @@ const TripDetails = ({ isOpen, onClose, tripId }: Props) => {
                               className="trip-button-color"
                               mt={2}
                             >
-                              Add
+                              {t("common.add")}
                             </Button>
                           </Dialog.Footer>
                         </form>

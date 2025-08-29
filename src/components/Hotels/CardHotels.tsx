@@ -13,6 +13,7 @@ import {
   Portal,
   Link,
 } from "@chakra-ui/react";
+
 import useHotels, {
   useDeleteHotel,
   useSpecificHotel,
@@ -157,7 +158,7 @@ export const CardHotels = ({
             marginTop="auto"
             margin="auto"
           >
-            No hotel found
+            No hotels found
           </Text>
           {/* <Button onClick={() => setKeyWord("")}>Clear</Button> */}
         </Flex>
@@ -636,9 +637,13 @@ export const CardHotelsDetails = ({ hotelId, onClose }: HotelDetailsProps) => {
                     title: "Error",
                     description:
                       error instanceof AxiosError
-                        ? error.response?.data.errors
-                            .map((err: any) => err.msg)
-                            .join(`  ////  `)
+                        ? Array.isArray(error.response?.data.errors)
+                          ? error.response.data.errors
+                              .map((err: any) => err.msg)
+                              .join(`  ////  `)
+                          : error.response?.data.errors?.msg ||
+                            error.response?.data.message ||
+                            "Failed to delete hotel. Please try again."
                         : "Failed to delete hotel. Please try again.",
                     type: "error",
                     duration: 5000,

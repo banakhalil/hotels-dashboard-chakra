@@ -14,6 +14,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { toaster } from "../ui/toaster";
 import { HiUpload } from "react-icons/hi";
 import { AxiosError } from "axios";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface Props {
   isOpen: boolean;
@@ -74,6 +75,7 @@ const Profile = ({
   role,
   avatar,
 }: Props) => {
+  const { t } = useTranslation();
   const { isLoading, error } = useProfile();
   const updateProfile = useUpdateProfile();
   const firstRef = useRef<HTMLInputElement>(null);
@@ -267,7 +269,9 @@ const Profile = ({
         <Drawer.Positioner>
           <Drawer.Content>
             <Drawer.Header className="drawer">
-              <Drawer.Title>My Profile</Drawer.Title>
+              <Drawer.Title className="translated-text">
+                {t("common.myProfile")}
+              </Drawer.Title>
             </Drawer.Header>
             <Drawer.Body className="drawer">
               <Fieldset.Root size="lg" maxW="md">
@@ -288,7 +292,7 @@ const Profile = ({
                         margin="auto"
                         marginY={6}
                       >
-                        loading profile
+                        {t("common.loadingProfile")}
                       </Text>
                     )}
                     {error && (
@@ -300,7 +304,7 @@ const Profile = ({
                         margin="auto"
                         marginY={6}
                       >
-                        Error loading profile
+                        {t("messages.errorLoadingProfile")}
                       </Text>
                     )}
                     {/* <Image src="https://bit.ly/sage-adebayo" fit="cover" height="250px" width="250px" borderRadius="full" alignSelf="center" />  */}
@@ -337,11 +341,13 @@ const Profile = ({
                           document.getElementById("avatar")?.click()
                         }
                       >
-                        <HiUpload /> Change Avatar
+                        <HiUpload /> {t("buttons.changeAvatar")}
                       </Button>
                     </Field.Root>
                     <Field.Root>
-                      <Field.Label>First Name</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.firstName")}
+                      </Field.Label>
                       <Input
                         name="firstName"
                         type="text"
@@ -351,7 +357,9 @@ const Profile = ({
                       />
                     </Field.Root>
                     <Field.Root>
-                      <Field.Label>Last Name</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.lastName")}
+                      </Field.Label>
                       <Input
                         name="lastName"
                         type="text"
@@ -361,7 +369,9 @@ const Profile = ({
                       />
                     </Field.Root>
                     <Field.Root>
-                      <Field.Label>Email address</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.emailAddress")}
+                      </Field.Label>
                       <Input
                         name="email"
                         type="email"
@@ -372,7 +382,9 @@ const Profile = ({
                       />
                     </Field.Root>
                     <Field.Root>
-                      <Field.Label>Role</Field.Label>
+                      <Field.Label className="translated-text">
+                        {t("common.role")}
+                      </Field.Label>
                       <Input
                         name="firstName"
                         type="text"
@@ -391,7 +403,7 @@ const Profile = ({
                     right={6}
                     className={buttonColorClass}
                   >
-                    Update
+                    {t("buttons.update")}
                   </Button>
                 </form>
               </Fieldset.Root>

@@ -18,6 +18,8 @@ import Password from "./Password";
 import type { MenuSelectionDetails } from "@chakra-ui/react";
 import Logout from "./Logout";
 import SessionTimer from "./SessionTimer";
+import { LanguageSwitcher } from "../ui/language-switcher";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface NavBarProps {
   onToggleSidebar: () => void;
@@ -28,6 +30,8 @@ const NavBar = ({ onToggleSidebar, title }: NavBarProps) => {
   const isAboveMediumScreens = useMediaQuery("(min-width: 768px)");
   const [isOpen, setIsOpen] = useState(false);
   const { data: user, isLoading } = useProfile();
+  const { t } = useTranslation();
+
   // const profileCollection = createListCollection({
   //   items: [
   //     { label: "View Profile", value: "profile" },
@@ -55,8 +59,13 @@ const NavBar = ({ onToggleSidebar, title }: NavBarProps) => {
             >
               <GoSidebarCollapse />
             </Button>
-            <Text hideBelow="md" fontWeight="bold" fontSize="xl">
-              {title}
+            <Text
+              hideBelow="md"
+              fontWeight="bold"
+              fontSize="xl"
+              className="translated-text font-oswald"
+            >
+              {t(`${title.toLowerCase()}`) || title}
             </Text>
           </HStack>
           <HStack gap={4}>
@@ -65,6 +74,7 @@ const NavBar = ({ onToggleSidebar, title }: NavBarProps) => {
             {/* <Button variant="ghost" size="lg" padding="0" margin="0">
               <IoMdNotificationsOutline />
             </Button> */}
+            {user?.role === "admin" && <LanguageSwitcher />}
             <ColorModeButton />
 
             <Menu.Root onSelect={handleProfileSelect}>
@@ -84,13 +94,13 @@ const NavBar = ({ onToggleSidebar, title }: NavBarProps) => {
                 <Menu.Positioner>
                   <Menu.Content className="drawer">
                     <Menu.Item value="profile" fontWeight="medium">
-                      View Profile
+                      {t("common.profile")}
                     </Menu.Item>
                     <Menu.Item value="password" fontWeight="medium">
-                      Change Password
+                      {t("common.password")}
                     </Menu.Item>
                     <Menu.Item value="logout" color="red" fontWeight="medium">
-                      Log Out
+                      {t("common.logout")}
                     </Menu.Item>
                   </Menu.Content>
                 </Menu.Positioner>
@@ -184,6 +194,7 @@ const NavBar = ({ onToggleSidebar, title }: NavBarProps) => {
               {/* <Button variant="ghost" size="lg" padding="0" margin="0">
                 <IoMdNotificationsOutline />
               </Button> */}
+              {user?.role === "admin" && <LanguageSwitcher />}
               <ColorModeButton />
               <Menu.Root onSelect={handleProfileSelect}>
                 <Menu.Trigger asChild>
@@ -204,13 +215,13 @@ const NavBar = ({ onToggleSidebar, title }: NavBarProps) => {
                   <Menu.Positioner>
                     <Menu.Content className="drawer">
                       <Menu.Item value="profile" fontWeight="medium">
-                        View Profile
+                        {t("common.profile")}
                       </Menu.Item>
                       <Menu.Item value="password" fontWeight="medium">
-                        Change Password
+                        {t("common.password")}
                       </Menu.Item>
                       <Menu.Item value="logout" color="red" fontWeight="medium">
-                        Log Out
+                        {t("common.logout")}
                       </Menu.Item>
                     </Menu.Content>
                   </Menu.Positioner>
@@ -250,8 +261,13 @@ const NavBar = ({ onToggleSidebar, title }: NavBarProps) => {
               )}
             </HStack>
           </HStack>
-          <Text paddingTop="10px" fontWeight="bold" fontSize="xl">
-            PageName
+          <Text
+            paddingTop="10px"
+            fontWeight="bold"
+            fontSize="xl"
+            className="translated-text"
+          >
+            {t(`titles.${title.toLowerCase()}`) || title}
           </Text>
         </Stack>
       )}

@@ -201,9 +201,13 @@ const CreateRoom = ({ isOpen, onClose, hotelId }: Props) => {
             title: "Error",
             description:
               error instanceof AxiosError
-                ? error.response?.data.errors
-                    .map((err: any) => err.msg)
-                    .join(`  ////  `)
+                ? Array.isArray(error.response?.data.errors)
+                  ? error.response.data.errors
+                      .map((err: any) => err.msg)
+                      .join(`  ////  `)
+                  : error.response?.data.errors?.msg ||
+                    error.response?.data.message ||
+                    "Failed to create room. Please try again."
                 : "Failed to create room. Please try again.",
             type: "error",
             duration: 5000,

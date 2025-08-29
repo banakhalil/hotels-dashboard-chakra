@@ -14,6 +14,7 @@ import { HiUpload } from "react-icons/hi";
 import { toaster } from "../ui/toaster";
 import { useAddEvent } from "@/hooks/Trips/useEvents";
 import { AxiosError } from "axios";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface Props {
   isOpen: boolean;
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const CreateEvent = ({ isOpen, onClose }: Props) => {
+  const { t } = useTranslation();
   const titleRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -86,9 +88,13 @@ const CreateEvent = ({ isOpen, onClose }: Props) => {
           title: "Error",
           description:
             error instanceof AxiosError
-              ? error.response?.data.errors
-                  .map((err: any) => err.msg)
-                  .join(`  ////  `)
+              ? Array.isArray(error.response?.data.errors)
+                ? error.response.data.errors
+                    .map((err: any) => err.msg)
+                    .join(`  ////  `)
+                : error.response?.data.errors?.msg ||
+                  error.response?.data.message ||
+                  "Failed to add event. Please try again."
               : "Failed to add event. Please try again.",
           type: "error",
           duration: 5000,
@@ -123,7 +129,9 @@ const CreateEvent = ({ isOpen, onClose }: Props) => {
               maxH="100vh"
               overflowY="auto"
             >
-              <Dialog.Title>Add Event</Dialog.Title>
+              <Dialog.Title className="translated-text">
+                {t("buttons.addEvent")}
+              </Dialog.Title>
             </Dialog.Header>
             <Dialog.Body
               pb="4"
@@ -134,19 +142,23 @@ const CreateEvent = ({ isOpen, onClose }: Props) => {
               <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <Stack gap="4">
                   <Field.Root>
-                    <Field.Label>Event Title</Field.Label>
+                    <Field.Label className="translated-text">
+                      {t("common.title")}
+                    </Field.Label>
                     <Input
                       name="title"
-                      placeholder="title"
+                      placeholder={t("common.title")}
                       ref={titleRef}
                       className="border-color"
                     />
                   </Field.Root>
                   <Field.Root>
-                    <Field.Label>Description</Field.Label>
+                    <Field.Label className="translated-text">
+                      {t("common.description")}
+                    </Field.Label>
                     <Textarea
                       name="description"
-                      placeholder="Description"
+                      placeholder={t("common.description")}
                       className="border-color"
                       rows={4}
                       resize="vertical"
@@ -154,17 +166,21 @@ const CreateEvent = ({ isOpen, onClose }: Props) => {
                     />
                   </Field.Root>
                   <Field.Root>
-                    <Field.Label>location</Field.Label>
+                    <Field.Label className="translated-text">
+                      {t("common.location")}
+                    </Field.Label>
                     <Input
                       name="location"
-                      placeholder="Location, City, Country"
+                      placeholder={t("common.location")}
                       ref={locationRef}
                       className="border-color"
                     />
                   </Field.Root>
 
                   <Field.Root>
-                    <Field.Label>Image</Field.Label>
+                    <Field.Label className="translated-text">
+                      {t("common.image")}
+                    </Field.Label>
                     <input
                       type="file"
                       accept="image/*"
@@ -177,9 +193,9 @@ const CreateEvent = ({ isOpen, onClose }: Props) => {
                       variant="outline"
                       size="sm"
                       onClick={() => document.getElementById("cover")?.click()}
-                      className="border-color "
+                      className="border-color translated-text"
                     >
-                      <HiUpload /> Add Image
+                      <HiUpload /> {t("buttons.addImage")}
                     </Button>
                     {imagePreview && (
                       <img
@@ -197,12 +213,19 @@ const CreateEvent = ({ isOpen, onClose }: Props) => {
                 </Stack>
                 <Dialog.Footer>
                   <Dialog.ActionTrigger asChild>
-                    <Button variant="outline" onClick={onClose}>
-                      Cancel
+                    <Button
+                      variant="outline"
+                      onClick={onClose}
+                      className="translated-text"
+                    >
+                      {t("common.cancel")}
                     </Button>
                   </Dialog.ActionTrigger>
-                  <Button type="submit" className="trip-button-color">
-                    Add
+                  <Button
+                    type="submit"
+                    className="trip-button-color translated-text"
+                  >
+                    {t("common.add")}
                   </Button>
                 </Dialog.Footer>
               </form>{" "}

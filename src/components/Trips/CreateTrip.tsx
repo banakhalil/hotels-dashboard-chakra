@@ -19,6 +19,7 @@ import { useEvents } from "@/hooks/Trips/useEvents";
 import { useGuides } from "@/hooks/Trips/useGuides";
 import { useAddTrip } from "@/hooks/Trips/useTrips";
 import { AxiosError } from "axios";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface Props {
   isOpen: boolean;
@@ -26,6 +27,7 @@ interface Props {
 }
 
 const CreateTrip = ({ isOpen, onClose }: Props) => {
+  const { t } = useTranslation();
   const titleRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLInputElement>(null);
   const cityRef = useRef<HTMLInputElement>(null);
@@ -141,9 +143,13 @@ const CreateTrip = ({ isOpen, onClose }: Props) => {
           title: "Error",
           description:
             error instanceof AxiosError
-              ? error.response?.data.errors
-                  .map((err: any) => err.msg)
-                  .join(`  ////  `)
+              ? Array.isArray(error.response?.data.errors)
+                ? error.response.data.errors
+                    .map((err: any) => err.msg)
+                    .join(`  ////  `)
+                : error.response?.data.errors?.msg ||
+                  error.response?.data.message ||
+                  "Failed to add trip. Please try again."
               : "Failed to add trip. Please try again.",
           type: "error",
           duration: 5000,
@@ -178,7 +184,9 @@ const CreateTrip = ({ isOpen, onClose }: Props) => {
               maxH="100vh"
               overflowY="auto"
             >
-              <Dialog.Title>Add Trip</Dialog.Title>
+              <Dialog.Title className="translated-text">
+                {t("buttons.addTrip")}
+              </Dialog.Title>
             </Dialog.Header>
             <Dialog.Body
               pb="4"
@@ -198,10 +206,12 @@ const CreateTrip = ({ isOpen, onClose }: Props) => {
                     />
                   </Field.Root>
                   <Field.Root>
-                    <Field.Label>Description</Field.Label>
+                    <Field.Label className="translated-text">
+                      {t("common.description")}
+                    </Field.Label>
                     <Textarea
                       name="description"
-                      placeholder="Description"
+                      placeholder={t("common.description")}
                       className="border-color"
                       rows={4}
                       resize="vertical"
@@ -209,53 +219,65 @@ const CreateTrip = ({ isOpen, onClose }: Props) => {
                     />
                   </Field.Root>
                   <Field.Root>
-                    <Field.Label>Country</Field.Label>
+                    <Field.Label className="translated-text">
+                      {t("common.country")}
+                    </Field.Label>
                     <Input
                       name="country"
-                      placeholder=" Country"
+                      placeholder={t("common.country")}
                       ref={countryRef}
                       className="border-color"
                     />
                   </Field.Root>
                   <Field.Root>
-                    <Field.Label>City</Field.Label>
+                    <Field.Label className="translated-text">
+                      {t("common.city")}
+                    </Field.Label>
                     <Input
                       name="city"
-                      placeholder="City"
+                      placeholder={t("common.city")}
                       ref={cityRef}
                       className="border-color"
                     />
                   </Field.Root>
                   <Field.Root>
-                    <Field.Label>Price</Field.Label>
+                    <Field.Label className="translated-text">
+                      {t("common.price")}
+                    </Field.Label>
                     <Input
                       name="price"
-                      placeholder="Price"
+                      placeholder={t("common.price")}
                       ref={priceRef}
                       className="border-color"
                     />
                   </Field.Root>
                   <Field.Root>
-                    <Field.Label>Capacity</Field.Label>
+                    <Field.Label className="translated-text">
+                      {t("common.capacity")}
+                    </Field.Label>
                     <Input
                       name="maxGroupSize"
-                      placeholder="Number of Guests"
+                      placeholder={t("common.capacity")}
                       ref={maxGroupSizeRef}
                       className="border-color"
                     />
                   </Field.Root>
                   <Field.Root>
-                    <Field.Label>Category</Field.Label>
+                    <Field.Label className="translated-text">
+                      {t("common.category")}
+                    </Field.Label>
                     <Input
                       name="category"
-                      placeholder="Category"
+                      placeholder={t("common.category")}
                       ref={categoryRef}
                       className="border-color"
                     />
                   </Field.Root>
 
                   <Field.Root>
-                    <Field.Label>Trip Guide</Field.Label>
+                    <Field.Label className="translated-text">
+                      {t("common.tripGuide")}
+                    </Field.Label>
                     <Box position="relative" zIndex="10">
                       <Select.Root
                         className="drawer"
@@ -274,7 +296,9 @@ const CreateTrip = ({ isOpen, onClose }: Props) => {
                       >
                         <Select.Control>
                           <Select.Trigger>
-                            <Select.ValueText placeholder="Select A Guide" />
+                            <Select.ValueText
+                              placeholder={t("common.selectGuide")}
+                            />
                           </Select.Trigger>
                           <Select.IndicatorGroup>
                             <Select.ClearTrigger>⨯</Select.ClearTrigger>
@@ -424,7 +448,7 @@ const CreateTrip = ({ isOpen, onClose }: Props) => {
                       onClick={() => document.getElementById("cover")?.click()}
                       className="border-color "
                     >
-                      <HiUpload /> Add Image
+                      <HiUpload /> {t("buttons.addImage")}
                     </Button>
                     {imagePreview && (
                       <img
@@ -442,12 +466,20 @@ const CreateTrip = ({ isOpen, onClose }: Props) => {
                 </Stack>
                 <Dialog.Footer>
                   <Dialog.ActionTrigger asChild>
-                    <Button variant="outline" onClick={onClose}>
-                      Cancel
+                    <Button
+                      variant="outline"
+                      onClick={onClose}
+                      className="translated-text"
+                    >
+                      {t("common.cancel")}
                     </Button>
                   </Dialog.ActionTrigger>
-                  <Button type="submit" className="trip-button-color" mt={2}>
-                    Add
+                  <Button
+                    type="submit"
+                    className="trip-button-color translated-text"
+                    mt={2}
+                  >
+                    {t("common.add")}
                   </Button>
                 </Dialog.Footer>
               </form>{" "}
