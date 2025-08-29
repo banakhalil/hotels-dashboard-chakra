@@ -18,7 +18,7 @@ createRoot(document.getElementById("root")!).render(
           <AuthProvider>
             <App />
             <Toaster />
-            <ReactQueryDevtools />
+            {/* <ReactQueryDevtools /> */}
           </AuthProvider>
         </BrowserRouter>
       </Provider>

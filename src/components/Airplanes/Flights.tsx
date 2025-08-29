@@ -45,28 +45,7 @@ const Flights = () => {
 
   if (isLoading)
     return skeletons.map((skeleton) => <AllTrainsSkeleton key={skeleton} />);
-
-  if (error)
-    return (
-      <Flex flexDirection="column" gap={4} width="90%" margin="auto">
-        <HStack justifyContent="space-between" mb={4}>
-          <Box width="30%"></Box>
-          <Button className="airline-button-color">Add Flight</Button>
-        </HStack>
-        <Text
-          fontSize="xl"
-          fontWeight="bold"
-          color="gray.500"
-          marginTop="auto"
-          margin="auto"
-          marginY={6}
-        >
-          Error loading flights
-        </Text>
-      </Flex>
-    );
-
-  if (!flights)
+  if (!flights?.length)
     return (
       <>
         <Flex flexDirection="column" gap={4} width="90%" margin="auto">
@@ -101,6 +80,25 @@ const Flights = () => {
           </Text>
         </Flex>
       </>
+    );
+  if (error)
+    return (
+      <Flex flexDirection="column" gap={4} width="90%" margin="auto">
+        <HStack justifyContent="space-between" mb={4}>
+          <Box width="30%"></Box>
+          <Button className="airline-button-color">Add Flight</Button>
+        </HStack>
+        <Text
+          fontSize="xl"
+          fontWeight="bold"
+          color="gray.500"
+          marginTop="auto"
+          margin="auto"
+          marginY={6}
+        >
+          Error loading flights
+        </Text>
+      </Flex>
     );
 
   return (
@@ -276,7 +274,7 @@ const Flights = () => {
                 color="gray.700"
                 _dark={{ color: "gray.300" }}
               >
-                Economy: € {flight.priceEconomy}
+                Economy: $ {flight.priceEconomy}
               </Text>
               <Text
                 ml="7%"
@@ -294,7 +292,7 @@ const Flights = () => {
                 color="gray.700"
                 _dark={{ color: "gray.300" }}
               >
-                Business: € {flight.priceBusiness}
+                Business: $ {flight.priceBusiness}
               </Text>
             </HStack>
           </Card.Body>

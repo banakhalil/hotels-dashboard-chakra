@@ -12,6 +12,7 @@ export const AllTrainsSkeleton = () => {
     >
       <Skeleton
         height="200px"
+        borderRadius="2xl"
         // width="400px"
         width="90%"
         bgColor="gray.300"
@@ -25,6 +26,7 @@ export const RoutesSkeleton = () => {
   return (
     <VStack gap="6" maxW="xs" marginX="auto">
       <Skeleton
+        borderRadius="2xl"
         height="450px"
         width="350px"
         bgColor="gray.300"

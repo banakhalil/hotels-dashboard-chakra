@@ -43,7 +43,7 @@ const CardRevenue = ({
           {icon && icon}
         </HStack>
 
-        {percentageChange > 0 && (
+        {percentageChange !== 0 && (
           <Flex alignItems="center" gap={1}>
             <Icon
               as={isPositive ? FiArrowUpRight : FiArrowDownRight}

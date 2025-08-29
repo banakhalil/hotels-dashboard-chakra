@@ -42,6 +42,7 @@ interface CarBooking {
 
 interface TopCarData {
   data: {
+    total: number;
     topCarsByDays: TopCar[];
   };
 }

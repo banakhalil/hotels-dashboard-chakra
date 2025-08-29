@@ -175,7 +175,7 @@ const Cars = () => {
     );
   }
   return (
-    <Container maxW="7xl" px={{ base: 4, md: 8 }} py={6}>
+    <Container maxW="6xl" px={{ base: 4, md: 0 }} py={6}>
       <HStack mx={{ base: 4, md: 8 }} justifyContent="space-between" mb={8}>
         <Box width="30% "></Box>
         <Button className="car-button-color" onClick={() => setIsAddOpen(true)}>

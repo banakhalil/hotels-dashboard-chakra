@@ -418,12 +418,12 @@ const CreateFlight = ({ isOpen, onClose }: Props) => {
                   </Field.Root> */}
 
                   <Field.Root>
-                    <Field.Label>Economy Price (€)</Field.Label>
+                    <Field.Label>Economy Price ($)</Field.Label>
                     <Input ref={economyRef} name="priceEconomy" type="number" />
                   </Field.Root>
 
                   <Field.Root>
-                    <Field.Label>Business Price (€)</Field.Label>
+                    <Field.Label>Business Price ($)</Field.Label>
                     <Input
                       ref={businessRef}
                       name="priceBusiness"

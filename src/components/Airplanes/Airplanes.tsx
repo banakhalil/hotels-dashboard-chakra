@@ -104,7 +104,43 @@ const Airplanes = () => {
       },
     ],
   };
-
+  if (!airplanes?.length) {
+    return (
+      <>
+        <HStack justifyContent="space-between" marginX={16} marginY={4}>
+          <Box width="30%"></Box>
+          <Button
+            className="airline-button-color"
+            onClick={() => {
+              setIsAddOpen(true);
+            }}
+          >
+            Add Plane
+          </Button>
+        </HStack>
+        <Text
+          fontSize="xl"
+          fontWeight="bold"
+          color="gray.500"
+          marginTop="auto"
+          marginX="auto"
+          marginY={6}
+          textAlign="center"
+        >
+          No Airplanes Found
+        </Text>
+        {isAddOpen && (
+          <CreateAirplane
+            isOpen={isAddOpen}
+            onClose={() => setIsAddOpen(false)}
+          />
+        )}
+      </>
+    );
+  }
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   if (error) {
     return (
       <Text
@@ -119,10 +155,6 @@ const Airplanes = () => {
       </Text>
     );
   }
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div>
       <HStack justifyContent="space-between" marginX={16} marginY={4}>
@@ -136,7 +168,7 @@ const Airplanes = () => {
           Add Plane
         </Button>
       </HStack>
-      <Container maxW="7xl" px={{ base: 4, md: 8 }} py={6}>
+      <Container maxW="6xl" px={{ base: 4, md: 0 }} py={6}>
         <Box position="relative" mx={{ base: 4, md: 8 }}>
           <Slider ref={sliderRef} {...settings}>
             {airplanes?.map((airplane) => (

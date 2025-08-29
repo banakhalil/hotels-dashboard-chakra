@@ -275,7 +275,7 @@ const AddRoute = ({ isOpen, onClose }: Props) => {
                             <Select.Indicator />
                           </Select.IndicatorGroup>
                         </Select.Control>
-                        <Select.Positioner>
+                        <Select.Positioner height="50px">
                           <Select.Content className="drawer">
                             {stationCollection.items.map((station) => (
                               <Select.Item item={station} key={station.value}>

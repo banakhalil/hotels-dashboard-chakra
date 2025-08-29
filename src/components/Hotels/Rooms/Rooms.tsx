@@ -81,7 +81,7 @@ const Rooms = ({ hotelId, sortValue }: Props) => {
         },
       },
     ],
-    beforeChange: ( next: number) => {
+    beforeChange: (next: number) => {
       // Load more rooms when reaching near the end
       if (
         next >= allRooms.length - 2 &&
@@ -195,7 +195,7 @@ const Rooms = ({ hotelId, sortValue }: Props) => {
   return (
     <>
       <section id={SelectedPage.Rooms}>
-        <Container maxW="7xl" px={{ base: 4, md: 8 }} py={6}>
+        <Container maxW="6xl" px={{ base: 4, md: 0 }} py={6}>
           <Box position="relative" mx={{ base: 4, md: 8 }}>
             <Slider ref={sliderRef} {...settings}>
               {allRooms.map((room) => (

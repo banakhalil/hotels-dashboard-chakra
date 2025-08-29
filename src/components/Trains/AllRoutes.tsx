@@ -168,6 +168,7 @@ const AllRoutes = () => {
         marginTop="auto"
         margin="auto"
         marginY={6}
+        textAlign="center"
       >
         Error loading routes
       </Text>
@@ -195,6 +196,7 @@ const AllRoutes = () => {
           marginTop="auto"
           margin="auto"
           marginY={6}
+          textAlign="center"
         >
           No routes found
         </Text>
@@ -202,7 +204,7 @@ const AllRoutes = () => {
     );
 
   return (
-    <Container maxW="7xl" px={{ base: 4, md: 8 }} py={6} mt={10}>
+    <Container maxW="6xl" px={{ base: 4, md: 0 }} py={6} mt={10}>
       <Flex justify="flex-end" mb={6} mr={10}>
         <Button
           px={4}
@@ -225,7 +227,7 @@ const AllRoutes = () => {
                 maxW="400px"
                 className="card"
                 mx="auto"
-                height="400px"
+                minH="400px"
               >
                 <Card.Body gap="2">
                   <Card.Title mt="2" mb={4}>

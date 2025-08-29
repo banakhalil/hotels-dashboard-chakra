@@ -14,7 +14,7 @@ import { useFlightBookings } from "@/hooks/Airlines/useAirlineBookings";
 //   setSelectedPage: (newPage: SelectedPage) => void;
 // };
 
-const CarBookings = () => {
+const AirlineBookings = () => {
   const { data: bookings, isLoading, error } = useFlightBookings();
 
   if (isLoading)
@@ -33,6 +33,7 @@ const CarBookings = () => {
           <Skeleton
             variant="pulse"
             // noOfLines={6}
+            borderRadius="2xl"
             height="500px"
             width="100%"
             gap="4"
@@ -42,22 +43,7 @@ const CarBookings = () => {
         }
       </HStack>
     );
-
-  if (error)
-    return (
-      <Text
-        fontSize="xl"
-        fontWeight="bold"
-        color="gray.500"
-        marginTop="auto"
-        margin="auto"
-        marginY={6}
-      >
-        Error loading bookings
-      </Text>
-    );
-
-  if (!bookings?.length)
+  if (!bookings?.length || error)
     return (
       <Flex
         justify="center"
@@ -74,11 +60,28 @@ const CarBookings = () => {
           color="gray.500"
           marginTop="8px"
           margin="auto"
+          textAlign="center"
         >
           No bookings found
         </Text>
       </Flex>
     );
+
+  // if (error)
+  //   return (
+  //     <Text
+  //       fontSize="xl"
+  //       fontWeight="bold"
+  //       color="gray.500"
+  //       marginTop="auto"
+  //       margin="auto"
+  //       marginY={6}
+  //       textAlign="center"
+  //     >
+  //       Error loading bookings
+  //     </Text>
+  //   );
+
   return (
     <>
       <Flex
@@ -92,7 +95,7 @@ const CarBookings = () => {
           borderWidth="0.5px"
           rounded="lg"
           height="fit-content"
-          w="80%"
+          w="85%"
           borderRadius="2xl"
         >
           <Table.Root size="lg" stickyHeader>
@@ -249,4 +252,4 @@ const CarBookings = () => {
   );
 };
 
-export default CarBookings;
+export default AirlineBookings;

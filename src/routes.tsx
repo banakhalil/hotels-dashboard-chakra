@@ -27,6 +27,15 @@ import Cars from "./components/Cars/Cars";
 import CarBookings from "./components/Cars/CarBookings";
 import TrainDashboard from "./components/Trains/TrainDashboard";
 import AirplaneBookings from "./components/Airplanes/AirplaneBookings";
+import TripLayout from "./layouts/TripLayout";
+import TripDashboard from "./components/Trips/TripDashboard";
+import Stays from "./components/Trips/Stays";
+import Transport from "./components/Trips/Transport";
+import Events from "./components/Trips/Events";
+import Trips from "./components/Trips/Trips";
+import ManageUsers from "./components/Trips/ManageUsers";
+import TripBookings from "./components/Trips/TripBookings";
+import AllUsers from "./hooks/Trips/AllUsers";
 // import CarOffice from "./components/Cars/CarOffice";
 // import Cars from "./components/Cars/Cars";
 // import CarBookings from "./components/Cars/CarBookings";
@@ -115,6 +124,30 @@ const AppRoutes = () => {
         break;
       case SelectedPage.CarBookings:
         targetPath = "/carOffice/carBookings";
+        break;
+      case SelectedPage.AdminDashboard:
+        targetPath = "/Travelux";
+        break;
+      case SelectedPage.Events:
+        targetPath = "/Travelux/events";
+        break;
+      case SelectedPage.Packages:
+        targetPath = "/Travelux/packages";
+        break;
+      case SelectedPage.Stays:
+        targetPath = "/Travelux/stays";
+        break;
+      case SelectedPage.Transport:
+        targetPath = "/Travelux/transport";
+        break;
+      case SelectedPage.ManageUsers:
+        targetPath = "/Travelux/manageUsers";
+        break;
+      case SelectedPage.UserBookings:
+        targetPath = "/Travelux/userBookings";
+        break;
+      case SelectedPage.Users:
+        targetPath = "/Travelux/users";
         break;
     }
 
@@ -387,6 +420,110 @@ const AppRoutes = () => {
         </Route>
       </Route>
 
+      {/* Admin Routes */}
+
+      <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+        <Route
+          path="/Travelux/*"
+          element={
+            <TripLayout
+              selectedPage={selectedPage}
+              setSelectedPage={setSelectedPage}
+            />
+          }
+        >
+          <Route
+            index
+            element={
+              <PageSection
+                id={SelectedPage.AdminDashboard}
+                setSelectedPage={setSelectedPage}
+              >
+                <TripDashboard />
+              </PageSection>
+            }
+          />
+          <Route
+            path="events"
+            element={
+              <PageSection
+                id={SelectedPage.Events}
+                setSelectedPage={setSelectedPage}
+              >
+                <Events />
+              </PageSection>
+            }
+          />
+
+          <Route
+            path="packages"
+            element={
+              <PageSection
+                id={SelectedPage.Packages}
+                setSelectedPage={setSelectedPage}
+              >
+                <Trips />
+              </PageSection>
+            }
+          />
+
+          <Route
+            path="stays"
+            element={
+              <PageSection
+                id={SelectedPage.Stays}
+                setSelectedPage={setSelectedPage}
+              >
+                <Stays />
+              </PageSection>
+            }
+          />
+          <Route
+            path="transport"
+            element={
+              <PageSection
+                id={SelectedPage.Transport}
+                setSelectedPage={setSelectedPage}
+              >
+                <Transport />
+              </PageSection>
+            }
+          />
+          <Route
+            path="manageUsers"
+            element={
+              <PageSection
+                id={SelectedPage.ManageUsers}
+                setSelectedPage={setSelectedPage}
+              >
+                <ManageUsers />
+              </PageSection>
+            }
+          />
+          <Route
+            path="userBookings"
+            element={
+              <PageSection
+                id={SelectedPage.UserBookings}
+                setSelectedPage={setSelectedPage}
+              >
+                <TripBookings />
+              </PageSection>
+            }
+          />
+          <Route
+            path="users"
+            element={
+              <PageSection
+                id={SelectedPage.Users}
+                setSelectedPage={setSelectedPage}
+              >
+                <AllUsers />
+              </PageSection>
+            }
+          />
+        </Route>
+      </Route>
       {/* Default redirect based on role */}
       <Route path="/" element={<RoleBasedRedirect />} />
       <Route path="*" element={<RoleBasedRedirect />} />

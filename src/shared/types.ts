@@ -22,4 +22,11 @@ export enum SelectedPage {
   CarBookings = "car bookings",
 
   AdminDashboard = "admin dashboard",
+  Events = "events",
+  Packages = "packages",
+  Stays = "stays",
+  Transport = "transport",
+  ManageUsers = "manage users",
+  UserBookings = "user bookings",
+  Users = "users",
 }

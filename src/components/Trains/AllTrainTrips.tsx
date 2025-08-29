@@ -68,6 +68,7 @@ const TrainTrips = () => {
           marginTop="auto"
           margin="auto"
           marginY={6}
+          textAlign="center"
         >
           Error loading trips
         </Text>
@@ -78,7 +79,7 @@ const TrainTrips = () => {
       </Flex>
     );
 
-  if (!traintrips)
+  if (!traintrips || traintrips.length === 0)
     return (
       <>
         <Flex flexDirection="column" gap={4} width="90%" margin="auto">
@@ -104,6 +105,7 @@ const TrainTrips = () => {
             marginTop="auto"
             margin="auto"
             marginY={6}
+            textAlign="center"
           >
             No Trips Found
           </Text>
@@ -117,7 +119,7 @@ const TrainTrips = () => {
 
   return (
     <Flex
-      borderRadius="2xl"
+      // borderRadius="2xl"
       flexDirection="column"
       gap={4}
       width="90%"

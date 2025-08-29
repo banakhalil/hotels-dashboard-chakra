@@ -8,6 +8,7 @@ import { BsFillBuildingsFill } from "react-icons/bs";
 import { LuTrainTrack } from "react-icons/lu";
 import { SiEthiopianairlines } from "react-icons/si";
 import { FaRoad } from "react-icons/fa";
+import { RiLandscapeFill } from "react-icons/ri";
 
 interface SidebarContextType {
   expanded: boolean;
@@ -48,6 +49,12 @@ const getRoleBasedClasses = (role: string | undefined) => {
         selectedItem: "car-selected-items",
         notSelectedItem: "car-not-selected-items",
       };
+    case "admin":
+      return {
+        sidebarColor: "trip-sidebar-color",
+        selectedItem: "trip-selected-items",
+        notSelectedItem: "trip-not-selected-items",
+      };
     default:
       return {
         sidebarColor: "sidebar-color",
@@ -67,6 +74,8 @@ const getRoleBasedTitle = (role: string | undefined) => {
       return "Eurowings";
     case "officeManager":
       return "CarVoy";
+    case "admin":
+      return "Travelux";
     default:
       return "Transylvania";
   }
@@ -82,7 +91,8 @@ const getRoleBasedLogo = (role: string | undefined) => {
     case "officeManager":
       return <FaRoad size={38} color="#a9b3bc" />;
     case "admin":
-      return "admin";
+      return <RiLandscapeFill size={38} color="#bedbff" />;
+
     default:
       return "Transylvania";
   }
@@ -114,10 +124,12 @@ const SidebarContent = ({
           {logo}
           {expanded ? (
             <Text
+              className="font-oswald"
+              letterSpacing="wide"
               paddingX="1"
               ml={1}
               fontWeight="bold"
-              fontSize="xl"
+              fontSize="2xl"
               color="rgb(245, 244, 244)"
             >
               {title}
@@ -215,7 +227,7 @@ export function SideBarItem({
       className={`
         relative flex items-center justify-around my-0.5 
         font-medium rounded-md cursor-pointer
-        transition-all duration-300 ease-in-out sidebar-text-color
+        transition-all duration-300 ease-in-out sidebar-text-color font-oswald
         ${expanded ? "h-12 py-2 mx-10" : "h-9 w-9 p-1.5 justify-center"}
         ${
           selectedPage === page

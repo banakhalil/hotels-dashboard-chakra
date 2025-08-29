@@ -8,15 +8,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useCarBookings } from "@/hooks/Cars/useCarBookings";
-import { useOffice } from "@/hooks/Cars/useOffice";
+import { useAllUsers } from "./useGetAllUsers";
 
-const CarBookings = () => {
-  const { data: officeData } = useOffice();
-  const {
-    data: bookings,
-    isLoading,
-    error,
-  } = useCarBookings(officeData?._id || "");
+const AllUsers = () => {
+  const { data: users, isLoading, error } = useAllUsers();
   if (isLoading)
     return (
       // <Text
@@ -53,7 +48,7 @@ const CarBookings = () => {
         }
       </HStack>
     );
-  if (!bookings?.length)
+  if (!users?.length)
     return (
       <Flex
         justify="center"
@@ -72,7 +67,7 @@ const CarBookings = () => {
           marginTop="8px"
           margin="auto"
         >
-          No bookings found
+          No users found
         </Text>
         {/* <Button onClick={() => setKeyWord("")}>Clear</Button> */}
       </Flex>
@@ -88,7 +83,7 @@ const CarBookings = () => {
         marginY={6}
         textAlign="center"
       >
-        Error loading bookings
+        Error loading users
       </Text>
     );
 
@@ -105,10 +100,15 @@ const CarBookings = () => {
           borderWidth="0.5px"
           rounded="lg"
           height="fit-content"
-          w="85%"
+          w="65%"
           borderRadius="2xl"
         >
-          <Table.Root size="lg" stickyHeader>
+          <Table.Root
+            size="lg"
+            stickyHeader
+            className="font-oswald"
+            letterSpacing="wide"
+          >
             <Table.Header>
               <Table.Row
                 bg="bg.subtle"
@@ -120,13 +120,13 @@ const CarBookings = () => {
                 <Table.ColumnHeader color="#cad5e2" width="12.5%">
                   User
                 </Table.ColumnHeader>
+                {/* <Table.ColumnHeader color="#cad5e2" width="12.5%">
+                  Email
+                </Table.ColumnHeader> */}
                 <Table.ColumnHeader color="#cad5e2" width="12.5%">
-                  Booked Car
+                  Role
                 </Table.ColumnHeader>
-                <Table.ColumnHeader color="#cad5e2" width="12.5%">
-                  From - To
-                </Table.ColumnHeader>
-                <Table.ColumnHeader color="#cad5e2" width="12.5%">
+                {/* <Table.ColumnHeader color="#cad5e2" width="12.5%">
                   Price
                 </Table.ColumnHeader>
                 <Table.ColumnHeader color="#cad5e2" width="12.5%">
@@ -134,77 +134,27 @@ const CarBookings = () => {
                 </Table.ColumnHeader>
                 <Table.ColumnHeader color="#cad5e2" width="12.5%">
                   Status
-                </Table.ColumnHeader>
+                </Table.ColumnHeader> */}
               </Table.Row>
             </Table.Header>
 
-            <Table.Body>
-              {bookings.map((booking) => (
-                <Table.Row key={booking._id} className="card ">
+            <Table.Body fontSize="md">
+              {users.map((user) => (
+                <Table.Row key={user._id} className="card ">
                   <Table.Cell textAlign="start" className="border-color">
                     <Stack>
-                      <HStack>
-                        {booking.user.firstName + " " + booking.user.lastName}
-                      </HStack>
+                      {user.firstName + " " + user.lastName}
                       <Text
                         fontSize="sm"
                         color="gray.700"
                         _dark={{ color: "gray.300" }}
                       >
-                        {booking.user.email}
+                        {user.email}
                       </Text>
                     </Stack>
                   </Table.Cell>
                   <Table.Cell textAlign="start" className="border-color">
-                    {booking.car.brand} {booking.car.model} {booking.car.year}
-                  </Table.Cell>
-                  <Table.Cell textAlign="start" className="border-color">
-                    {booking.startDate.substring(0, 10)} -{" "}
-                    {booking.endDate.substring(0, 10)}
-                  </Table.Cell>
-                  <Table.Cell textAlign="start" className="border-color">
-                    $ {booking.totalPrice}
-                  </Table.Cell>
-                  <Table.Cell textAlign="start" className="border-color">
-                    <Badge
-                      size="md"
-                      colorPalette={
-                        booking.paymentStatus === "pending_payment"
-                          ? "yellow"
-                          : booking.paymentStatus === "paid"
-                          ? "green"
-                          : "red"
-                      }
-                    >
-                      {booking.paymentStatus === "pending_payment"
-                        ? "Pending"
-                        : booking.paymentStatus === "paid"
-                        ? "Paid"
-                        : "Failed"}
-                    </Badge>
-                  </Table.Cell>
-
-                  <Table.Cell textAlign="start" className="border-color">
-                    <Badge
-                      size="md"
-                      colorPalette={
-                        booking.status === "pending"
-                          ? "yellow"
-                          : booking.status === "confirmed"
-                          ? "blue"
-                          : booking.status === "cancelled"
-                          ? "gray"
-                          : "green"
-                      }
-                    >
-                      {booking.status === "pending"
-                        ? "Pending"
-                        : booking.status === "confirmed"
-                        ? "Confirmed"
-                        : booking.status === "cancelled"
-                        ? "Cancelled"
-                        : "Completed"}
-                    </Badge>
+                    {user.role}
                   </Table.Cell>
                 </Table.Row>
               ))}
@@ -216,4 +166,4 @@ const CarBookings = () => {
   );
 };
 
-export default CarBookings;
+export default AllUsers;

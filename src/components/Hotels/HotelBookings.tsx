@@ -15,8 +15,6 @@ import { useBookings } from "@/hooks/Hotels/useBookings";
 import { Search } from "../Search";
 import { HiSortAscending } from "react-icons/hi";
 
-
-
 const HotelBookings = () => {
   const [value, setValue] = useState("");
   const [keyWord, setKeyWord] = useState("");
@@ -47,6 +45,7 @@ const HotelBookings = () => {
           <Skeleton
             variant="pulse"
             // noOfLines={6}
+            borderRadius="2xl"
             height="500px"
             width="100%"
             gap="4"

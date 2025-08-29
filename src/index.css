@@ -44,10 +44,12 @@ body {
 /*BOREDR*/
 .border-color {
   border-color: #e0e0e0;
-  border-color: #c0bbbb;
+  border-color: #c0bbbb; 
+  border-color: #aca8a8; 
 }
 :root[class~="dark"] .border-color {
   border-color: #444444;
+  border-color: #525151;
 }
 .border-color-login {
   border-color: #e0e0e0;
@@ -221,10 +223,12 @@ body {
 .airline-secondary-button-color {
   background-color: #b6c2ff;
   color: #737fe8;
+  color: #2c2875;
 }
 :root[class~="dark"] .airline-secondary-button-color {
   background-color: #a3b3ff;
   color: #616bc6;
+  color: #2c2875;
 }
 .airline-change-avatar {
   color: #2c2875;
@@ -317,6 +321,82 @@ body {
   background-color: #a0c5c2;
   color: #000000;
 } */
+
+/*ADMIN THEME*/
+.trip-sidebar-color {
+  background-color: #193cb8;
+  background-color: #1c398e;
+  background-color: #1754ae;
+  background-color: #164b9a;
+}
+:root[class~="dark"] .trip-sidebar-color {
+  background-color: rgb(28, 52, 136);
+  background-color: rgb(24, 44, 120);
+  background-color: #13448d;
+  background-color: #113d7f;
+}
+
+.trip-selected-items {
+  background-color: #68affab7;
+  /* background-color: #51a2ff9d; */
+  /* background-color: #51a2ffae; */
+}
+:root[class~="dark"] .trip-selected-items {
+  background-color: #405b81;
+  background-color: #438fe5ae;
+  background-color: #5a9adeb7;
+}
+
+.trip-not-selected-items:hover {
+  background-color: #bedbff;
+  /* background-color: #abcdef; */
+
+  color: #000000;
+}
+:root[class~="dark"] .trip-not-selected-items:hover {
+  background-color: #a5c1e3;
+  color: #000000;
+}
+
+/*ADMIN BUTTONS*/
+.trip-button-color {
+  background-color: #164b9a;
+  color: rgb(245, 244, 244);
+}
+:root[class~="dark"] .trip-button-color {
+  background-color: #113d7f;
+  color: rgb(245, 244, 244);
+}
+
+.trip-secondary-button-color {
+  background-color: #a5c1e3;
+  background-color: #bedbff;
+  color: #113d7f;
+}
+:root[class~="dark"] .trip-secondary-button-color {
+  background-color: #a5c1e3;
+  background-color: #bedbff;
+  color: #113d7f;
+}
+.car-secondary2-button-color {
+  color: #4a6b9a;
+  background-color: #cad5e2;
+}
+:root[class~="dark"] .car-secondary2-button-color {
+  color: #405b81;
+  background-color: #a9b3bc;
+}
+
+.car-change-avatar {
+  color: #293d5a;
+}
+:root[class~="dark"] .car-change-avatar {
+  color: #cad5e2;
+}
+
+
+
+
 
 /*TEXT*/
 .text-color {
