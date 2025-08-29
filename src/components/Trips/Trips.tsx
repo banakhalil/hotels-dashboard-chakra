@@ -16,7 +16,7 @@ import {
 import { IoLocationOutline } from "react-icons/io5";
 import { StaysSkeleton } from "./Skeletons";
 import { useTrips } from "@/hooks/Trips/useTrips";
-import DefaultImage from "../../assets/defaultHotel.jpg";
+import DefaultImage from "../../assets/defaultTrip.webp";
 import { useState } from "react";
 import TripDetails from "./TripDetails";
 import CreateTrip from "./CreateTrip";
@@ -27,6 +27,7 @@ import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 const Trips = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   const { data, isLoading, error } = useTrips({
     page: currentPage,

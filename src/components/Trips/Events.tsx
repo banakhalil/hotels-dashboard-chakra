@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { StaysSkeleton } from "./Skeletons";
 import { IoLocationOutline } from "react-icons/io5";
-import DefaultImage from "../../assets/airplane2.jpg";
+import DefaultImage from "../../assets/defaultTrip.webp";
 import { useEvents } from "@/hooks/Trips/useEvents";
 import CreateEvent from "./CreateEvent";
 import { useState } from "react";

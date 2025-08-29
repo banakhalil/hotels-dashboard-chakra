@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200;300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200;300;400;500;600;700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
 /* Font Classes */
 .font-bebas-neue {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
 }
 
 .font-oswald {
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
 }
 
 /*BODY*/
@@ -44,8 +44,8 @@ body {
 /*BOREDR*/
 .border-color {
   border-color: #e0e0e0;
-  border-color: #c0bbbb; 
-  border-color: #aca8a8; 
+  border-color: #c0bbbb;
+  border-color: #aca8a8;
 }
 :root[class~="dark"] .border-color {
   border-color: #444444;
@@ -379,17 +379,12 @@ body {
   color: #113d7f;
 }
 
-
 .trip-change-avatar {
   color: #164b9a;
 }
 :root[class~="dark"] .trip-change-avatar {
   color: #bedbff;
 }
-
-
-
-
 
 /*TEXT*/
 .text-color {

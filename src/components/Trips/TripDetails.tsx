@@ -21,7 +21,7 @@ import {
   createListCollection,
   Input,
 } from "@chakra-ui/react";
-import DefaultImage from "../../assets/defaultHotel.jpg";
+import DefaultImage from "../../assets/defaultTrip.webp";
 
 import { FaStar } from "react-icons/fa";
 import { useRef, useState, useEffect, type FormEvent } from "react";

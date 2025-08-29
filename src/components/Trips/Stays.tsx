@@ -8,7 +8,6 @@ import {
   Image,
   GridItem,
   HStack,
-  Pagination,
   ButtonGroup,
   IconButton,
 } from "@chakra-ui/react";
@@ -19,9 +18,7 @@ import { StaysSkeleton } from "./Skeletons";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import { useState } from "react";
 
-type Props = {};
-
-const Stays = (props: Props) => {
+const Stays = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
 
