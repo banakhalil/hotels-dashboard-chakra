@@ -35,7 +35,7 @@ import Events from "./components/Trips/Events";
 import Trips from "./components/Trips/Trips";
 import ManageUsers from "./components/Trips/ManageUsers";
 import TripBookings from "./components/Trips/TripBookings";
-import AllUsers from "./hooks/Trips/AllUsers";
+import AllUsers from "./components/Trips/AllUsers";
 // import CarOffice from "./components/Cars/CarOffice";
 // import Cars from "./components/Cars/Cars";
 // import CarBookings from "./components/Cars/CarBookings";

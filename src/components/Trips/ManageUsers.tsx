@@ -20,6 +20,7 @@ import {
 import { useState } from "react";
 import type { ChangeEvent } from "react";
 import { toaster } from "../ui/toaster";
+import { AxiosError } from "axios";
 
 const ManageUsers = () => {
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
@@ -157,13 +158,16 @@ const ManageUsers = () => {
               <Table.Row
                 className=" font-oswald"
                 bg="bg.subtle"
-                bgColor="#2c2875"
-                _dark={{ bgColor: "#b6c2ff" }}
+                fontSize="lg"
+                bgColor="#164b9a"
+                _dark={{ bgColor: "#164b9a" }}
               >
-                <Table.ColumnHeader w="6">Select</Table.ColumnHeader>
-                <Table.ColumnHeader>Name</Table.ColumnHeader>
-                <Table.ColumnHeader>Email</Table.ColumnHeader>
-                <Table.ColumnHeader>Role</Table.ColumnHeader>
+                <Table.ColumnHeader w="6" color="#bedbff">
+                  Select
+                </Table.ColumnHeader>
+                <Table.ColumnHeader color="#bedbff">Name</Table.ColumnHeader>
+                <Table.ColumnHeader color="#bedbff">Email</Table.ColumnHeader>
+                <Table.ColumnHeader color="#bedbff">Role</Table.ColumnHeader>
               </Table.Row>
             </Table.Header>
             <Table.Body className="card border-color">{rows}</Table.Body>
@@ -183,7 +187,7 @@ const ManageUsers = () => {
                 <ActionBar.Separator bg="#aca8a8" _dark={{ bg: "#525151" }} />
                 <Button
                   variant="subtle"
-                  className="hotel-sort-button-color"
+                  className="trip-secondary-button-color"
                   size="sm"
                   onClick={() => {
                     if (selectedUser) {
@@ -205,8 +209,10 @@ const ManageUsers = () => {
                             toaster.create({
                               title: "Error",
                               description:
-                                error instanceof Error
-                                  ? error.message
+                                error instanceof AxiosError
+                                  ? error.response?.data.errors
+                                      .map((err: any) => err.msg)
+                                      .join(`  ////  `)
                                   : "Failed to make user a guide. Please try again.",
                               type: "error",
                               duration: 5000,
@@ -227,7 +233,7 @@ const ManageUsers = () => {
                       variant="solid"
                       size="sm"
                       width="fit-content"
-                      //   className="hotel-sort-button-color"
+                      className="trip-button-color"
                       // bgColor="#a2d5cb"
                       // color="#0b4f4a"
                       // height={10}
@@ -260,8 +266,10 @@ const ManageUsers = () => {
                                   toaster.create({
                                     title: "Error",
                                     description:
-                                      error instanceof Error
-                                        ? error.message
+                                      error instanceof AxiosError
+                                        ? error.response?.data.errors
+                                            .map((err: any) => err.msg)
+                                            .join(`  ////  `)
                                         : "Failed to update user role. Please try again.",
                                     type: "error",
                                     duration: 5000,

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { HiUpload } from "react-icons/hi";
 import { toaster } from "../ui/toaster";
 import { useAddOffice } from "@/hooks/Cars/useOffice";
+import { AxiosError } from "axios";
 
 interface Props {
   isOpen: boolean;
@@ -81,8 +82,10 @@ const CreateOffice = ({ isOpen, onClose }: Props) => {
         toaster.create({
           title: "Error",
           description:
-            error instanceof Error
-              ? error.message
+            error instanceof AxiosError
+              ? error.response?.data.errors
+                  .map((err: any) => err.msg)
+                  .join(`  ////  `)
               : "Failed to create office. Please try again.",
           type: "error",
           duration: 5000,

@@ -8,7 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useCarBookings } from "@/hooks/Cars/useCarBookings";
-import { useAllUsers } from "./useGetAllUsers";
+import { useAllUsers } from "../../hooks/Trips/useGetAllUsers";
 
 const AllUsers = () => {
   const { data: users, isLoading, error } = useAllUsers();
@@ -114,16 +114,16 @@ const AllUsers = () => {
                 bg="bg.subtle"
                 // bgColor="#cad5e2"
                 // _dark={{ bgColor: "#a0c5c2" }}
-                bgColor="#4a6b9a"
-                _dark={{ bgColor: "#405b81" }}
+                bgColor="#164b9a"
+                _dark={{ bgColor: "#164b9a" }}
               >
-                <Table.ColumnHeader color="#cad5e2" width="12.5%">
+                <Table.ColumnHeader color="#bedbff" width="12.5%">
                   User
                 </Table.ColumnHeader>
                 {/* <Table.ColumnHeader color="#cad5e2" width="12.5%">
                   Email
                 </Table.ColumnHeader> */}
-                <Table.ColumnHeader color="#cad5e2" width="12.5%">
+                <Table.ColumnHeader color="#bedbff" width="12.5%">
                   Role
                 </Table.ColumnHeader>
                 {/* <Table.ColumnHeader color="#cad5e2" width="12.5%">

@@ -1,7 +1,9 @@
 import { Flex, HStack, Skeleton, Stack, Table, Text } from "@chakra-ui/react";
 // import type { SelectedPage } from "@/shared/types";
 import { useTripBookings } from "@/hooks/Trips/useTripBookings";
-
+import { MdOutlineTrain } from "react-icons/md";
+import { MdLocalAirport } from "react-icons/md";
+import { IoCarSport } from "react-icons/io5";
 // type Props = {
 //   setSelectedPage: (newPage: SelectedPage) => void;
 // };
@@ -97,35 +99,19 @@ const TripBookings = () => {
                 letterSpacing="wide"
                 fontSize="lg"
                 bg="bg.subtle"
-                bgColor="#2c2875"
-                _dark={{ bgColor: "#b6c2ff" }}
+                bgColor="#164b9a"
+                _dark={{ bgColor: "#164b9a" }}
               >
-                <Table.ColumnHeader
-                  color="#b6c2ff"
-                  _dark={{ color: "#25225f" }}
-                  width="12.5%"
-                >
+                <Table.ColumnHeader color="#bedbff" width="12.5%">
                   User
                 </Table.ColumnHeader>
-                <Table.ColumnHeader
-                  color="#b6c2ff"
-                  _dark={{ color: "#25225f" }}
-                  width="12.5%"
-                >
+                <Table.ColumnHeader color="#bedbff" width="12.5%">
                   Trip
                 </Table.ColumnHeader>
-                <Table.ColumnHeader
-                  color="#b6c2ff"
-                  _dark={{ color: "#25225f" }}
-                  width="12.5%"
-                >
+                <Table.ColumnHeader color="#bedbff" width="12.5%">
                   Hotel
                 </Table.ColumnHeader>
-                <Table.ColumnHeader
-                  color="#b6c2ff"
-                  _dark={{ color: "#25225f" }}
-                  width="12.5%"
-                >
+                <Table.ColumnHeader color="#bedbff" width="12.5%">
                   Transport
                 </Table.ColumnHeader>
                 {/* <Table.ColumnHeader
@@ -257,11 +243,30 @@ const TripBookings = () => {
                             booking.bookings.transport
                               .map((s: any) => {
                                 if (s.trainTrip)
-                                  return `Train: ${s.trainTrip.route.name}`;
-                                if (s.car)
-                                  return `Car: ${s.car.brand} ${s.car.model}`;
-                                if (s.outboundFlight)
-                                  return `Flight: ${s.outboundFlight.departureAirport.city} - ${s.returnFlight.departureAirport.city}`;
+                                  return (
+                                    <HStack>
+                                      <MdOutlineTrain />
+                                      {s.trainTrip.route.name}
+                                    </HStack>
+                                  );
+                                if (s.car && s.car.brand && s.car.model)
+                                  return (
+                                    <HStack>
+                                      <IoCarSport />
+                                      {s.car.brand} {s.car.model}
+                                    </HStack>
+                                  );
+
+                                if (s.outboundFlight && s.returnFlight)
+                                  return (
+                                    <HStack>
+                                      <MdLocalAirport />
+                                      {
+                                        s.outboundFlight.departureAirport.city
+                                      } - {s.returnFlight.departureAirport.city}
+                                    </HStack>
+                                  );
+
                                 return "";
                               })
                               .filter(Boolean)
@@ -272,11 +277,29 @@ const TripBookings = () => {
                               booking.bookings.transport
                                 .map((s: any) => {
                                   if (s.trainTrip)
-                                    return `Train: ${s.trainTrip.route.name}`;
-                                  if (s.car)
-                                    return `Car: ${s.car.brand} ${s.car.model}`;
-                                  if (s.outboundFlight)
-                                    return `Flight: ${s.outboundFlight.departureAirport.city} - ${s.returnFlight.departureAirport.city}`;
+                                    return (
+                                      <HStack>
+                                        <MdOutlineTrain />
+                                        {s.trainTrip.route.name}
+                                      </HStack>
+                                    );
+                                  if (s.car && s.car.brand && s.car.model)
+                                    return (
+                                      <HStack>
+                                        <IoCarSport />
+                                        {s.car.brand} {s.car.model}
+                                      </HStack>
+                                    );
+                                  if (s.outboundFlight && s.returnFlight)
+                                    return (
+                                      <HStack>
+                                        <MdLocalAirport />
+                                        {
+                                          s.outboundFlight.departureAirport.city
+                                        }{" "}
+                                        - {s.returnFlight.departureAirport.city}
+                                      </HStack>
+                                    );
                                   return "";
                                 })
                                 .filter(Boolean)

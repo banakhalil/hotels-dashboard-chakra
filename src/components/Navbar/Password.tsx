@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useState, type FormEvent } from "react";
 import { toaster } from "../ui/toaster";
+import { AxiosError } from "axios";
 
 const getRoleBasedButtonClass = (role: string) => {
   switch (role) {
@@ -22,6 +23,8 @@ const getRoleBasedButtonClass = (role: string) => {
       return "airline-button-color";
     case "officeManager":
       return "car-button-color";
+    case "admin":
+      return "trip-button-color";
     default:
       return "button-color";
   }
@@ -104,8 +107,10 @@ const Password = ({ isOpen, onClose }: Props) => {
         toaster.create({
           title: "Error",
           description:
-            error instanceof Error
-              ? error.message
+            error instanceof AxiosError
+              ? error.response?.data.errors
+                  .map((err: any) => err.msg)
+                  .join(`  ////  `)
               : "Failed to change password. Please try again.",
           type: "error",
           duration: 5000,

@@ -14,6 +14,7 @@ import { toaster } from "@/components/ui/toaster";
 import { useCreateFlight } from "@/hooks/Airlines/useFlights";
 import useAirplanes from "@/hooks/Airlines/useAirplanes";
 import { useAirports, useCountries } from "@/hooks/Airlines/useFlights";
+import { AxiosError } from "axios";
 
 interface Props {
   isOpen: boolean;
@@ -146,8 +147,10 @@ const CreateFlight = ({ isOpen, onClose }: Props) => {
       toaster.create({
         title: "Error",
         description:
-          error instanceof Error
-            ? error.message
+          error instanceof AxiosError
+            ? error.response?.data.errors
+                .map((err: any) => err.msg)
+                .join(`  ////  `)
             : "Failed to add flight. Please try again.",
         type: "error",
         duration: 5000,

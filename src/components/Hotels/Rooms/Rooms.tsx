@@ -24,6 +24,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import DefaultImage from "../../../assets/defaultRoom.jpg";
+import { AxiosError } from "axios";
 
 type Props = {
   hotelId: string;
@@ -325,8 +326,10 @@ const Rooms = ({ hotelId, sortValue }: Props) => {
                                 toaster.create({
                                   title: "Error",
                                   description:
-                                    error instanceof Error
-                                      ? error.message
+                                    error instanceof AxiosError
+                                      ? error.response?.data.errors
+                                          .map((err: any) => err.msg)
+                                          .join(`  ////  `)
                                       : "Failed to delete room. Please try again.",
                                   type: "error",
                                   duration: 5000,

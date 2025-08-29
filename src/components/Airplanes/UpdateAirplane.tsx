@@ -13,6 +13,7 @@ import {
   useSpecificAirplane,
   useUpdateAirplane,
 } from "@/hooks/Airlines/useAirplanes";
+import { AxiosError } from "axios";
 
 type Props = {
   isOpen: boolean;
@@ -85,8 +86,10 @@ const UpdateAirplane = ({ isOpen, onClose, planeId }: Props) => {
       toaster.create({
         title: "Error",
         description:
-          error instanceof Error
-            ? error.message
+          error instanceof AxiosError
+            ? error.response?.data.errors
+                .map((err: any) => err.msg)
+                .join(`  ////  `)
             : "Failed to update airplane. Please try again.",
         type: "error",
         duration: 5000,

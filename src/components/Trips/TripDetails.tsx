@@ -27,6 +27,7 @@ import { FaStar } from "react-icons/fa";
 import { useRef, useState, useEffect, type FormEvent } from "react";
 import { useEvents } from "@/hooks/Trips/useEvents";
 import { toaster } from "../ui/toaster";
+import { AxiosError } from "axios";
 type Props = {
   isOpen: boolean;
   onClose: () => void;
@@ -141,8 +142,10 @@ const TripDetails = ({ isOpen, onClose, tripId }: Props) => {
           toaster.create({
             title: "Error",
             description:
-              error instanceof Error
-                ? error.message
+              error instanceof AxiosError
+                ? error.response?.data.errors
+                    .map((err: any) => err.msg)
+                    .join(`  ////  `)
                 : "Failed to add event. Please try again.",
             type: "error",
             duration: 5000,

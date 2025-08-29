@@ -5,6 +5,7 @@ import { useRef, type FormEvent } from "react";
 
 import { toaster } from "../ui/toaster";
 import { useAddTrain } from "@/hooks/Trains/useTrains";
+import { AxiosError } from "axios";
 
 interface Props {
   isOpen: boolean;
@@ -54,8 +55,10 @@ const AddTrain = ({ isOpen, onClose }: Props) => {
         toaster.create({
           title: "Error",
           description:
-            error instanceof Error
-              ? error.message
+            error instanceof AxiosError
+              ? error.response?.data.errors
+                  .map((err: any) => err.msg)
+                  .join(`  ////  `)
               : "Failed to create train. Please try again.",
           type: "error",
           duration: 5000,

@@ -378,20 +378,13 @@ body {
   background-color: #bedbff;
   color: #113d7f;
 }
-.car-secondary2-button-color {
-  color: #4a6b9a;
-  background-color: #cad5e2;
-}
-:root[class~="dark"] .car-secondary2-button-color {
-  color: #405b81;
-  background-color: #a9b3bc;
-}
 
-.car-change-avatar {
-  color: #293d5a;
+
+.trip-change-avatar {
+  color: #164b9a;
 }
-:root[class~="dark"] .car-change-avatar {
-  color: #cad5e2;
+:root[class~="dark"] .trip-change-avatar {
+  color: #bedbff;
 }
 
 

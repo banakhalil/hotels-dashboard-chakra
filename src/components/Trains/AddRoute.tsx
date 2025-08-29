@@ -14,6 +14,7 @@ import { useState, type FormEvent } from "react";
 import useCities from "@/hooks/Trains/useCities";
 import { useAddRoute } from "@/hooks/Trains/useRoutes";
 import { toaster } from "@/components/ui/toaster";
+import { AxiosError } from "axios";
 
 interface Props {
   isOpen: boolean;
@@ -98,8 +99,10 @@ const AddRoute = ({ isOpen, onClose }: Props) => {
       toaster.create({
         title: "Error",
         description:
-          error instanceof Error
-            ? error.message
+          error instanceof AxiosError
+            ? error.response?.data.errors
+                .map((err: any) => err.msg)
+                .join(`  ////  `)
             : "Failed to add route. Please try again.",
         type: "error",
         duration: 5000,

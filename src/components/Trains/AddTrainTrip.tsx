@@ -14,6 +14,7 @@ import { toaster } from "@/components/ui/toaster";
 import { useTrainsContext } from "@/contexts/TrainsContext";
 import { useRoutesContext } from "@/contexts/RoutesContext";
 import { useAddTrip } from "@/hooks/Trains/useTrainTrips";
+import { AxiosError } from "axios";
 
 interface Props {
   isOpen: boolean;
@@ -114,8 +115,10 @@ const AddTrainTrip = ({ isOpen, onClose }: Props) => {
       toaster.create({
         title: "Error",
         description:
-          error instanceof Error
-            ? error.message
+          error instanceof AxiosError
+            ? error.response?.data.errors
+                .map((err: any) => err.msg)
+                .join(`  ////  `)
             : "Failed to add trip. Please try again.",
         type: "error",
         duration: 5000,

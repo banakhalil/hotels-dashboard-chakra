@@ -13,6 +13,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { HiUpload } from "react-icons/hi";
 import { toaster } from "../ui/toaster";
 import { useUpdateOffice } from "@/hooks/Cars/useOffice";
+import { AxiosError } from "axios";
 
 interface UpdateOfficeProps {
   isOpen: boolean;
@@ -115,8 +116,10 @@ export const UpdateOffice = ({
         toaster.create({
           title: "Error",
           description:
-            error instanceof Error
-              ? error.message
+            error instanceof AxiosError
+              ? error.response?.data.errors
+                  .map((err: any) => err.msg)
+                  .join(`  ////  `)
               : "Failed to update office. Please try again.",
           type: "error",
           duration: 5000,

@@ -18,6 +18,7 @@ import {
   useUpdateRoute,
 } from "@/hooks/Trains/useRoutes";
 import { toaster } from "@/components/ui/toaster";
+import { AxiosError } from "axios";
 
 interface Props {
   isOpen: boolean;
@@ -140,10 +141,10 @@ const UpdateRoute = ({
       toaster.create({
         title: "Error",
         description:
-          error instanceof Error
-            ? error.message === "Request failed with status code 403"
-              ? "you don't have permission to edit this route"
-              : error.message
+          error instanceof AxiosError
+            ? error.response?.data.errors
+                .map((err: any) => err.msg)
+                .join(`  ////  `)
             : "Failed to update route. Please try again.",
         type: "error",
         duration: 5000,

@@ -16,6 +16,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { HiUpload } from "react-icons/hi";
 import { useAddRoom, type RoomData } from "@/hooks/Hotels/useHotels";
 import { toaster } from "@/components/ui/toaster";
+import { AxiosError } from "axios";
 
 interface Props {
   isOpen: boolean;
@@ -199,11 +200,10 @@ const CreateRoom = ({ isOpen, onClose, hotelId }: Props) => {
           toaster.create({
             title: "Error",
             description:
-              error instanceof Error
-                ? // error.message === "Request failed with status code 400"
-                  //   ? "Room already exists"
-                  //   :
-                  error.message
+              error instanceof AxiosError
+                ? error.response?.data.errors
+                    .map((err: any) => err.msg)
+                    .join(`  ////  `)
                 : "Failed to create room. Please try again.",
             type: "error",
             duration: 5000,

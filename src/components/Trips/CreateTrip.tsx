@@ -18,6 +18,7 @@ import { toaster } from "../ui/toaster";
 import { useEvents } from "@/hooks/Trips/useEvents";
 import { useGuides } from "@/hooks/Trips/useGuides";
 import { useAddTrip } from "@/hooks/Trips/useTrips";
+import { AxiosError } from "axios";
 
 interface Props {
   isOpen: boolean;
@@ -139,8 +140,10 @@ const CreateTrip = ({ isOpen, onClose }: Props) => {
         toaster.create({
           title: "Error",
           description:
-            error instanceof Error
-              ? error.message
+            error instanceof AxiosError
+              ? error.response?.data.errors
+                  .map((err: any) => err.msg)
+                  .join(`  ////  `)
               : "Failed to add trip. Please try again.",
           type: "error",
           duration: 5000,

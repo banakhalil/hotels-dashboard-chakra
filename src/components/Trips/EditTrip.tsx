@@ -17,6 +17,7 @@ import { HiUpload } from "react-icons/hi";
 import { toaster } from "@/components/ui/toaster";
 import { useSpecificTrip, useUpdateTrip } from "@/hooks/Trips/useTrips";
 import { useGuides } from "@/hooks/Trips/useGuides";
+import { AxiosError } from "axios";
 
 type Props = {
   isOpen: boolean;
@@ -133,8 +134,10 @@ const EditTrip = ({ isOpen, onClose, tripId }: Props) => {
       toaster.create({
         title: "Error",
         description:
-          error instanceof Error
-            ? error.message
+          error instanceof AxiosError
+            ? error.response?.data.errors
+                .map((err: any) => err.msg)
+                .join(`  ////  `)
             : "Failed to update trip. Please try again.",
         type: "error",
         duration: 5000,

@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import Rooms from "./Rooms";
 import CreateRoom from "./CreateRoom";
 import { HiSortAscending } from "react-icons/hi";
+import { AxiosError } from "axios";
 
 interface Props {
   hotelId: string | null;
@@ -50,8 +51,15 @@ const ShowRooms = ({ hotelId }: Props) => {
     return <div>Loading hotels...</div>;
   }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
+  if (error instanceof AxiosError) {
+    return (
+      <div>
+        Error:{" "}
+        {error.response?.data.errors
+          .map((err: any) => err.msg)
+          .join(`  ////  `)}
+      </div>
+    );
   }
 
   return (

@@ -14,6 +14,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { HiUpload } from "react-icons/hi";
 import { useUpdateHotel } from "@/hooks/Hotels/useHotels";
 import { toaster } from "../ui/toaster";
+import { AxiosError } from "axios";
 
 interface UpdateHotelProps {
   isOpen: boolean;
@@ -240,11 +241,10 @@ export const UpdateHotel = ({
         toaster.create({
           title: "Error",
           description:
-            error instanceof Error
-              ? // error.message === "Request failed with status code 400"
-                //   ? "Hotel already exists"
-                //   :
-                error.message
+            error instanceof AxiosError
+              ? error.response?.data.errors
+                  .map((err: any) => err.msg)
+                  .join(`  ////  `)
               : "Failed to update hotel. Please try again.",
           type: "error",
           duration: 5000,

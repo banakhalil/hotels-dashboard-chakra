@@ -15,6 +15,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { HiUpload } from "react-icons/hi";
 import { toaster } from "../ui/toaster";
 import { useAddCar } from "@/hooks/Cars/useCars";
+import { AxiosError } from "axios";
 
 interface Props {
   isOpen: boolean;
@@ -121,8 +122,10 @@ const CreateCar = ({ isOpen, onClose, officeId }: Props) => {
         toaster.create({
           title: "Error",
           description:
-            error instanceof Error
-              ? error.message
+            error instanceof AxiosError
+              ? error.response?.data.errors
+                  .map((err: any) => err.msg)
+                  .join(`  ////  `)
               : "Failed to create car. Please try again.",
           type: "error",
           duration: 5000,

@@ -14,6 +14,7 @@ import { HiUpload } from "react-icons/hi";
 import { useUpdateAirline } from "@/hooks/Airlines/useAirlines";
 import { useAirlinesContext } from "@/contexts/AirlinesContext";
 import { toaster } from "@/components/ui/toaster";
+import { AxiosError } from "axios";
 
 type Props = {
   isOpen: boolean;
@@ -91,8 +92,10 @@ const UpdateAirline = ({ isOpen, onClose }: Props) => {
       toaster.create({
         title: "Error",
         description:
-          error instanceof Error
-            ? error.message
+          error instanceof AxiosError
+            ? error.response?.data.errors
+                .map((err: any) => err.msg)
+                .join(`  ////  `)
             : "Failed to update airline. Please try again.",
         type: "error",
         duration: 5000,

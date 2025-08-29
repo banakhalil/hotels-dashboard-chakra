@@ -16,6 +16,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { HiUpload } from "react-icons/hi";
 import { useSpecificRoom, useUpdateRoom } from "@/hooks/Hotels/useHotels";
 import { toaster } from "@/components/ui/toaster";
+import { AxiosError } from "axios";
 
 interface UpdateRoomProps {
   isOpen: boolean;
@@ -195,8 +196,10 @@ export const UpdateRoom = ({
         toaster.create({
           title: "Error",
           description:
-            error instanceof Error
-              ? error.message
+            error instanceof AxiosError
+              ? error.response?.data.errors
+                  .map((err: any) => err.msg)
+                  .join(`  ////  `)
               : "Failed to update room. Please try again.",
           type: "error",
           duration: 5000,

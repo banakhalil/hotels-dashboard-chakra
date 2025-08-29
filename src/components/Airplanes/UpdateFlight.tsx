@@ -11,6 +11,7 @@ import { useEffect, useRef, type FormEvent } from "react";
 import { toaster } from "@/components/ui/toaster";
 import useFlights, { useUpdateFlight } from "@/hooks/Airlines/useFlights";
 import useAirlines from "@/hooks/Airlines/useAirlines";
+import { AxiosError } from "axios";
 
 interface Props {
   isOpen: boolean;
@@ -132,8 +133,10 @@ const UpdateFlight = ({ isOpen, onClose, flightId }: Props) => {
       toaster.create({
         title: "Error",
         description:
-          error instanceof Error
-            ? error.message
+          error instanceof AxiosError
+            ? error.response?.data.errors
+                .map((err: any) => err.msg)
+                .join(`  ////  `)
             : "Failed to update flight. Please try again.",
         type: "error",
         duration: 5000,

@@ -1,4 +1,3 @@
-
 import {
   Box,
   Button,
@@ -19,6 +18,7 @@ import {
   useUpdateTrip,
   useSpecificTrainTrip,
 } from "@/hooks/Trains/useTrainTrips";
+import { AxiosError } from "axios";
 
 interface Props {
   isOpen: boolean;
@@ -153,8 +153,10 @@ const UpdateTrainTrip = ({ isOpen, onClose, tripId }: Props) => {
       toaster.create({
         title: "Error",
         description:
-          error instanceof Error
-            ? error.message
+          error instanceof AxiosError
+            ? error.response?.data.errors
+                .map((err: any) => err.msg)
+                .join(`  ////  `)
             : "Failed to update trip. Please try again.",
         type: "error",
         duration: 5000,
@@ -207,11 +209,7 @@ const UpdateTrainTrip = ({ isOpen, onClose, tripId }: Props) => {
   }
 
   return (
-    <Dialog.Root
-      scrollBehavior="inside"
-      open={isOpen}
-      onOpenChange={onClose}
-    >
+    <Dialog.Root scrollBehavior="inside" open={isOpen} onOpenChange={onClose}>
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>

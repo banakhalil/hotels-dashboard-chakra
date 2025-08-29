@@ -29,6 +29,7 @@ import CreateHotel from "./CreateHotel";
 import { toaster } from "../ui/toaster";
 import { SelectedPage } from "@/shared/types";
 import DefaultImage from "../../assets/defaultHotel.jpg";
+import { AxiosError } from "axios";
 
 const items = [
   // { label: "Newest", value: "?sort=-createdAt" },
@@ -634,11 +635,10 @@ export const CardHotelsDetails = ({ hotelId, onClose }: HotelDetailsProps) => {
                   toaster.create({
                     title: "Error",
                     description:
-                      error instanceof Error
-                        ? error.message ===
-                          "Request failed with status code 400"
-                          ? "you don't have permission to delete this hotel"
-                          : error.message
+                      error instanceof AxiosError
+                        ? error.response?.data.errors
+                            .map((err: any) => err.msg)
+                            .join(`  ////  `)
                         : "Failed to delete hotel. Please try again.",
                     type: "error",
                     duration: 5000,

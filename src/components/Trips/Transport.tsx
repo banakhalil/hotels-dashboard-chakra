@@ -111,7 +111,7 @@ const Transport = () => {
         rounded="full"
         minW="40px"
         h="40px"
-        className="hotel-sort-button-color"
+        className="trip-secondary-button-color"
       >
         <ArrowRight size={20} />
       </Button>
@@ -135,7 +135,7 @@ const Transport = () => {
         rounded="full"
         minW="40px"
         h="40px"
-        className="hotel-sort-button-color"
+        className="trip-secondary-button-color"
       >
         <ArrowLeft size={20} />
       </Button>
@@ -500,7 +500,7 @@ const Transport = () => {
                           <Timeline.Item>
                             <Timeline.Connector>
                               <Timeline.Separator />
-                              <Timeline.Indicator className="timeline-color">
+                              <Timeline.Indicator className="timeline-color trip-button-color ">
                                 {index + 1}
                               </Timeline.Indicator>
                             </Timeline.Connector>

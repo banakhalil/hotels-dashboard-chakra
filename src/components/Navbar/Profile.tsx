@@ -13,6 +13,7 @@ import {
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { toaster } from "../ui/toaster";
 import { HiUpload } from "react-icons/hi";
+import { AxiosError } from "axios";
 
 interface Props {
   isOpen: boolean;
@@ -40,6 +41,8 @@ const getRoleBasedButtonClass = (role: string) => {
       return "airline-button-color";
     case "officeManager":
       return "car-button-color";
+    case "admin":
+      return "trip-button-color";
     default:
       return "button-color";
   }
@@ -55,6 +58,8 @@ const getRoleBasedChangeAvatarClass = (role: string) => {
       return "airline-change-avatar";
     case "officeManager":
       return "car-change-avatar";
+    case "admin":
+      return "trip-change-avatar";
     default:
       return "change-avatar";
   }
@@ -176,12 +181,13 @@ const Profile = ({
         toaster.create({
           title: "Error",
           description:
-            error instanceof Error
-              ? // error.message === "Request failed with status code 400"
-                //   ? "Hotel already exists"
-                //   :
-                error.message
-              : "Failed to update hotel. Please try again.",
+            error instanceof AxiosError
+              ? // error.response?.data.errors
+
+                error.response?.data.errors
+                  .map((err: any) => err.msg)
+                  .join(`  ////  `)
+              : "Failed to update profile. Please try again.",
           type: "error",
           duration: 5000,
           closable: true,

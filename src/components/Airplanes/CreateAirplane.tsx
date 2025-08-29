@@ -2,6 +2,7 @@ import { Button, Dialog, Field, Input, Portal, Stack } from "@chakra-ui/react";
 import { useRef, type FormEvent } from "react";
 import { toaster } from "@/components/ui/toaster";
 import { useCreatePlane } from "@/hooks/Airlines/useAirplanes";
+import { AxiosError } from "axios";
 
 type Props = {
   isOpen: boolean;
@@ -85,8 +86,10 @@ const CreateAirplane = ({ isOpen, onClose }: Props) => {
       toaster.create({
         title: "Error",
         description:
-          error instanceof Error
-            ? error.message
+          error instanceof AxiosError
+            ? error.response?.data.errors
+                .map((err: any) => err.msg)
+                .join(`  ////  `)
             : "Failed to create airplane. Please try again.",
         type: "error",
         duration: 5000,

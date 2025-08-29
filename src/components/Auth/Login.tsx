@@ -15,6 +15,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toaster } from "../ui/toaster";
 import { LuEye, LuEyeOff } from "react-icons/lu";
+import { AxiosError } from "axios";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -56,8 +57,10 @@ export const Login = () => {
     } catch (error) {
       console.error("Login error:", error);
       setError(
-        error instanceof Error
-          ? error.message
+        error instanceof AxiosError
+          ? error.response?.data.errors
+              .map((err: any) => err.msg)
+              .join(`  ////  `)
           : "Login failed. Please try again."
       );
     } finally {
@@ -293,9 +296,9 @@ export const Login = () => {
               </Box>
 
               <Button
-                className="font-oswald"
-                color="whiteAlpha.700"
-                bgColor="#396b9c"
+                className="font-oswald trip-secondary-button-color"
+                // color="whiteAlpha.700"
+                // bgColor="#396b9c"
                 type="submit"
                 // backgroundColor=""
                 w="full"
@@ -320,4 +323,3 @@ export const Login = () => {
     </Container>
   );
 };
-

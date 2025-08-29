@@ -13,6 +13,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { HiUpload } from "react-icons/hi";
 import { toaster } from "@/components/ui/toaster";
 import { useSpecificEvent, useUpdateEvent } from "@/hooks/Trips/useEvents";
+import { AxiosError } from "axios";
 
 type Props = {
   isOpen: boolean;
@@ -94,8 +95,10 @@ const EditEvent = ({ isOpen, onClose, eventId }: Props) => {
       toaster.create({
         title: "Error",
         description:
-          error instanceof Error
-            ? error.message
+          error instanceof AxiosError
+            ? error.response?.data.errors
+                .map((err: any) => err.msg)
+                .join(`  ////  `)
             : "Failed to update event. Please try again.",
         type: "error",
         duration: 5000,
